@@ -3,6 +3,7 @@ config\config.class
 UserEJB\UserBeanLocal.class
 entity\Projectgroups.class
 com\mycompany\project_frontend_main\JakartaRestConfiguration.class
+Controllers\AdminController.class
 Controllers\TourmasterController.class
 entity\Tourplace.class
 auth\performAuth.class
