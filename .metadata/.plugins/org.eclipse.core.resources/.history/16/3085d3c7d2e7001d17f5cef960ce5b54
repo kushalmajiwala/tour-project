@@ -1,0 +1,10 @@
+package com.project.project_backend.model;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Projectgroups {
+	
+	private String groupname;
+	private String username;
+}

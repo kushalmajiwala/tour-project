@@ -1,0 +1,8 @@
+package com.project.project_backend.dao;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.project.project_backend.model.Projectgroups;
+
+public class ProjectgroupRepo extends JpaRepository<Projectgroups, String> {
+
+}

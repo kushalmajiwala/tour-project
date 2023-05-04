@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            .gallery-title {
+                background-color: #546e7a;
+                color: white;
+                font-size: 25px;
+                padding: 1.5%;
+                padding-left: 2%;
+                display:flex;
+            }
+            .gallery-path {
+                margin-left: 65%;
+            }
+            @media screen and (max-width: 1072px){
+                .gallery-path {
+                    margin-left: 70%;
+                }
+            }
+            .gallery-path-home {
+                text-decoration:none;
+                color: white;
+            }
+            .gallery-path-home:hover{
+                color: #020873;
+            }
+            .menuTitle {
+                font-size: 25px;
+                text-align: center;
+                padding: 8%;
+                background-color: #E4E4E8;
+            }
+            .inner-container {
+                margin-top: 3%;
+                text-align: center;
+                color: #282878;
+                width: 100%;
+                height: 60px;
+            }
+            .inner-button
+            {
+                font-size: 20px;
+                color: #4A4ABD;
+                cursor: pointer;
+                border: none;
+                width: 100%;
+                height: 60px;
+                background-color: white;
+                border-bottom: 0.5px solid #C4C4F2;
+                color: black;
+
+            }
+            .inner-button:hover {
+                background-color: #474792;
+                color: white;
+            }
+            .page-title{
+                display:flex;
+                justify-content: space-around;
+            }
+            .rounded-button {
+                height: 100px;
+                width: 100px;
+            }
+            .tour-container {
+                width: 100%;
+                display: flex;
+            }
+            .content-container {
+                float: right;
+                width: 60%;
+            }
+            .image-container {
+                width: 40%;
+                height: 320px;
+            }
+            .tour-name {
+                width: 100%;
+                text-align: center;
+                margin-top: -5%;
+                border-bottom: 1px solid #9C9CB2;
+            }
+            .basic-info, .basic-info1, .basic-info2 {
+                color:#ff5722;
+                display: flex;
+                justify-content: space-around;
+                width: 100%;
+                border-bottom: 1px solid #9C9CB2;
+            }
+            .basic-info2
+            {
+                padding: 5%;
+                border: none;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <div class="gallery-title">
+            <div class="barTitle">
+                <p:commandButton icon="pi pi-bars" type="button" onclick="PF('sidebar1').show()" styleClass="rounded-button ui-button-secondary" style="margin-top: -1%;" />
+                <span style="margin-left: 20px;">#{registrationController.currentUsername}</span>
+            </div>
+            <div class="gallery-path" style="font-size: 17px; margin-top: 0.7%;">
+                <a href="../index.xhtml" class="gallery-path-home">HOME</a> <span style="color: #61DAFB"> / </span><span style="color:#FC8F37;">ADMIN HOME</span>
+            </div>
+        </div>
+        <p:sidebar widgetVar="sidebar1">
+            <div class="menuTitle">
+                #{registrationController.currentUsername}
+            </div>
+            <div class="menuContent">
+                <div class="logout-container inner-container">
+                    <h:form>
+                        <h:commandButton value="All Tours" action="#{adminController.redirectAllTours()}" styleClass="ui-button-flat inner-button"></h:commandButton>
+                    </h:form>
+                </div>
+            </div>
+            <div class="menuContent">
+                <div class="logout-container inner-container">
+                    <h:form>
+                        <h:commandButton value="Add new Tour" styleClass="ui-button-flat inner-button"></h:commandButton>
+                    </h:form>
+                </div>
+            </div>
+            <div class="menuContent">
+                <div class="logout-container inner-container">
+                    <h:form>
+                        <h:commandButton value="View Complaint" styleClass="ui-button-flat inner-button"></h:commandButton>
+                    </h:form>
+                </div>
+            </div>
+            <div class="menuContent">
+                <div class="logout-container inner-container">
+                    <h:form>
+                        <h:commandButton value="Update Profile" styleClass="ui-button-flat inner-button"></h:commandButton>
+                    </h:form>
+                </div>
+            </div>
+            <div class="menuContent">
+                <div class="logout-container inner-container">
+                    <h:form>
+                        <h:commandButton value="Booking Details" styleClass="ui-button-flat inner-button"></h:commandButton>
+                    </h:form>
+                </div>
+            </div>
+            <div class="menuContent">
+                <div class="logout-container inner-container">
+                    <h:form>
+                        <h:commandButton value="Application Statistics" styleClass="ui-button-flat inner-button"></h:commandButton>
+                    </h:form>
+                </div>
+            </div>
+            <div class="menuContent">
+                <div class="logout-container inner-container">
+                    <h:form>
+                        <h:commandButton value="Signout" action="#{registrationController.redirectLogout()}" styleClass="ui-button-flat inner-button"></h:commandButton>
+                    </h:form>
+                </div>
+            </div>
+        </p:sidebar>
+        <!--Page Content-->
+        <div>
+            <div class="page-title">
+                <h1>All Tours</h1>
+                <h1>
+                    <h:form>
+                        <p:badge value="8" severity="danger">
+                            <p:commandButton value="Booking Details" styleClass="ui-button-raised ui-button-success" />
+                        </p:badge>
+                    </h:form>
+                </h1>
+                <h1>
+                    <h:form>
+                        <p:commandButton icon="pi pi-plus" id="addTour" style="width: 55px; height: 55px; border-radius: 50%;"/>
+                        <p:tooltip for="addTour" value="Add New Tour" position="bottom"/>
+                    </h:form>
+                </h1>
+            </div>
+            <f:view>
+                <h:form>
+                    <p:dataTable value="#{adminController.allTours}" var="item">
+                        <p:column style="border: none;">
+                            <p:card style="width: 100%; margin-bottom: 2em; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                <div class="tour-container">
+                                    <div class="mb-3 image-container">
+                                        <p:graphicImage url="../images#{item.tour_pic}" styleClass="product-image" height="100%" width="100%"/>
+                                    </div>
+                                    <div class="content-container">
+                                        <div class="tour-name">
+                                            <h1>#{item.tour_title}</h1>
+                                        </div>
+                                        <div class="basic-info">
+                                            <h2 style="padding-top: 0.5%;"><span>&#8377;</span>#{item.per_person_price}</h2>
+                                            <h2 style="padding-top: 0.5%;"><i class="pi pi-clock"></i> <span style="color: black;">#{adminController.getDayDiff(item.start_date, item.end_date)}D / #{adminController.getDayDiff(item.start_date, item.end_date) - 1}N</span></h2>
+                                        </div>
+                                        <div class="basic-info1">
+                                            <h2 style="padding-top: 0.5%;"><i class="pi pi-stopwatch"></i> <span style="color: black;">#{item.journey_begin_time}</span></h2>
+                                            <h2 style="padding-top: 0.5%;"><i class="pi pi-calendar"></i> <span style="color: black;">#{item.start_date}</span></h2>
+                                        </div>
+                                        <div class="basic-info2">
+                                            <p:commandButton type="button" value="Update Tour" styleClass="ui-button-raised" />
+                                            <p:commandButton type="button" value="Add Place" styleClass="ui-button-raised ui-button-info" />
+                                            <p:commandButton type="button" value="Cancel Tour" styleClass="ui-button-raised ui-button-danger" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:card>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </f:view>
+        </div>
+    </h:body>
+</html>
+

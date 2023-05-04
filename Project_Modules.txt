@@ -1,0 +1,79 @@
+Modules :-
+
+=>Gallery - Show Gallery to both Admin and User (Without Login or Register) -> Give Options of register and login -> Show Captcha
+
+=>AdminPanel and UserHome - Login -> user -> UserHome | Admin -> AdminPanel
+
+------------------------------------------USER---------------------------------------------
+
+=>EditProfile   - Give Option to Edit User Profile
+
+=>UserHome      - Show All available Tours and Vehicle Details with template description and download template(pdf)
+
+=>TourPerson    - Give Option to Add persons to a specific tour
+
+=>PaymentMethod - Give Option to select Payment Option (Cheque, Cash)
+
+=>BookTour      - Give Option to Book tour and show it to the cart
+
+=>Cart          - Show Cart with complete description about the tour, person, payment_method, payment_status, Confirmation
+
+=>TotalPayment  - Show Total Payment on cart for specific tour
+
+=>EditTourOnCart- Give Option to Edit the tour information like persons information 
+
+=>RemoveCart    - Give remove cart option when the payment is not done
+
+=>CancelBooking - Give Cancel Booking Option when the payment is done
+
+=>Chat          - Give Wattsapp Option and add default message
+
+=>ComplaintBox  - Give Option to make complaint when the tour is ongoing
+
+=>History       - Give Option to view the tour history 
+
+=>Feedback      - Give Option to give Feedback and rating
+
+=>Logout        - Give Logout Option
+
+-----------------------------------------Admin---------------------------------------------
+
+=>AdminPanel    - Show All created tours
+
+=>CreateTour    - Give Option to create new tours wih one head pic
+
+=>EditTour      - Give Option to Edit any of the created Tours
+
+=>DeleteTour    - Give Option to Delete any of the created Tours
+
+=>VehicleDetails- Give Option to Add and Edit Vehicle Details
+
+=>PlaceDetails  - Give Option to Add and Edit Different Place Details in specific tours
+
+=>ShowBooking   - Show All the bookings with their payment status
+
+=>ConfirmBooking- Give Option to Confirm Specific Booking After the payment is done
+
+=>ShowComplaints- Show all the Complaints come during ongoing tour
+
+=>Logout        - Give Logout Option
+
+-------------------------------------------------------------------------------------------
+
+-->Technologies :-
+
+-Frontend -> JSF, Primefaces, Bootstrap
+
+-Backend  -> Spring Boot, Rest API 
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,393 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Unique Travels</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <style>
+            .product-item .product-item-content {
+                border: 1px solid var(--surface-d);
+                border-radius: 3px;
+                margin: .3rem;
+                text-align: center;
+                padding: 2rem 0;
+            }
+
+            .product-item .product-image {
+                width: 85%;
+                height: 250px;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+            }
+            .cardbg {
+                background-color: #F0F5F9;
+            }
+            .mynavbar {
+                background-color: #e0effc;
+            }
+            .title {
+                background-color: white;
+                padding: 1%;
+                color: #5B8EC7;
+                margin-top: 3%;
+                border: 1px solid #5B8EC7;
+            }
+            *{
+                margin: 0;
+                padding: 0;
+                color: #f2f5f7;
+                font-family: sans-serif;
+                letter-spacing: 1px;
+                font-weight: 300;
+            }
+            body{
+                overflow-x: hidden;
+            }
+            nav{
+                height: 6rem;
+                width: 100vw;
+                /*background-color: #131418;*/
+                background-color: #f8fdff;
+                box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
+                display: flex;
+                position: fixed;
+                z-index: 10;
+            }
+
+            /*Styling logo*/
+            .logo{
+                padding:1vh 1vw;
+                text-align: center;
+            }
+            .logo img {
+                height: 5rem;
+                width: 5rem;
+            }
+
+            /*Styling Links*/
+            .nav-links{
+                display: flex;
+                list-style: none;
+                width: 88vw;
+                padding: 0 0.7vw;
+                justify-content: space-evenly;
+                align-items: center;
+                text-transform: uppercase;
+            }
+            .nav-links li .decorate{
+                text-decoration: none;
+                margin: 0 0.7vw;
+                font-weight: 500;
+                /*                font-size: 15px;*/
+            }
+            .nav-links li .decorate:hover {
+                color: #E73D6D;
+            }
+            .nav-links li {
+                position: relative;
+            }
+            .nav-links li .decorate::before {
+                content: "";
+                display: block;
+                height: 3px;
+                width: 0%;
+                background-color: #E73D6D;
+                position: absolute;
+                transition: all ease-in-out 250ms;
+                margin: 0 0 0 10%;
+            }
+            .nav-links li .decorate:hover::before{
+                width: 80%;
+            }
+            .login-button, .register-button{
+                background-color: transparent;
+                border: 1.5px solid black;
+                border-radius: 2em;
+                padding: 0.6rem 0.8rem;
+                /*margin-left: 0vw;*/
+                font-size: 1rem;
+                cursor: pointer;
+                width: 130px;
+                color: black;
+            }
+            .login-button:hover {
+                color: white;
+                background-color: black;
+                border:1.5px solid black;
+                transition: all ease-in-out 350ms;
+            }
+            .register-button:hover {
+                color: white;
+                background-color: black;
+                border:1.5px solid black;
+                transition: all ease-in-out 350ms;
+            }
+            .join-button{
+                color: #131418;
+                background-color: #61DAFB;
+                border: 1.5px solid #61DAFB;
+                border-radius: 2em;
+                padding: 0.6rem 0.8rem;
+                font-size: 1rem;
+                cursor: pointer;
+            }
+            .join-button:hover {
+                color: #f2f5f7;
+                background-color: transparent;
+                border:1.5px solid #f2f5f7;
+                transition: all ease-in-out 350ms;
+            }
+
+            /*Styling Hamburger Icon*/
+            .hamburger div{
+                width: 30px;
+                height:3px;
+                background: #f2f5f7;
+                margin: 5px;
+                transition: all 0.3s ease;
+            }
+            .hamburger{
+                display: none;
+            }
+
+            /*Stying for small screens*/
+            @media screen and (max-width: 800px){
+                nav{
+                    position: fixed;
+                    z-index: 3;
+                }
+                .nav-links{
+                    position: fixed;
+                    background: #131418;
+                    height: 100vh;
+                    width: 100%;
+                    flex-direction: column;
+                    clip-path: circle(50px at 90% -20%);
+                    -webkit-clip-path: circle(50px at 90% -10%);
+                    transition: all 1s ease-out;
+                    pointer-events: none;
+                }
+                .nav-links.open{
+                    clip-path: circle(1000px at 90% -10%);
+                    -webkit-clip-path: circle(1000px at 90% -10%);
+                    pointer-events: all;
+                }
+                .nav-links li{
+                    opacity: 0;
+                }
+                .nav-links li:nth-child(1){
+                    transition: all 0.5s ease 0.2s;
+                }
+                .nav-links li:nth-child(2){
+                    transition: all 0.5s ease 0.4s;
+                }
+                .nav-links li:nth-child(3){
+                    transition: all 0.5s ease 0.6s;
+                }
+                .nav-links li:nth-child(4){
+                    transition: all 0.5s ease 0.7s;
+                }
+                .nav-links li:nth-child(5){
+                    transition: all 0.5s ease 0.8s;
+                }
+                .nav-links li:nth-child(6){
+                    transition: all 0.5s ease 0.9s;
+                    margin: 0;
+                }
+                .nav-links li:nth-child(7){
+                    transition: all 0.5s ease 1s;
+                    margin: 0;
+                }
+                li.fade{
+                    opacity: 1;
+                }
+            }
+            /*Animating Hamburger Icon on Click*/
+            .toggle .line1{
+                transform: rotate(-45deg) translate(-5px,6px);
+            }
+            .toggle .line2{
+                transition: all 0.7s ease;
+                width:0;
+            }
+            .toggle .line3{
+                transform: rotate(45deg) translate(-5px,-6px);
+            }
+            a {
+                color: black;
+            }
+            .gallery-title {
+                background-color: #546e7a;
+                color: white;
+                font-size: 25px;
+                padding: 1.5%;
+                padding-left: 2%;
+                display:flex;
+            }
+            .place-name {
+                color: black;
+            }
+            .gallery-path {
+                margin-left: 73%;
+            }
+            @media screen and (max-width: 1072px){
+                .gallery-path {
+                    margin-left: 70%;
+                }
+            }
+            .gallery-path-home {
+                text-decoration:none;
+                color: white;
+            }
+            .gallery-path-home:hover{
+                color: #020873;
+            }
+            .mylogo {
+                filter: drop-shadow(0px 2px 3px gray) contrast(130%) sepia(35%) saturate(150%);
+            }
+            .send-button {
+                background-color: transparent;
+                border: 1.5px solid black;
+                border-radius: 2em;
+                padding: 0.6rem 0.8rem;
+                font-size: 1rem;
+                cursor: pointer;
+                width: 130px;
+                color: black;
+            }
+            .send-text {
+                color: green;
+                font-size: 1.1rem;
+                margin-top: 1%;
+            }
+            .send-button:hover{
+                color: white;
+                background-color: black;
+                border:1.5px solid black;
+                transition: all ease-in-out 350ms;
+            }
+            .send-button:hover .send-text{
+                color: white;
+            }
+        </style>
+    </h:head>
+    <h:body> 
+        <div>
+            <nav>
+                <div class="logo" >
+                    <a href="../index.xhtml">
+                        <img src="../images/uniquelogo.jpg" alt="Logo Image" style="width:120px" class="rounded-pill mylogo shadow bg-black rounded"/>
+                    </a>
+                </div>
+                <ul class="nav-links" style="padding-top: 1%;">
+                    <li><a href="../index.xhtml#home" class="decorate">Home</a></li>
+                    <li><a href="../#about" class="decorate">About Us</a></li>
+                    <li><a href="gallery.xhtml" class="decorate">Gallery</a></li>
+                    <li><a href="../#upcoming-tours" class="decorate">Upcoming Tours</a></li>
+                    <li><a href="../#contact" class="decorate">Contact Us</a></li>
+                    <li><h:form><h:commandButton class="login-button" value="Login" action="#{registrationController.redirectLoginFromGallery()}"></h:commandButton></h:form></li>
+                    <li><a href="register.xhtml"><button class="register-button" href="#">Register</button></a></li>
+                    <p:outputPanel id="sendTooltip"><li><p:link href="https://wa.me/919106884674/?text=Hello,%20I%20am%20Interested%20in%20your%20tour" target="blank" ><button class="send-button"><i class="pi pi-whatsapp send-text"></i></button></p:link></li></p:outputPanel>
+                    <p:tooltip for="sendTooltip" value="Send Message" style="margin-top: -5%;" position="bottom"/>
+                </ul>
+            </nav><br/><br/><br/><br/>
+        </div>
+        <div>
+            <div class="gallery-title">
+                <div>
+                    GALLERY
+                </div>
+                <div class="gallery-path" style="font-size: 17px; margin-top: 0.39%;">
+                    <a href="../index.xhtml" class="gallery-path-home">HOME</a> <span style="color: #61DAFB"> / </span><span style="color:#FC8F37;">GALLERY</span>
+                </div>
+            </div>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="showKashmir" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="card cardbg" style="border: none;">       
+                        <div style="display: flex; justify-content: center;">
+                            <h2 class="title">Kashmir</h2>
+                        </div>
+                        <p:carousel value="#{galleryController.getGalleryData('kashmir')}" var="val" numVisible="3" numScroll="3">
+                            <br/>
+                            <div style="margin: 3%;" class="product-item shadow p-3 mb-5 bg-white rounded">
+                                <div class="product-item-content">
+                                    <div class="mb-3">
+                                        <p:graphicImage url="../images#{val.image_url}" styleClass="product-image"/>
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-1 place-name">#{val.place_name}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:carousel>
+                    </div>
+                </div>
+                <div>
+                    <div class="card cardbg" style="border: none;">   
+                        <div style="display: flex; justify-content: center;">
+                            <h2 class="title">GOA</h2>
+                        </div>
+                        <p:carousel value="#{galleryController.getGalleryData('goa')}" var="val" numVisible="3" numScroll="3">
+                            <br/>
+                            <div style="margin: 3%;" class="product-item shadow p-3 mb-5 bg-white rounded">
+                                <div class="product-item-content">
+                                    <div class="mb-3">
+                                        <p:graphicImage url="../images#{val.image_url}" styleClass="product-image"/>
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-1 place-name">#{val.place_name}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:carousel>
+                    </div>
+                </div>
+                <div>
+                    <div class="card cardbg" style="border: none;">   
+                        <div style="display: flex; justify-content: center;">
+                            <h2 class="title">Himachal</h2>
+                        </div>
+                        <p:carousel value="#{galleryController.getGalleryData('himachal')}" var="val" numVisible="3" numScroll="3">
+                            <br/>
+                            <div style="margin: 3%;" class="product-item shadow p-3 mb-5 bg-white rounded">
+                                <div class="product-item-content">
+                                    <div class="mb-3">
+                                        <p:graphicImage url="../images#{val.image_url}" styleClass="product-image"/>
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-1 place-name">#{val.place_name}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:carousel>
+                    </div>
+                </div>
+                <div>
+                    <div class="card cardbg" style="border: none;">     
+                        <div style="display: flex; justify-content: center;">
+                            <h2 class="title">Kerala</h2>
+                        </div>
+                        <p:carousel value="#{galleryController.getGalleryData('kerala')}" var="val" numVisible="3" numScroll="3">
+                            <br/>
+                            <div style="margin: 3%;" class="product-item shadow p-3 mb-5 bg-white rounded">
+                                <div class="product-item-content">
+                                    <div class="mb-3">
+                                        <p:graphicImage url="../images#{val.image_url}" styleClass="product-image"/>
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-1 place-name">#{val.place_name}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:carousel>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
+

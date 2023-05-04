@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <script>
+            function loadError()
+            {
+                PF('invalidCredentials').show();
+            }
+            function closeDialog()
+            {
+                window.location.href="login.xhtml";
+            }
+        </script>
+    </h:head>
+    <h:body onload="loadError()">
+        <div class="all-dialogs">
+            <p:dialog widgetVar="invalidCredentials" closable="false" minHeight="50" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div>
+                <h4 class="m-0" style="text-align: center;">
+                    Invalid Username or Password
+                </h4>
+                <div style="width:100%;display: flex; justify-content: right;">
+                    <p:commandButton type="button" value="Close" onclick="closeDialog()" />
+                </div>
+            </p:dialog>
+        </div>
+    </h:body>
+</html>
+

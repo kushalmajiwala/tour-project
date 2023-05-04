@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            .closeBtn {
+                margin-top: 2%;
+                text-align: right;
+                padding-right: 2%;
+                color: red;
+                position: relative;
+            }
+            .closeBtn:hover {
+                color: #131418;
+            }
+            .close-container {
+                width: 100%;
+                display: flex;
+                justify-content: right;
+                margin-left: -8%;
+                margin-top: 2%;
+            }
+            .title{
+                font-size: 50px;
+                margin-left: 10%;
+                padding: 2%;
+                margin-top: -6%;
+                position: absolute;
+                color: #1DC444;
+                font-weight: 900;
+            }
+            .product-image {
+                width: 80%;
+                height: 500px;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+            }
+            .gallery-title {
+                background-color: #546e7a;
+                color: white;
+                font-size: 25px;
+                padding: 1.5%;
+                padding-left: 2%;
+                display:flex;
+            }
+            .gallery-path {
+                margin-left: 65%;
+            }
+            @media screen and (max-width: 1072px){
+                .gallery-path {
+                    margin-left: 70%;
+                }
+            }
+            .gallery-path-home {
+                text-decoration:none;
+                color: white;
+            }
+            .gallery-path-home:hover{
+                color: #020873;
+            }
+            .basic-info {
+                color:#ff5722;
+                display: flex;
+                justify-content: space-around;
+                width: 100%;
+            }
+            .image-container {
+                padding-top: 4%;
+                background-color: #EEF0EF;
+            }
+            .content-title{
+                font-size: 40px;
+                margin-left: 10%;
+                padding: 2%;
+                color: #1DC444;
+                font-weight: 900;
+                margin-top: 1%;
+                width: 22%;
+            }
+            .all-content {
+                background-color: #EEF0EF;
+            }
+            .image-inner{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            .bookBtn {
+                height: 45px;
+                width: 140px;
+            }
+        </style>
+    </h:head>
+    <h:body style="background-color: #F6F8F7;">
+        <div class="gallery-title">
+            <div>
+                TOUR DETAILS
+            </div>
+            <div class="gallery-path" style="font-size: 17px; margin-top: 0.39%;">
+                <a href="../index.xhtml" class="gallery-path-home">HOME</a> <span style="color: #61DAFB"> / </span><span style="color:#FC8F37;">TOUR DETAILS</span>
+            </div>
+        </div>
+        <f:view>
+            <h:form>
+                <div class="close-container">
+                    <p:link href="../index.xhtml#upcoming-tours" style="height: 35px; width: 35px;" id="closeTemplate" class="closeBtn">
+                        <i class="pi pi-times" style="font-size: 1.8rem"></i>
+                    </p:link>
+                    <p:tooltip for="closeTemplate" value="close" position="bottom"/>
+                </div>
+                <div class="title">
+                    <h:outputText value="#{tourmasterController.tourTitle}"></h:outputText>
+                </div><br/><br/><br/>
+                <div class="mb-3 image-container">
+                    <div class="image-inner">
+                        <p:graphicImage url="../images#{tourmasterController.picUrl}" styleClass="product-image"/>
+                    </div>
+                    <div class="basic-info">
+                        <h2 style="padding-top: 0.5%;"><span>&#8377;</span>#{tourmasterController.tourPrice}</h2>
+                        <h2 style="padding-top: 0.5%;"><i class="pi pi-clock"></i>  <span style="color: black;">#{tourmasterController.days_diff}D / #{tourmasterController.days_diff - 1}N</span></h2>
+                        <h2 style="padding-top: 0.5%;"><i class="pi pi-calendar"></i>  <span style="color: black;">#{tourmasterController.startDate}</span></h2>
+                        <h2><h:form>
+                                <p:commandButton value="Book Now" action="#{registrationController.redirectLoginFromGallery()}" styleClass="ui-button-raised bookBtn" id="bookTour" ajax="false"/>
+                                <p:tooltip for="bookTour" value="Book This Tour" position="bottom"/>
+                            </h:form>
+                        </h2>
+                    </div>
+                </div>
+                <div class="content-title">
+                    <h:outputText value="OVERVIEW"></h:outputText>
+                </div>
+                <div class="all-content">
+                    <p:dataTable value="#{tourmasterController.tempFunc()}" var="item">
+                        <p:column>
+                            <h:outputText value="Day - 1 &nbsp; :-"/><br/><br/>
+                            <h:outputText value="We will meet at Surat Railway Station at 10pm on #{tourmasterController.startDate}."/><br/><br/>
+                            <h:outputText value="And our train jounery will begin at 11pm."/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:dataTable value="#{tourmasterController.getAllPlaces()}" var="item" rowIndexVar="index" style="margin-top: -2%;">
+                        <p:column>
+                            <h:outputText value="Day - #{index + 2} &nbsp; :-"/><br/><br/>
+                            <h:outputText value="We will reach #{item.place_name} on #{item.start_date}. We will reach the hotel and all can freshen up. The night stay will be in #{item.place_city}." /><br/><br/>
+                            <h:outputText value="It is located at #{item.place_city}, #{item.place_state}, India"/><br/><br/>
+                            <h:outputText value="#{item.place_description}" />
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+
