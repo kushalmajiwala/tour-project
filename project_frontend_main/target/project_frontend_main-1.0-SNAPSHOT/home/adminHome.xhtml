@@ -6,6 +6,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <style>
             .gallery-title {
                 background-color: #546e7a;
@@ -14,14 +16,7 @@
                 padding: 1.5%;
                 padding-left: 2%;
                 display:flex;
-            }
-            .gallery-path {
-                margin-left: 65%;
-            }
-            @media screen and (max-width: 1072px){
-                .gallery-path {
-                    margin-left: 70%;
-                }
+                justify-content: space-between;
             }
             .gallery-path-home {
                 text-decoration:none;
@@ -37,28 +32,46 @@
                 background-color: #E4E4E8;
             }
             .inner-container {
-                margin-top: 3%;
                 text-align: center;
                 color: #282878;
                 width: 100%;
                 height: 60px;
+                display: flex;
+                line-height: 60px;
+                justify-content: left;
+                background-color: black;
+            }
+            .icon-container {
+                width: 20%;
+                height: 100%;
+                background-color: white;
+                margin-top: -0.1%;
+                border-bottom: 0.5px solid #C4C4F2;
+                color: #020873;
+            }
+            .inner-container:hover .inner-button{
+                background-color: #474792;
+                color: white;
+            }
+            .inner-container:hover .icon-container{
+                background-color: #474792;
+                color: white;
+            }
+            .button-container {
+                width: 100%;
             }
             .inner-button
             {
                 font-size: 20px;
-                color: #4A4ABD;
                 cursor: pointer;
                 border: none;
                 width: 100%;
-                height: 60px;
+                height: 100%;
                 background-color: white;
                 border-bottom: 0.5px solid #C4C4F2;
-                color: black;
-
-            }
-            .inner-button:hover {
-                background-color: #474792;
-                color: white;
+                color: #020873;
+                display: flex;
+                justify-content: left;
             }
             .page-title{
                 display:flex;
@@ -103,7 +116,7 @@
     <h:body>
         <div class="gallery-title">
             <div class="barTitle">
-                <p:commandButton icon="pi pi-bars" type="button" onclick="PF('sidebar1').show()" styleClass="rounded-button ui-button-secondary" style="margin-top: -1%;" />
+                <p:commandButton icon="pi pi-bars" id="navbarTip" type="button" onclick="PF('sidebar1').show()" styleClass="rounded-button ui-button-secondary" style="margin-top: -1%;"><p:tooltip for="navbarTip" value="navbar" position="bottom"/></p:commandButton>
                 <span style="margin-left: 20px;">#{registrationController.currentUsername}</span>
             </div>
             <div class="gallery-path" style="font-size: 17px; margin-top: 0.7%;">
@@ -116,49 +129,56 @@
             </div>
             <div class="menuContent">
                 <div class="logout-container inner-container">
-                    <h:form>
+                    <h2 class="icon-container"><i class="fa fa-car"></i></h2>
+                    <h:form class="button-container">
                         <h:commandButton value="All Tours" action="#{adminController.redirectAllTours()}" styleClass="ui-button-flat inner-button"></h:commandButton>
                     </h:form>
                 </div>
             </div>
             <div class="menuContent">
                 <div class="logout-container inner-container">
-                    <h:form>
+                    <h2 class="icon-container"><i class="fa fa-plus"></i></h2>
+                    <h:form class="button-container">
                         <h:commandButton value="Add New Tour" styleClass="ui-button-flat inner-button"></h:commandButton>
                     </h:form>
                 </div>
             </div>
             <div class="menuContent">
                 <div class="logout-container inner-container">
-                    <h:form>
+                    <h2 class="icon-container"><i class="fa fa-comments"></i></h2>
+                    <h:form class="button-container">
                         <h:commandButton value="View Complaint" styleClass="ui-button-flat inner-button"></h:commandButton>
                     </h:form>
                 </div>
             </div>
             <div class="menuContent">
                 <div class="logout-container inner-container">
-                    <h:form>
+                    <h2 class="icon-container"><i class="fa fa-user"></i></h2>
+                    <h:form class="button-container">
                         <h:commandButton value="Update Profile" styleClass="ui-button-flat inner-button"></h:commandButton>
                     </h:form>
                 </div>
             </div>
             <div class="menuContent">
                 <div class="logout-container inner-container">
-                    <h:form>
+                    <h2 class="icon-container"><i class="fa fa-book"></i></h2>
+                    <h:form class="button-container">
                         <h:commandButton value="Booking Details" styleClass="ui-button-flat inner-button"></h:commandButton>
                     </h:form>
                 </div>
             </div>
             <div class="menuContent">
                 <div class="logout-container inner-container">
-                    <h:form>
+                    <h2 class="icon-container"><i class="fa fa-bar-chart"></i></h2>
+                    <h:form class="button-container">
                         <h:commandButton value="Application Statistics" styleClass="ui-button-flat inner-button"></h:commandButton>
                     </h:form>
                 </div>
             </div>
             <div class="menuContent">
                 <div class="logout-container inner-container">
-                    <h:form>
+                    <h2 class="icon-container"><i class="fa fa-sign-out"></i></h2>
+                    <h:form class="button-container">
                         <h:commandButton value="Signout" action="#{registrationController.redirectLogout()}" styleClass="ui-button-flat inner-button"></h:commandButton>
                     </h:form>
                 </div>
@@ -185,8 +205,8 @@
             <f:view>
                 <h:form>
                     <p:dataTable value="#{adminController.allTours}" var="item">
-                        <p:column style="border: none;">
-                            <p:card style="width: 100%; margin-bottom: 2em; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                        <p:column style="border: none;background-color: #F3F3F3;">
+                            <p:card style="width: 100%; margin-bottom: 2em; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.3);">
                                 <div class="tour-container">
                                     <div class="mb-3 image-container">
                                         <p:graphicImage url="../images#{item.tour_pic}" styleClass="product-image" height="100%" width="100%"/>
@@ -204,7 +224,7 @@
                                             <h2 style="padding-top: 0.5%;"><i class="pi pi-calendar"></i> <span style="color: black;">#{item.start_date}</span></h2>
                                         </div>
                                         <div class="basic-info2">
-                                            <p:commandButton type="button" value="Update Tour" styleClass="ui-button-raised" />
+                                            <p:commandButton type="button" value="Edit Tour" styleClass="ui-button-raised" />
                                             <p:commandButton type="button" value="Add Place" styleClass="ui-button-raised ui-button-info" />
                                             <p:commandButton type="button" value="Cancel Tour" styleClass="ui-button-raised ui-button-danger" />
                                         </div>
