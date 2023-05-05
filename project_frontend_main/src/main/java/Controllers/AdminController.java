@@ -27,7 +27,7 @@ public class AdminController implements Serializable {
     }
     public String redirectAllTours()
     {
-        return "adminHome.xhtml";
+        return "adminHome.xhtml?faces-redirect=true";
     }
     String startDate;
     String endDate;
@@ -82,5 +82,9 @@ public class AdminController implements Serializable {
             System.out.println(e);
         }
         return day_diff;
+    }
+    public String addTourRedirect()
+    {
+        return "addTour.xhtml?faces-redirect=true";
     }
 }

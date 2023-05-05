@@ -7,7 +7,7 @@
     <h:head>
         <title>Facelet Title</title>
         <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             .gallery-title {
                 background-color: #546e7a;
@@ -29,15 +29,19 @@
                 font-size: 25px;
                 text-align: center;
                 padding: 8%;
-                background-color: #E4E4E8;
+                background-color: white;
+                color: black;
+                box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+            }
+            .navbar-container {
+                margin-top: 3%;
             }
             .inner-container {
                 text-align: center;
-                color: #282878;
                 width: 100%;
                 height: 60px;
-                display: flex;
                 line-height: 60px;
+                display: flex;
                 justify-content: left;
                 background-color: black;
             }
@@ -45,9 +49,27 @@
                 width: 20%;
                 height: 100%;
                 background-color: white;
-                margin-top: -0.1%;
+                margin-top: -0.08%;
                 border-bottom: 0.5px solid #C4C4F2;
-                color: #020873;
+                color: #484C8D;
+            }
+            .inner-button
+            {
+                font-size: 15px;
+                cursor: pointer;
+                border: none;
+                width: 100%;
+                height: 100%;
+                background-color: white;
+                border-bottom: 0.5px solid #C4C4F2;
+                color: #484C8D;
+                display: flex;
+                justify-content: left;
+                padding-top: 2.5%;
+            }
+            .badge-container {
+                background-color: white;
+                border-bottom: 0.5px solid #C4C4F2;
             }
             .inner-container:hover .inner-button{
                 background-color: #474792;
@@ -57,21 +79,12 @@
                 background-color: #474792;
                 color: white;
             }
+            .inner-container:hover .badge-container{
+                background-color: #474792;
+                color: white;
+            }
             .button-container {
                 width: 100%;
-            }
-            .inner-button
-            {
-                font-size: 20px;
-                cursor: pointer;
-                border: none;
-                width: 100%;
-                height: 100%;
-                background-color: white;
-                border-bottom: 0.5px solid #C4C4F2;
-                color: #020873;
-                display: flex;
-                justify-content: left;
             }
             .page-title{
                 display:flex;
@@ -111,6 +124,9 @@
                 padding: 5%;
                 border: none;
             }
+            a{
+                text-decoration: none;
+            }
         </style>
     </h:head>
     <h:body>
@@ -127,60 +143,76 @@
             <div class="menuTitle">
                 #{registrationController.currentUsername}
             </div>
-            <div class="menuContent">
-                <div class="logout-container inner-container">
-                    <h2 class="icon-container"><i class="fa fa-car"></i></h2>
-                    <h:form class="button-container">
-                        <h:commandButton value="All Tours" action="#{adminController.redirectAllTours()}" styleClass="ui-button-flat inner-button"></h:commandButton>
-                    </h:form>
+            <div class="navbar-container">
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa-solid fa-house"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Home" action="gallery.xhtml?faces-redirect=true" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
                 </div>
-            </div>
-            <div class="menuContent">
-                <div class="logout-container inner-container">
-                    <h2 class="icon-container"><i class="fa fa-plus"></i></h2>
-                    <h:form class="button-container">
-                        <h:commandButton value="Add New Tour" styleClass="ui-button-flat inner-button"></h:commandButton>
-                    </h:form>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa fa-car"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="All Tours" action="#{adminController.redirectAllTours()}" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
                 </div>
-            </div>
-            <div class="menuContent">
-                <div class="logout-container inner-container">
-                    <h2 class="icon-container"><i class="fa fa-comments"></i></h2>
-                    <h:form class="button-container">
-                        <h:commandButton value="View Complaint" styleClass="ui-button-flat inner-button"></h:commandButton>
-                    </h:form>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa fa-plus"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Add New Tour" action="#{adminController.addTourRedirect()}" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
                 </div>
-            </div>
-            <div class="menuContent">
-                <div class="logout-container inner-container">
-                    <h2 class="icon-container"><i class="fa fa-user"></i></h2>
-                    <h:form class="button-container">
-                        <h:commandButton value="Update Profile" styleClass="ui-button-flat inner-button"></h:commandButton>
-                    </h:form>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h2 class="icon-container"><i class="fa fa-comments"></i></h2>
+                        <h:form class="button-container">
+                            <h:commandButton value="View Complaint" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                        <div class="badge-container">
+                            <p:badge value="3" severity="danger"></p:badge>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="menuContent">
-                <div class="logout-container inner-container">
-                    <h2 class="icon-container"><i class="fa fa-book"></i></h2>
-                    <h:form class="button-container">
-                        <h:commandButton value="Booking Details" styleClass="ui-button-flat inner-button"></h:commandButton>
-                    </h:form>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa fa-user"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Update Profile" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
                 </div>
-            </div>
-            <div class="menuContent">
-                <div class="logout-container inner-container">
-                    <h2 class="icon-container"><i class="fa fa-bar-chart"></i></h2>
-                    <h:form class="button-container">
-                        <h:commandButton value="Application Statistics" styleClass="ui-button-flat inner-button"></h:commandButton>
-                    </h:form>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa fa-book"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Booking Details" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                        <div class="badge-container">
+                            <p:badge value="3" severity="danger"></p:badge>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="menuContent">
-                <div class="logout-container inner-container">
-                    <h2 class="icon-container"><i class="fa fa-sign-out"></i></h2>
-                    <h:form class="button-container">
-                        <h:commandButton value="Signout" action="#{registrationController.redirectLogout()}" styleClass="ui-button-flat inner-button"></h:commandButton>
-                    </h:form>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa fa-bar-chart"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Application Statistics" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa fa-sign-out"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Signout" action="#{registrationController.redirectLogout()}" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
                 </div>
             </div>
         </p:sidebar>
@@ -197,7 +229,14 @@
                 </h1>
                 <h1>
                     <h:form>
-                        <p:commandButton icon="pi pi-plus" id="addTour" style="width: 55px; height: 55px; border-radius: 50%;"/>
+                        <p:badge value="8" severity="danger">
+                            <p:commandButton value="View Complaint" styleClass="ui-button-raised ui-button-secondary" />
+                        </p:badge>
+                    </h:form>
+                </h1>
+                <h1>
+                    <h:form>
+                        <p:commandButton icon="pi pi-plus" action="#{adminController.addTourRedirect()}" id="addTour" style="width: 55px; height: 55px; border-radius: 50%;"/>
                         <p:tooltip for="addTour" value="Add New Tour" position="bottom"/>
                     </h:form>
                 </h1>
@@ -206,7 +245,7 @@
                 <h:form>
                     <p:dataTable value="#{adminController.allTours}" var="item">
                         <p:column style="border: none;background-color: #F3F3F3;">
-                            <p:card style="width: 100%; margin-bottom: 2em; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.3);">
+                            <p:card style="width: 100%; margin-bottom: 2em; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
                                 <div class="tour-container">
                                     <div class="mb-3 image-container">
                                         <p:graphicImage url="../images#{item.tour_pic}" styleClass="product-image" height="100%" width="100%"/>
