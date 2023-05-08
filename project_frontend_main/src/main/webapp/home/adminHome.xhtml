@@ -263,7 +263,7 @@
                                             <h2 style="padding-top: 0.5%;"><i class="pi pi-calendar"></i> <span style="color: black;">#{item.start_date}</span></h2>
                                         </div>
                                         <div class="basic-info2">
-                                            <p:commandButton type="button" value="Edit Tour" styleClass="ui-button-raised" />
+                                            <p:commandButton value="Edit Tour" action="#{adminController.updateRedirect(item)}" styleClass="ui-button-raised" />
                                             <p:commandButton type="button" value="Add Place" styleClass="ui-button-raised ui-button-info" />
                                             <p:commandButton type="button" value="Cancel Tour" styleClass="ui-button-raised ui-button-danger" />
                                         </div>

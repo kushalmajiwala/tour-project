@@ -156,6 +156,11 @@
                 margin-top: 3%;
                 width: 100%;
             }
+            h4 {
+                text-align: center;
+                font-weight: bolder;
+                margin-bottom: 10%;
+            }
         </style>
     </h:head>
     <h:body class="whole-page">
@@ -254,25 +259,25 @@
                     <div class="form-content">
                         <span class="ui-input-icon-left input-title">
                             <i class="fa-sharp fa-solid fa-file-signature"></i>
-                            <p:inputText placeholder="Enter Tour Title" style="width: 100%;" />
+                            <p:inputText placeholder="Enter Tour Title" value="#{adminController.tm.tour_title}" style="width: 100%;" />
                         </span>
                         <div class="date-time">
-                            <p:datePicker id="startDatePicker" placeholder="Select Start Date" showIcon="true" class="date-field" pattern="yyyy-MMM-dd"/>
-                            <p:datePicker id="endDatePicker" placeholder="Select End Date" showIcon="true" class="date-field" pattern="yyyy-MMM-dd"/>
-                            <p:datePicker id="timeonly" placeholder="Journey Begin Time" class="time-field" timeOnly="true" pattern="HH:mm:ss" showIcon="true"/>
+                            <p:datePicker id="startDatePicker" value="#{adminController.insert_sdate}" placeholder="Select Start Date" showIcon="true" class="date-field" pattern="yyyy-MMM-dd"/>
+                            <p:datePicker id="endDatePicker" value="#{adminController.insert_edate}" placeholder="Select End Date" showIcon="true" class="date-field" pattern="yyyy-MMM-dd"/>
+                            <p:datePicker id="timeonly" value="#{adminController.insert_stime}" placeholder="Journey Begin Time" class="time-field" timeOnly="true" pattern="HH:mm:ss" showIcon="true"/>
                         </div>
                         <div class="price-address">
                             <span class="ui-input-icon-left input-price">
                                 <i class="fa-solid fa-indian-rupee-sign"></i>
-                                <p:inputText placeholder="Enter Per Person Price" style="width: 100%;" />
+                                <p:inputText value="#{adminController.tm.per_person_price}" placeholder="Enter Per Person Price" style="width: 100%;" />
                             </span>
                             <span class="ui-input-icon-left input-address">
                                 <i class="fa-sharp fa-solid fa-address-book"></i>
-                                <p:inputText placeholder="Enter Pickup Address" style="width: 100%;" />
+                                <p:inputText value="#{adminController.tm.pickup_address}" placeholder="Enter Pickup Address" style="width: 100%;" />
                             </span>
                         </div>
                         <div class="show-image">
-                            <h:graphicImage height="350px" width="50%" library="images" class="image" value="#{adminController.image_url}" />
+                            <h:graphicImage height="350px" width="50%" library="images" class="image" value="../images#{adminController.image_url}" />
                         </div>
                         <div class="tour-image">
                             <p:fileUpload value="#{adminController.image}" mode="simple" skinSimple="true"/>
@@ -280,11 +285,40 @@
                             <p:commandButton ajax="false" action="#{adminController.uploadImage()}" icon="pi pi-upload" value="Upload"/>
                         </div>
                         <div class="addBtn">
-                            <p:commandButton type="button" value="Add Tour" styleClass="ui-button-raised ui-button-info" style="width: 20%;"/>
+                            <p:commandButton value="Add Tour" action="#{adminController.addNewTour()}" styleClass="ui-button-raised ui-button-info" style="width: 20%;"/>
                         </div>
                     </div>
                 </h:form>
             </div>
+        </div>
+        <div class="all-dialogs">
+            <p:dialog widgetVar="emptyField" minHeight="40" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Any of the fields should not be empty
+                </h4>
+            </p:dialog>
+            <p:dialog widgetVar="noImage" minHeight="40" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Please Upload the Image
+                </h4>
+            </p:dialog>
+            <p:dialog widgetVar="tourAdded" closable="false" minHeight="40" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-check" style="color:green;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Tour Added Successfully
+                </h4>
+                <div style="width:100%;display: flex; justify-content: right;">
+                    <p:commandButton value="Close" action="#{adminController.closeDialog()}" />
+                </div>
+            </p:dialog>
         </div>
     </h:body>
 </html>

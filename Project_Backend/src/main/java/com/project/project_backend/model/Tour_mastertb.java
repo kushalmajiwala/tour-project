@@ -1,8 +1,6 @@
 package com.project.project_backend.model;
 
 import java.sql.Date;
-
-import java.sql.Time;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,10 +15,9 @@ public class Tour_mastertb {
 	private String tour_pic;
 	private Date start_date;
 	private Date end_date;
-	private Time journey_begin_time;
+	private String journey_begin_time;
 	private int per_person_price;
 	private String pickup_address;
-	
 	public int getTourmasterid() {
 		return tourmasterid;
 	}
@@ -51,10 +48,10 @@ public class Tour_mastertb {
 	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
-	public Time getJourney_begin_time() {
+	public String getJourney_begin_time() {
 		return journey_begin_time;
 	}
-	public void setJourney_begin_time(Time journey_begin_time) {
+	public void setJourney_begin_time(String journey_begin_time) {
 		this.journey_begin_time = journey_begin_time;
 	}
 	public int getPer_person_price() {
@@ -69,11 +66,12 @@ public class Tour_mastertb {
 	public void setPickup_address(String pickup_address) {
 		this.pickup_address = pickup_address;
 	}
+	
 	@Override
 	public String toString() {
 		return "Tour_mastertb [tourmasterid=" + tourmasterid + ", tour_title=" + tour_title + ", tour_pic=" + tour_pic
 				+ ", start_date=" + start_date + ", end_date=" + end_date + ", journey_begin_time=" + journey_begin_time
 				+ ", per_person_price=" + per_person_price + ", pickup_address=" + pickup_address + "]";
 	}
-
+	
 }

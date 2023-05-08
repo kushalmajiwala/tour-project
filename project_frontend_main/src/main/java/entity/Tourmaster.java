@@ -1,7 +1,6 @@
 package entity;
 
 import java.sql.Date;
-import java.sql.Time;
 import lombok.*;
 
 @Getter
@@ -13,7 +12,7 @@ public class Tourmaster {
     private String tour_pic;
     private Date start_date;
     private Date end_date;
-    private Time journey_begin_time;
+    private String journey_begin_time;
     private int per_person_price;
     private String pickup_address;
 }
