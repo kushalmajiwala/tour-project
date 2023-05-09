@@ -1,5 +1,6 @@
 package AdminEJB;
 
+import entity.Tourmaster;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
@@ -28,7 +29,7 @@ public interface AdminBeanLocal {
 
     public List showMasterData();
 
-    public String addTourMaster(String tour_title, String tour_pic, Date start_date, Date end_date, Time journey_begin_time, int per_person_price, String pickup_address);
+    public void addTourMaster(Tourmaster tm);
 
     public String updateTourMaster(String tour_title, String tour_pic, Date start_date, Date end_date, Time journey_begin_time, int per_person_price, String pickup_address);
     
