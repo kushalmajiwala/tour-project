@@ -39,8 +39,8 @@
             .inner-container {
                 text-align: center;
                 width: 100%;
-                height: 60px;
-                line-height: 60px;
+                height: 55px;
+                line-height: 55px;
                 display: flex;
                 justify-content: left;
                 background-color: black;
@@ -49,7 +49,7 @@
                 width: 20%;
                 height: 100%;
                 background-color: white;
-                margin-top: -0.08%;
+                margin-top: -0.01%;
                 border-bottom: 0.5px solid #C4C4F2;
                 color: #484C8D;
             }
@@ -128,7 +128,7 @@
             .basic-info2
             {
                 padding: 3%;
-                padding-top: 4%; 
+                padding-top: 4%;
                 border: none;
             }
             a{
@@ -238,7 +238,15 @@
                     <div class="logout-container inner-container">
                         <h3 class="icon-container"><i class="fa fa-user"></i></h3>
                         <h:form class="button-container">
-                            <h:commandButton value="Update Profile" styleClass="ui-button-flat inner-button"></h:commandButton>
+                            <h:commandButton value="Edit Profile" action="#{adminController.editProfileRedirect()}" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa-solid fa-user-pen"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Edit Password" action="#{adminController.editPasswordRedirect()}" styleClass="ui-button-flat inner-button"></h:commandButton>
                         </h:form>
                     </div>
                 </div>
@@ -277,15 +285,15 @@
                 <h1>All Tours</h1>
                 <h1>
                     <h:form>
-                        <p:badge value="8" severity="danger">
-                            <p:commandButton value="Booking Details" styleClass="ui-button-raised ui-button-success" />
+                        <p:badge value="8" severity="danger"><i class="fa-solid fa-message-captions"></i>
+                            <p:commandButton icon="fa-solid fa-file-pen" value="Booking Details" styleClass="ui-button-raised ui-button-success" style="color: white;" />
                         </p:badge>
                     </h:form>
                 </h1>
                 <h1>
-                    <h:form>
+                    <h:form><i class="fa-solid fa-message-exclamation"></i>
                         <p:badge value="8" severity="danger">
-                            <p:commandButton value="View Complaint" styleClass="ui-button-raised ui-button-secondary" />
+                            <p:commandButton icon="pi pi-thumbs-down-fill" value="View Complaint" styleClass="ui-button-raised ui-button-secondary" />
                         </p:badge>
                     </h:form>
                 </h1>
@@ -316,14 +324,14 @@
                                             <h2 style="padding-top: 0.5%;"><i class="pi pi-stopwatch"></i> <span style="color: black;">#{item.journey_begin_time}</span></h2>
                                         </div>
                                         <div class="basic-info1">
-                                            <p:commandButton value="Add Place" action="#{adminController.openAddPlaceDialog(item.tourmasterid)}" styleClass="ui-button-raised ui-button-info mybtn" />
-                                            <p:commandButton value="Edit Place" action="#{adminController.updatePlaceRedirect(item.tourmasterid)}" styleClass="ui-button-raised ui-button-info mybtn" />
-                                            <p:commandButton value="Add Vehicle" action="#{adminController.openAddVehicleDialog(item.tourmasterid)}" styleClass="ui-button-raised ui-button-info mybtn" />
+                                            <p:commandButton icon="fa-solid fa-plus" value="Add Place" action="#{adminController.openAddPlaceDialog(item.tourmasterid)}" styleClass="ui-button-raised ui-button-info mybtn" />
+                                            <p:commandButton icon="fa-solid fa-pen-to-square" value="Edit Place" action="#{adminController.updatePlaceRedirect(item.tourmasterid)}" styleClass="ui-button-raised ui-button-info mybtn" />
+                                            <p:commandButton icon="fa-solid fa-plus" value="Add Vehicle" action="#{adminController.openAddVehicleDialog(item.tourmasterid)}" styleClass="ui-button-raised ui-button-info mybtn" />
                                         </div>
                                         <div class="basic-info2">
-                                            <p:commandButton value="Edit Vehicle" action="#{adminController.updateVehicleRedirect(item.tourmasterid)}" styleClass="ui-button-raised ui-button-info mybtn" />
-                                            <p:commandButton value="Edit Tour" action="#{adminController.updateRedirect(item)}" styleClass="ui-button-raised ui-button-info mybtn" />
-                                            <p:commandButton value="Cancel Tour" action="#{adminController.openCancelTourDialog(item.tourmasterid)}" styleClass="ui-button-raised ui-button-danger mybtn" />
+                                            <p:commandButton icon="fa-solid fa-pen-to-square" value="Edit Vehicle" action="#{adminController.updateVehicleRedirect(item.tourmasterid)}" styleClass="ui-button-raised ui-button-info mybtn" />
+                                            <p:commandButton icon="fa-solid fa-pen-to-square" value="Edit Tour" action="#{adminController.updateRedirect(item)}" styleClass="ui-button-raised ui-button-info mybtn" />
+                                            <p:commandButton icon="fa-solid fa-trash" value="Cancel Tour" action="#{adminController.openCancelTourDialog(item.tourmasterid)}" styleClass="ui-button-raised ui-button-danger mybtn" />
                                         </div>
                                     </div>
                                 </div>
@@ -442,6 +450,124 @@
                 </h4>
                 <div class="add-vehicle-btn">
                     <p:commandButton value="Close" action="#{adminController.closeCancelTourDialog()}" styleClass="ui-button-raised ui-button-danger" />
+                </div>
+            </p:dialog>
+            <!--Edit Profile Dialog-->
+            <p:dialog widgetVar="editProfile" draggable="false" closable="false" minHeight="60" width="800" showEffect="fade" modal="true">
+                <h:form>
+                    <div style="display:flex; justify-content:center; width:100%; margin-top: -4.1%;">
+                        <h2>EDIT USER PROFILE</h2>
+                    </div><br/>
+                    <div class="edit-content">
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-user"></i>
+                            <p:inputText placeholder="Enter Username" disabled="true" value="#{adminController.user_info.username}"  style="width: 100%;" />
+                        </span>
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-file-signature"></i>
+                            <p:inputText placeholder="Enter First Name" value="#{adminController.user_info.fname}"  style="width: 100%;" />
+                        </span>
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-file-signature"></i>
+                            <p:inputText placeholder="Enter Last Name" value="#{adminController.user_info.lname}"  style="width: 100%;" />
+                        </span>
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-envelope"></i>
+                            <p:inputText placeholder="Enter Email" value="#{adminController.user_info.email}"  style="width: 100%;" />
+                        </span>
+                    </div>
+                    <div class="add-vehicle-btn">
+                        <p:commandButton value="Edit Profile" action="#{adminController.performUserUpdate()}" styleClass="ui-button-raised ui-button-info" style="margin-right: 2%;" />
+                        <p:commandButton value="Close" action="#{adminController.closeEditProfileDialog()}" styleClass="ui-button-raised ui-button-danger" />
+                    </div>
+                </h:form>
+            </p:dialog>
+            <p:dialog widgetVar="editProfileEmptyField" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Any of the fields should not be empty
+                </h4>
+            </p:dialog>
+            <p:dialog widgetVar="profileEdited" closable="false" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-check" style="color:green;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Profile Edited Successfully
+                </h4>
+                <div class="add-vehicle-btn">
+                    <p:commandButton value="Close" action="#{adminController.closeEditProfileDialog()}" styleClass="ui-button-raised ui-button-danger" />
+                </div>
+            </p:dialog>
+            <!--Edit Password Dialog-->
+            <p:dialog widgetVar="editPassword" draggable="false" closable="false" minHeight="60" width="800" showEffect="fade" modal="true">
+                <h:form>
+                    <div style="display:flex; justify-content:center; width:100%; margin-top: -4.1%;">
+                        <h2>EDIT PASSWORD</h2>
+                    </div><br/>
+                    <div class="edit-content">
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-lock"></i>
+                            <p:password placeholder="Enter Current Password" value="#{adminController.current_password}"  style="width: 100%;" />
+                        </span>
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-lock"></i>
+                            <p:password placeholder="Enter New Password" value="#{adminController.new_password}"  style="width: 100%;" />
+                        </span>
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-lock"></i>
+                            <p:password placeholder="Confirm New Password" value="#{adminController.confirm_new_password}"  style="width: 100%;" />
+                        </span>
+                    </div>
+                    <div class="add-vehicle-btn">
+                        <p:commandButton value="Edit Password" action="#{adminController.performPasswordUpdate()}" styleClass="ui-button-raised ui-button-info" style="margin-right: 2%;" />
+                        <p:commandButton value="Close" action="#{adminController.closeEditPasswordDialog()}" styleClass="ui-button-raised ui-button-danger" />
+                    </div>
+                </h:form>
+            </p:dialog>
+            <p:dialog widgetVar="emptyPasswordField" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Any of the fields should not be empty
+                </h4>
+            </p:dialog>
+            <p:dialog widgetVar="incorrectCurrentPassword" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Incorrect Current Password
+                </h4>
+            </p:dialog>
+            <p:dialog widgetVar="sameCurrentPassword" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    New Password cannot be same as old Password
+                </h4>
+            </p:dialog>
+            <p:dialog widgetVar="invalidNewConfirmPassword" minHeight="30" width="600" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    New Password and Confirm New Password are not matching
+                </h4>
+            </p:dialog>
+            <p:dialog widgetVar="passwordUpdated" closable="false" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-check" style="color:green;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Password Edited Successfully
+                </h4>
+                <div class="add-vehicle-btn">
+                    <p:commandButton value="Close" action="#{adminController.passwordChangedSuccessfull()}" styleClass="ui-button-raised ui-button-danger" />
                 </div>
             </p:dialog>
         </div>

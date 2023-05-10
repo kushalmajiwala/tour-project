@@ -2,6 +2,7 @@ package AdminEJB;
 
 import entity.Tourmaster;
 import entity.Tourplace;
+import entity.Usertb;
 import entity.Vehicle;
 import java.sql.Date;
 import java.util.List;
@@ -12,7 +13,9 @@ public interface AdminBeanLocal {
 
     public String registerUser(String uname, String fname, String lname, String email, String pass);
 
-    public List getUserData(String uname);
+    public Usertb getUserData(String uname);
+    
+    public void updateUserData(Usertb u);
 
     public void addVehicle(Vehicle v);
     

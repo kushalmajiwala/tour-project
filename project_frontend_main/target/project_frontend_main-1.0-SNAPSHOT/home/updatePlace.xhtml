@@ -39,8 +39,8 @@
             .inner-container {
                 text-align: center;
                 width: 100%;
-                height: 60px;
-                line-height: 60px;
+                height: 55px;
+                line-height: 55px;
                 display: flex;
                 justify-content: left;
                 background-color: black;
@@ -49,7 +49,7 @@
                 width: 20%;
                 height: 100%;
                 background-color: white;
-                margin-top: -0.08%;
+                margin-top: -0.01%;
                 border-bottom: 0.5px solid #C4C4F2;
                 color: #484C8D;
             }
@@ -240,7 +240,15 @@
                     <div class="logout-container inner-container">
                         <h3 class="icon-container"><i class="fa fa-user"></i></h3>
                         <h:form class="button-container">
-                            <h:commandButton value="Update Profile" styleClass="ui-button-flat inner-button"></h:commandButton>
+                            <h:commandButton value="Edit Profile" action="#{adminController.editProfileRedirect()}" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa-solid fa-user-pen"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Edit Password" action="#{adminController.editPasswordRedirect()}" styleClass="ui-button-flat inner-button"></h:commandButton>
                         </h:form>
                     </div>
                 </div>
@@ -332,7 +340,7 @@
                 <h4 class="m-0">
                     Place Updated Successfully
                 </h4>
-                <div class="add-vehicle-btn">
+                <div class="add-vehicle-btn" style="display: flex; justify-content: right;">
                     <p:commandButton value="Close" action="#{adminController.placeUpdatePerformed()}" styleClass="ui-button-raised ui-button-danger" />
                 </div>
             </p:dialog>
@@ -357,7 +365,7 @@
                 <h4 class="m-0">
                     Place Deleted Successfully
                 </h4>
-                <div class="add-vehicle-btn">
+                <div class="add-vehicle-btn" style="display: flex; justify-content: right;">
                     <p:commandButton value="Close" action="#{adminController.placeDeleted()}" styleClass="ui-button-raised ui-button-danger" />
                 </div>
             </p:dialog>

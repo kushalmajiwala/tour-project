@@ -4,12 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Gallery;
 import entity.Tourmaster;
 import entity.Tourplace;
+import entity.Usertb;
 import entity.Vehicle;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -23,8 +23,21 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
-    public List getUserData(String uname) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Usertb getUserData(String uname) {
+        Usertb mylist = new Usertb();
+        try {
+            String url = "http://localhost:9090/user/getdata/" + uname;
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            Usertb myrec = mapper.readValue(response.body().toString(), Usertb.class);
+            mylist = myrec;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return mylist;
     }
 
     @Override
@@ -348,5 +361,27 @@ public class AdminBean implements AdminBeanLocal {
     @Override
     public String updateStatus(int tourid, String uname, String payment_status) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void updateUserData(Usertb u) {
+         try {
+            ObjectMapper mapper = new ObjectMapper();
+            String requestBody = mapper.writeValueAsString(u);
+
+            String url = "http://localhost:9090/user/updatedata";
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
