@@ -86,6 +86,9 @@
                 height: 45px;
                 width: 140px;
             }
+            .no-border {
+                border: none;
+            }
         </style>
     </h:head>
     <h:body style="background-color: #F6F8F7;">
@@ -131,7 +134,13 @@
                         <p:column>
                             <h:outputText value="Day - 1 &nbsp; :-"/><br/><br/>
                             <h:outputText value="We will meet at Surat Railway Station at 10pm on #{tourmasterController.startDate}."/><br/><br/>
-                            <h:outputText value="And our train jounery will begin at 11pm."/>
+                            <h:outputText value="And our train jounery will begin at 11pm."/><br/><br/>
+                            Our Tour Journey includes Vehicles Like :-
+                            <p:dataTable style="padding-top: 0%" value="#{tourmasterController.getAllVehicleByTourmasterid()}" var="val">
+                                <p:column style="border:none;">
+                                    <h:outputText value="#{val.vehicle_name}"></h:outputText>
+                                </p:column>
+                            </p:dataTable>
                         </p:column>
                     </p:dataTable>
                     <p:dataTable value="#{tourmasterController.getAllPlaces()}" var="item" rowIndexVar="index" style="margin-top: -2%;">

@@ -3,12 +3,13 @@ package AdminEJB;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Gallery;
 import entity.Tourmaster;
+import entity.Tourplace;
+import entity.Vehicle;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -27,38 +28,169 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
-    public String addVehicle(int tourmasterid, String vehicle_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void addVehicle(Vehicle v) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String requestBody = mapper.writeValueAsString(v);
+
+            String url = "http://localhost:9090/vehicle/addvehicle";
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
-    public String updateVehicle(int tourmasterid, String vehicle_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void updateVehicle(Vehicle v) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String requestBody = mapper.writeValueAsString(v);
+
+            String url = "http://localhost:9090/vehicle/updatevehicle";
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
     public List getVehicle(int tourid) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Vehicle> mylist = new ArrayList();
+        try {
+            String url = "http://localhost:9090/vehicle/getvehicle/" + tourid;
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            Vehicle[] myrec = mapper.readValue(response.body().toString(), Vehicle[].class);
+            for (Vehicle rec : myrec) {
+                mylist.add(rec);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return mylist;
     }
 
     @Override
-    public String addPlace(int tourmasterid, String place_name, String place_city, String place_state, String desc, Date sdate, Date edate) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deleteVehicle(int vehicleid) {
+        try {
+            String url = "http://localhost:9090/vehicle/deletevehicle/" + vehicleid;
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .DELETE()
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
-    public String updatePlace(int tourmasterid, String place_name, String place_city, String place_state, String desc, Date sdate, Date edate) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void addPlace(Tourplace tp) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String requestBody = mapper.writeValueAsString(tp);
+
+            String url = "http://localhost:9090/tourplace/addplace";
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @Override
+    public void updatePlace(Tourplace tp) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String requestBody = mapper.writeValueAsString(tp);
+
+            String url = "http://localhost:9090/tourplace/updateplace";
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
     public List getPlaces(int tourid) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Tourplace> mylist = new ArrayList();
+        try {
+            String url = "http://localhost:9090/tourplace/getplace/" + tourid;
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            Tourplace[] myrec = mapper.readValue(response.body().toString(), Tourplace[].class);
+            for (Tourplace rec : myrec) {
+                mylist.add(rec);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return mylist;
     }
 
     @Override
-    public String deletePlace(int placeid) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deletePlace(int placeid) {
+        try {
+            String url = "http://localhost:9090/tourplace/deleteplace/" + placeid;
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .DELETE()
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -104,8 +236,25 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
-    public String updateTourMaster(String tour_title, String tour_pic, Date start_date, Date end_date, Time journey_begin_time, int per_person_price, String pickup_address) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void updateTourMaster(Tourmaster tm) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String requestBody = mapper.writeValueAsString(tm);
+
+            String url = "http://localhost:9090/tourmaster/updatetour";
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -114,8 +263,24 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
-    public String deleteTourMaster(int tourid) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deleteTourMaster(int tourid) {
+        try {
+            String url = "http://localhost:9090/tourmaster/deletetour/" + tourid;
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .DELETE()
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            System.out.println("Record to be deleted -> " + tourid);
+            System.out.println("Deleted...");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override

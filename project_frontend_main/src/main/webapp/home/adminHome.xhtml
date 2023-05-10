@@ -127,7 +127,8 @@
             }
             .basic-info2
             {
-                padding: 5%;
+                padding: 3%;
+                padding-top: 4%; 
                 border: none;
             }
             a{
@@ -299,7 +300,7 @@
                 <h:form>
                     <p:dataTable value="#{adminController.allTours}" var="item">
                         <p:column style="border: none;background-color: #F3F3F3;">
-                            <p:card style="width: 100%; margin-bottom: 2em; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+                            <p:card style="width: 100%; margin-bottom: 2em; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius: 10px;">
                                 <div class="tour-container">
                                     <div class="mb-3 image-container">
                                         <p:graphicImage url="../images#{item.tour_pic}" styleClass="product-image" height="100%" width="100%"/>
@@ -316,11 +317,11 @@
                                         </div>
                                         <div class="basic-info1">
                                             <p:commandButton value="Add Place" action="#{adminController.openAddPlaceDialog(item.tourmasterid)}" styleClass="ui-button-raised ui-button-info mybtn" />
-                                            <p:commandButton type="button" value="Edit Place" styleClass="ui-button-raised ui-button-info mybtn" />
+                                            <p:commandButton value="Edit Place" action="#{adminController.updatePlaceRedirect(item.tourmasterid)}" styleClass="ui-button-raised ui-button-info mybtn" />
                                             <p:commandButton value="Add Vehicle" action="#{adminController.openAddVehicleDialog(item.tourmasterid)}" styleClass="ui-button-raised ui-button-info mybtn" />
                                         </div>
                                         <div class="basic-info2">
-                                            <p:commandButton type="button" value="Edit Vehicle" styleClass="ui-button-raised ui-button-info mybtn" />
+                                            <p:commandButton value="Edit Vehicle" action="#{adminController.updateVehicleRedirect(item.tourmasterid)}" styleClass="ui-button-raised ui-button-info mybtn" />
                                             <p:commandButton value="Edit Tour" action="#{adminController.updateRedirect(item)}" styleClass="ui-button-raised ui-button-info mybtn" />
                                             <p:commandButton value="Cancel Tour" action="#{adminController.openCancelTourDialog(item.tourmasterid)}" styleClass="ui-button-raised ui-button-danger mybtn" />
                                         </div>

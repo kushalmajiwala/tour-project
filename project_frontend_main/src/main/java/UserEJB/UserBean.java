@@ -6,6 +6,7 @@ import entity.ProjectgroupsPK;
 import entity.Tourmaster;
 import entity.Tourplace;
 import entity.Usertb;
+import entity.Vehicle;
 import java.net.URI;
 import java.net.http.*;
 import java.sql.Date;
@@ -94,7 +95,22 @@ public class UserBean implements UserBeanLocal {
 
     @Override
     public List getVehicle(int tourid) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Vehicle> mylist = new ArrayList();
+        try {
+            String url = "http://localhost:9090/vehicle/getvehicle/" + tourid;
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            Vehicle[] myrec = mapper.readValue(response.body().toString(), Vehicle[].class);
+            for (Vehicle rec : myrec) {
+                mylist.add(rec);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return mylist;
     }
 
     @Override

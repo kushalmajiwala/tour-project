@@ -1,7 +1,10 @@
 package com.project.project_backend.controller;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,5 +48,12 @@ public class VehicleController {
     public Vehicletb updateVehicle(@RequestBody Vehicletb v) {
         vehiclerepo.save(v);
         return v;
+    }
+    @DeleteMapping("/deletevehicle/{vehicleid}")
+    public Optional<Vehicletb> deleteTour(@PathVariable("vehicleid") int vehicleid)
+    {
+    	Optional<Vehicletb> v = vehiclerepo.findById(vehicleid);
+        vehiclerepo.deleteById(vehicleid);
+    	return v;
     }
 }

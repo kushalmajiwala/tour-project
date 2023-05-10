@@ -3,6 +3,7 @@ package Controllers;
 import UserEJB.UserBeanLocal;
 import entity.Tourmaster;
 import entity.Tourplace;
+import entity.Vehicle;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -34,6 +35,15 @@ public class TourmasterController implements Serializable {
     int days_diff;
     int data_length;
     int day_num;
+    
+    int tourmasterid;
+    public int getTourmasterid() {
+        return tourmasterid;
+    }
+    public void setTourmasterid(int tourmasterid) {
+        this.tourmasterid = tourmasterid;
+    }
+    
 
     public int getDay_num() {
         return day_num;
@@ -109,6 +119,7 @@ public class TourmasterController implements Serializable {
     List<Tourplace> all_places;
     public String populate_places(int tourplaceid, String pic_url, String start_date, String end_date, String tour_title, int tour_price)
     {
+        tourmasterid = tourplaceid;
         picUrl = pic_url;
         startDate = start_date;
         endDate = end_date;
@@ -145,5 +156,12 @@ public class TourmasterController implements Serializable {
     {
         System.out.println("Getting Places -> " + all_places);
         return all_places;
+    }
+    public List<Vehicle> getAllVehicleByTourmasterid()
+    {
+        System.out.println("Getting Vehicle");
+        List<Vehicle> all_vehicle = userbean.getVehicle(tourmasterid);
+        System.out.println("All Vehicle -> " + all_vehicle);
+        return all_vehicle;
     }
 }

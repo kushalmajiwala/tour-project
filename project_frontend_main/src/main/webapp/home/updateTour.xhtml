@@ -161,6 +161,10 @@
                 font-weight: bolder;
                 margin-bottom: 10%;
             }
+            .closeBtn {
+                display: flex;
+                justify-content: right;
+            }
         </style>
     </h:head>
     <h:body class="whole-page">
@@ -170,7 +174,7 @@
                 <span style="margin-left: 20px;">#{registrationController.currentUsername}</span>
             </div>
             <div class="gallery-path" style="font-size: 17px; margin-top: 0.7%;">
-                <a href="../index.xhtml" class="gallery-path-home">HOME</a> <span style="color: #61DAFB"> / </span><span style="color:#FC8F37;">UPDATE TOUR</span>
+                <a href="../index.xhtml" class="gallery-path-home">HOME</a> <span style="color: #61DAFB"> / </span><span style="color:#FC8F37;">EDIT TOUR</span>
             </div>
         </div>
         <p:sidebar widgetVar="sidebar1">
@@ -285,7 +289,7 @@
                             <p:commandButton ajax="false" action="#{adminController.uploadImage()}" icon="pi pi-upload" value="Upload"/>
                         </div>
                         <div class="addBtn">
-                            <p:commandButton value="Edit Tour" styleClass="ui-button-raised ui-button-info" style="width: 20%;"/>
+                            <p:commandButton value="Edit Tour" action="#{adminController.performUpdate()}" styleClass="ui-button-raised ui-button-info" style="width: 20%;"/>
                         </div>
                     </div>
                 </h:form>
@@ -308,13 +312,16 @@
                     Please Upload the Image
                 </h4>
             </p:dialog>
-            <p:dialog widgetVar="tourAdded" minHeight="40" width="450" showEffect="fade" modal="true">
+            <p:dialog widgetVar="tourUpdated" closable="false" draggable="false" minHeight="40" width="450" showEffect="fade" modal="true">
                 <div style="display:flex; justify-content:center; width:100%;">
                     <i class="pi pi-check" style="color:green;font-size: 60px;"></i>
                 </div><br/>
                 <h4 class="m-0">
-                    Tour Added Successfully
+                    Tour Updated Successfully
                 </h4>
+                <div class="closeBtn">
+                    <p:commandButton value="Close" action="#{adminController.updatePerformed()}" styleClass="ui-button-raised ui-button-danger" />
+                </div>
             </p:dialog>
         </div>
     </h:body>

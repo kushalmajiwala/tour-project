@@ -1,8 +1,9 @@
 package AdminEJB;
 
 import entity.Tourmaster;
+import entity.Tourplace;
+import entity.Vehicle;
 import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -13,29 +14,31 @@ public interface AdminBeanLocal {
 
     public List getUserData(String uname);
 
-    public String addVehicle(int tourmasterid, String vehicle_name);
+    public void addVehicle(Vehicle v);
     
-    public String updateVehicle(int tourmasterid, String vehicle_name);
+    public void updateVehicle(Vehicle v);
 
     public List getVehicle(int tourid);
+    
+    public void deleteVehicle(int vehicleid);
 
-    public String addPlace(int tourmasterid, String place_name, String place_city, String place_state, String desc, Date sdate, Date edate);
+    public void addPlace(Tourplace tp);
 
-    public String updatePlace(int tourmasterid, String place_name, String place_city, String place_state, String desc, Date sdate, Date edate);
+    public void updatePlace(Tourplace tp);
     
     public List getPlaces(int tourid);
 
-    public String deletePlace(int placeid);
+    public void deletePlace(int placeid);
 
     public List showMasterData();
 
     public void addTourMaster(Tourmaster tm);
 
-    public String updateTourMaster(String tour_title, String tour_pic, Date start_date, Date end_date, Time journey_begin_time, int per_person_price, String pickup_address);
+    public void updateTourMaster(Tourmaster tm);
     
     public String getTourMaster(int tourid);
 
-    public String deleteTourMaster(int tourid);
+    public void deleteTourMaster(int tourid);
 
     public List getTour(String uname);
 

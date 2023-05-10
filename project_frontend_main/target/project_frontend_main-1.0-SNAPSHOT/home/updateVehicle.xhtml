@@ -1,0 +1,347 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
+            .gallery-title {
+                background-color: #546e7a;
+                color: white;
+                font-size: 25px;
+                padding: 1.5%;
+                padding-left: 2%;
+                display:flex;
+                justify-content: space-between;
+            }
+            .gallery-path-home {
+                text-decoration:none;
+                color: white;
+            }
+            .gallery-path-home:hover{
+                color: #020873;
+            }
+            .menuTitle {
+                font-size: 25px;
+                text-align: center;
+                padding: 8%;
+                background-color: white;
+                color: black;
+                box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+            }
+            .navbar-container {
+                margin-top: 3%;
+            }
+            .inner-container {
+                text-align: center;
+                width: 100%;
+                height: 60px;
+                line-height: 60px;
+                display: flex;
+                justify-content: left;
+                background-color: black;
+            }
+            .icon-container {
+                width: 20%;
+                height: 100%;
+                background-color: white;
+                margin-top: -0.08%;
+                border-bottom: 0.5px solid #C4C4F2;
+                color: #484C8D;
+            }
+            .inner-button
+            {
+                font-size: 15px;
+                cursor: pointer;
+                border: none;
+                width: 100%;
+                height: 100%;
+                background-color: white;
+                border-bottom: 0.5px solid #C4C4F2;
+                color: #484C8D;
+                display: flex;
+                justify-content: left;
+                padding-top: 2.5%;
+            }
+            .badge-container {
+                background-color: white;
+                border-bottom: 0.5px solid #C4C4F2;
+            }
+            .inner-container:hover .inner-button{
+                background-color: #474792;
+                color: white;
+            }
+            .inner-container:hover .icon-container{
+                background-color: #474792;
+                color: white;
+            }
+            .inner-container:hover .badge-container{
+                background-color: #474792;
+                color: white;
+            }
+            .button-container {
+                width: 100%;
+            }
+            .page-title{
+                display:flex;
+                justify-content: space-around;
+            }
+            .rounded-button {
+                height: 100px;
+                width: 100px;
+            }
+            .tour-container {
+                width: 100%;
+                display: flex;
+            }
+            .content-container {
+                float: right;
+                width: 60%;
+            }
+            .image-container {
+                width: 40%;
+                height: 320px;
+            }
+            .tour-name {
+                width: 100%;
+                text-align: center;
+                margin-top: -5%;
+                border-bottom: 1px solid #9C9CB2;
+            }
+            .basic-info, .basic-info1, .basic-info2 {
+                color:#ff5722;
+                display: flex;
+                justify-content: space-around;
+                width: 100%;
+                border-bottom: 1px solid #9C9CB2;
+            }
+            .basic-info {
+                padding: 1%;
+            }
+            .basic-info1 {
+                padding: 3%;
+            }
+            .basic-info2
+            {
+                padding: 5%;
+                border: none;
+            }
+            a{
+                text-decoration: none;
+            }
+            .mybtn {
+                height: 40px;
+                width: 20%;
+            }
+            .add-vehicle-btn {
+                display: flex;
+                justify-content: space-evenly;
+                margin-top: 5%;
+            }
+            .input-title {
+                width: 80%;
+                margin-top: 5%;
+                border:2px solid #A0A0DC;
+                border-radius: 3px;
+            }
+            h4{
+                text-align: center;
+            }
+            .city-state {
+                margin-top: 3%;
+                display: flex;
+                justify-content: space-between;
+            }
+            .input-city, .input-state {
+                width: 45%;
+                border:2px solid #A0A0DC;
+                border-radius: 3px;
+            }
+            .date-field {
+                border:2px solid #A0A0DC;
+                border-radius: 3px;
+            }
+            .desc {
+                width: 100%;
+                margin-top: 3%;
+                display:flex;
+                justify-content: center;
+            }
+            .input-desc {
+                border:2px solid #A0A0DC;
+                border-radius: 3px;
+            }
+            .start-end-date {
+                margin-top: 3%;
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+            }
+            .whole-page {
+                background-color: #E0E0F0;
+            }
+        </style>
+    </h:head>
+    <h:body class="whole-page">
+        <div class="gallery-title">
+            <div class="barTitle">
+                <p:commandButton icon="pi pi-bars" id="navbarTip" type="button" onclick="PF('sidebar1').show()" styleClass="rounded-button ui-button-secondary" style="margin-top: -1%;"><p:tooltip for="navbarTip" value="navbar" position="bottom"/></p:commandButton>
+                <span style="margin-left: 20px;">#{registrationController.currentUsername}</span>
+            </div>
+            <div class="gallery-path" style="font-size: 17px; margin-top: 0.7%;">
+                <a href="../index.xhtml" class="gallery-path-home">HOME</a> <span style="color: #61DAFB"> / </span><span style="color:#FC8F37;">EDIT VEHICLE</span>
+            </div>
+        </div>
+        <p:sidebar widgetVar="sidebar1">
+            <div class="menuTitle">
+                #{registrationController.currentUsername}
+            </div>
+            <div class="navbar-container">
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa-solid fa-house"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Home" action="gallery.xhtml?faces-redirect=true" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa fa-car"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="All Tours" action="#{adminController.redirectAllTours()}" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa fa-plus"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Add New Tour" action="#{adminController.addTourRedirect()}" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h2 class="icon-container"><i class="fa fa-comments"></i></h2>
+                        <h:form class="button-container">
+                            <h:commandButton value="View Complaint" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                        <div class="badge-container">
+                            <p:badge value="3" severity="danger"></p:badge>
+                        </div>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa fa-user"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Update Profile" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa fa-book"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Booking Details" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                        <div class="badge-container">
+                            <p:badge value="3" severity="danger"></p:badge>
+                        </div>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa fa-bar-chart"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Application Statistics" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa fa-sign-out"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Signout" action="#{registrationController.redirectLogout()}" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </p:sidebar>
+        <div class="main-content">
+            <f:view>
+                <h:form>
+                    <p:dataTable value="#{adminController.updateVehicleRecords()}" var="item" rowIndexVar="index">
+                        <p:column style="border: none; background-color: #E0E0F0; display: flex; justify-content: center;">
+                            <p:card style="width: 85%; margin-bottom: 1em; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius: 10px;">
+                                <h2 style="text-align: center; margin-top: -1%;">EDIT VEHICLE</h2>
+                                <div style="width: 100%; display: flex; justify-content: center;">
+                                    <span class="ui-input-icon-left input-title">
+                                        <i class="fa-solid fa-car-side"></i>
+                                        <p:inputText placeholder="Enter Vehicle Name" value="#{item.vehicle_name}"  style="width: 100%;" />
+                                    </span>
+                                </div>
+                                <div class="add-vehicle-btn">
+                                    <p:commandButton value="Edit Vehicle" ajax="false" action="#{adminController.performVehicleUpdate(item)}" styleClass="ui-button-raised ui-button-info"/>
+                                    <p:commandButton value="Delete Vehicle" ajax="false" action="#{adminController.openVehicleDeleteConfirmDialog(item.vehicleid)}" styleClass="ui-button-raised ui-button-danger"/>
+                                </div>
+                            </p:card>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </f:view>
+        </div>
+        <div class="all-dialogs">
+            <p:dialog widgetVar="vehicleUpdateEmptyField" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Vehicle name should not be empty
+                </h4>
+            </p:dialog>
+            <p:dialog widgetVar="vehicleNameUpdated" draggable="false" closable="false" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-check" style="color:green;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Vehicle name Updated Successfully
+                </h4>
+                <div class="add-vehicle-btn">
+                    <p:commandButton value="Close" action="#{adminController.vehicleUpdatePerformed()}" styleClass="ui-button-raised ui-button-danger" />
+                </div>
+            </p:dialog>
+            <p:dialog widgetVar="vehicleDeleteConfirm" draggable="false" closable="false" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-exclamation-circle" style="color:#BEBC3A; font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Are you sure you want to delete this Vehicle ?
+                </h4>
+                <h:form>
+                    <div class="add-vehicle-btn" style="display: flex; justify-content: right;">
+                        <p:commandButton value="YES" action="#{adminController.performVehicleDelete()}" styleClass="ui-button-raised ui-button-danger" style="margin-right: 2%;" />
+                        <p:commandButton value="NO" action="#{adminController.closeDeleteVehicleDialog()}" styleClass="ui-button-raised" />
+                    </div>
+                </h:form>
+            </p:dialog>
+            <p:dialog widgetVar="vehicleDeleted" draggable="false" closable="false" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-check" style="color:green;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Vehicle Deleted Successfully
+                </h4>
+                <div class="add-vehicle-btn">
+                    <p:commandButton value="Close" action="#{adminController.vehicleDeleted()}" styleClass="ui-button-raised ui-button-danger" />
+                </div>
+            </p:dialog>
+        </div>
+    </h:body>
+</html>
+
