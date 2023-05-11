@@ -189,98 +189,13 @@
     <h:body class="whole-page">
         <div class="gallery-title">
             <div class="barTitle">
-                <p:commandButton icon="pi pi-bars" id="navbarTip" type="button" onclick="PF('sidebar1').show()" styleClass="rounded-button ui-button-secondary" style="margin-top: -1%;"><p:tooltip for="navbarTip" value="navbar" position="bottom"/></p:commandButton>
+                <p:commandButton icon="fa-solid fa-arrow-left" id="goBackTip" action="#{adminController.redirectToAdminHome()}" styleClass="rounded-button ui-button-secondary" style="margin-top: -1%;"><p:tooltip for="goBackTip" value="Back" position="bottom"/></p:commandButton>
                 <span style="margin-left: 20px;">#{registrationController.currentUsername}</span>
             </div>
             <div class="gallery-path" style="font-size: 17px; margin-top: 0.7%;">
                 <a href="../index.xhtml" class="gallery-path-home">HOME</a> <span style="color: #61DAFB"> / </span><span style="color:#FC8F37;">EDIT VEHICLE</span>
             </div>
         </div>
-        <p:sidebar widgetVar="sidebar1">
-            <div class="menuTitle">
-                #{registrationController.currentUsername}
-            </div>
-            <div class="navbar-container">
-                <div class="menuContent">
-                    <div class="logout-container inner-container">
-                        <h3 class="icon-container"><i class="fa-solid fa-house"></i></h3>
-                        <h:form class="button-container">
-                            <h:commandButton value="Home" action="gallery.xhtml?faces-redirect=true" styleClass="ui-button-flat inner-button"></h:commandButton>
-                        </h:form>
-                    </div>
-                </div>
-                <div class="menuContent">
-                    <div class="logout-container inner-container">
-                        <h3 class="icon-container"><i class="fa fa-car"></i></h3>
-                        <h:form class="button-container">
-                            <h:commandButton value="All Tours" action="#{adminController.redirectAllTours()}" styleClass="ui-button-flat inner-button"></h:commandButton>
-                        </h:form>
-                    </div>
-                </div>
-                <div class="menuContent">
-                    <div class="logout-container inner-container">
-                        <h3 class="icon-container"><i class="fa fa-plus"></i></h3>
-                        <h:form class="button-container">
-                            <h:commandButton value="Add New Tour" action="#{adminController.addTourRedirect()}" styleClass="ui-button-flat inner-button"></h:commandButton>
-                        </h:form>
-                    </div>
-                </div>
-                <div class="menuContent">
-                    <div class="logout-container inner-container">
-                        <h2 class="icon-container"><i class="fa fa-comments"></i></h2>
-                        <h:form class="button-container">
-                            <h:commandButton value="View Complaint" styleClass="ui-button-flat inner-button"></h:commandButton>
-                        </h:form>
-                        <div class="badge-container">
-                            <p:badge value="3" severity="danger"></p:badge>
-                        </div>
-                    </div>
-                </div>
-                <div class="menuContent">
-                    <div class="logout-container inner-container">
-                        <h3 class="icon-container"><i class="fa fa-user"></i></h3>
-                        <h:form class="button-container">
-                            <h:commandButton value="Edit Profile" action="#{adminController.editProfileRedirect()}" styleClass="ui-button-flat inner-button"></h:commandButton>
-                        </h:form>
-                    </div>
-                </div>
-                <div class="menuContent">
-                    <div class="logout-container inner-container">
-                        <h3 class="icon-container"><i class="fa-solid fa-user-pen"></i></h3>
-                        <h:form class="button-container">
-                            <h:commandButton value="Edit Password" action="#{adminController.editPasswordRedirect()}" styleClass="ui-button-flat inner-button"></h:commandButton>
-                        </h:form>
-                    </div>
-                </div>
-                <div class="menuContent">
-                    <div class="logout-container inner-container">
-                        <h3 class="icon-container"><i class="fa fa-book"></i></h3>
-                        <h:form class="button-container">
-                            <h:commandButton value="Booking Details" styleClass="ui-button-flat inner-button"></h:commandButton>
-                        </h:form>
-                        <div class="badge-container">
-                            <p:badge value="3" severity="danger"></p:badge>
-                        </div>
-                    </div>
-                </div>
-                <div class="menuContent">
-                    <div class="logout-container inner-container">
-                        <h3 class="icon-container"><i class="fa fa-bar-chart"></i></h3>
-                        <h:form class="button-container">
-                            <h:commandButton value="Application Statistics" styleClass="ui-button-flat inner-button"></h:commandButton>
-                        </h:form>
-                    </div>
-                </div>
-                <div class="menuContent">
-                    <div class="logout-container inner-container">
-                        <h3 class="icon-container"><i class="fa fa-sign-out"></i></h3>
-                        <h:form class="button-container">
-                            <h:commandButton value="Signout" action="#{registrationController.redirectLogout()}" styleClass="ui-button-flat inner-button"></h:commandButton>
-                        </h:form>
-                    </div>
-                </div>
-            </div>
-        </p:sidebar>
         <div class="main-content">
             <f:view>
                 <h:form>

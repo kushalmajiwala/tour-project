@@ -834,4 +834,8 @@ public class AdminController implements Serializable {
         System.out.println("Session Destroyed...");
         return "login.xhtml?faces-redirect=true";
     }
+    public String redirectToAdminHome()
+    {
+        return "adminHome.xhtml?faces-redirect=true";
+    }
 }
