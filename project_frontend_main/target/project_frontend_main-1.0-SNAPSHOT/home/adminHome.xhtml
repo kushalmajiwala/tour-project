@@ -182,6 +182,9 @@
                 display: flex;
                 justify-content: space-around;
             }
+            .nav-unique {
+                padding-left: 4.5%;
+            }
         </style>
     </h:head>
     <h:body>
@@ -227,7 +230,7 @@
                     <div class="logout-container inner-container">
                         <h2 class="icon-container"><i class="fa fa-comments"></i></h2>
                         <h:form class="button-container">
-                            <h:commandButton value="View Complaint" styleClass="ui-button-flat inner-button"></h:commandButton>
+                            <h:commandButton value="View Complaint" styleClass="ui-button-flat inner-button nav-unique"></h:commandButton>
                         </h:form>
                         <div class="badge-container">
                             <p:badge value="3" severity="danger"></p:badge>
@@ -254,7 +257,7 @@
                     <div class="logout-container inner-container">
                         <h3 class="icon-container"><i class="fa fa-book"></i></h3>
                         <h:form class="button-container">
-                            <h:commandButton value="Booking Details" styleClass="ui-button-flat inner-button"></h:commandButton>
+                            <h:commandButton value="Booking Details" styleClass="ui-button-flat inner-button nav-unique"></h:commandButton>
                         </h:form>
                         <div class="badge-container">
                             <p:badge value="3" severity="danger"></p:badge>
@@ -263,7 +266,7 @@
                 </div>
                 <div class="menuContent">
                     <div class="logout-container inner-container">
-                        <h3 class="icon-container"><i class="fa fa-bar-chart"></i></h3>
+                        <h3 class="icon-container"><i class="fa-solid fa-chart-simple"></i></h3>
                         <h:form class="button-container">
                             <h:commandButton value="Application Statistics" styleClass="ui-button-flat inner-button"></h:commandButton>
                         </h:form>
