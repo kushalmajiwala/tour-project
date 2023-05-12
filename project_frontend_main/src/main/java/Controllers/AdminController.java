@@ -17,10 +17,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpSession;
 import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 import org.primefaces.PrimeFaces;
+import org.primefaces.model.charts.ChartData;
+import org.primefaces.model.charts.bar.BarChartDataSet;
+import org.primefaces.model.charts.bar.BarChartModel;
+import org.primefaces.model.charts.pie.PieChartDataSet;
+import org.primefaces.model.charts.pie.PieChartModel;
 import org.primefaces.model.file.UploadedFile;
 
 @Named(value = "adminController")
@@ -753,11 +759,11 @@ public class AdminController implements Serializable {
     public String getEncrypted_current_password() {
         return encrypted_current_password;
     }
+
     public void setEncrypted_current_password(String encrypted_current_password) {
         this.encrypted_current_password = encrypted_current_password;
     }
-    
-    
+
     public String getCurrent_password() {
         return current_password;
     }
@@ -796,9 +802,8 @@ public class AdminController implements Serializable {
 
     public void performPasswordUpdate() {
         Pbkdf2PasswordHashImpl pb = new Pbkdf2PasswordHashImpl();
-        
-        if(!current_password.equals(""))
-        {
+
+        if (!current_password.equals("")) {
             encrypted_current_password = pb.generate(new_password.toCharArray());
         }
 
@@ -834,8 +839,103 @@ public class AdminController implements Serializable {
         System.out.println("Session Destroyed...");
         return "login.xhtml?faces-redirect=true";
     }
-    public String redirectToAdminHome()
-    {
+
+    public String redirectToAdminHome() {
         return "adminHome.xhtml?faces-redirect=true";
+    }
+
+    //Application Statistics
+    public void openApplicationStatisticsDialog() {
+        current.executeScript("PF('applicationStatistics').show();");
+    }
+
+    PieChartModel pieModel;
+
+    public PieChartModel getPieModel() {
+        return pieModel;
+    }
+
+    public void setPieModel(PieChartModel pieModel) {
+        this.pieModel = pieModel;
+    }
+
+    @PostConstruct
+    public void init() {
+        createPieModel();
+        createBarModel();
+    }
+
+    public void createPieModel() {
+        pieModel = new PieChartModel();
+        ChartData data = new ChartData();
+        PieChartDataSet dataSet = new PieChartDataSet();
+        List<Number> values = new ArrayList<>();
+
+        int number_of_admin = abl.getGroupByGroupname("admin").size();
+        int number_of_user = abl.getGroupByGroupname("user").size();
+
+        values.add(number_of_admin);
+        values.add(number_of_user);
+
+        dataSet.setData(values);
+
+        List<String> bgColors = new ArrayList<>();
+        bgColors.add("rgb(255, 99, 132)");
+        bgColors.add("rgb(54, 162, 235)");
+        dataSet.setBackgroundColor(bgColors);
+
+        data.addChartDataSet(dataSet);
+        List<String> labels = new ArrayList<>();
+        labels.add("Admin");
+        labels.add("User");
+        data.setLabels(labels);
+
+        pieModel.setData(data);
+    }
+
+    BarChartModel barModel;
+
+    public BarChartModel getBarModel() {
+        return barModel;
+    }
+
+    public void setBarModel(BarChartModel barModel) {
+        this.barModel = barModel;
+    }
+
+    public void createBarModel() {
+        barModel = new BarChartModel();
+        ChartData data = new ChartData();
+
+        BarChartDataSet barDataSet = new BarChartDataSet();
+        barDataSet.setLabel("admin / user");
+
+        int number_of_admin = abl.getGroupByGroupname("admin").size();
+        int number_of_user = abl.getGroupByGroupname("user").size();
+
+        List<Number> values = new ArrayList<>();
+        values.add(number_of_admin);
+        values.add(number_of_user);
+        barDataSet.setData(values);
+
+        List<String> bgColor = new ArrayList<>();
+        bgColor.add("rgba(54, 162, 235, 0.2)");
+        bgColor.add("rgba(153, 102, 255, 0.2)");
+        barDataSet.setBackgroundColor(bgColor);
+
+        List<String> borderColor = new ArrayList<>();
+        borderColor.add("rgb(54, 162, 235)");
+        borderColor.add("rgb(153, 102, 255)");
+
+        barDataSet.setBorderColor(borderColor);
+        barDataSet.setBorderWidth(1);
+        data.addChartDataSet(barDataSet);
+
+        List<String> labels = new ArrayList<>();
+        labels.add("Admin");
+        labels.add("User");
+        
+        data.setLabels(labels);
+        barModel.setData(data);
     }
 }

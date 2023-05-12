@@ -4,7 +4,6 @@ import entity.Tourmaster;
 import entity.Tourplace;
 import entity.Usertb;
 import entity.Vehicle;
-import java.sql.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -62,4 +61,6 @@ public interface AdminBeanLocal {
     public String getCart(String uname);
     
     public String updateStatus(int tourid, String uname, String payment_status);
+    
+    public List getGroupByGroupname(String gname);
 }

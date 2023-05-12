@@ -2,6 +2,7 @@ package AdminEJB;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Gallery;
+import entity.ProjectgroupsPK;
 import entity.Tourmaster;
 import entity.Tourplace;
 import entity.Usertb;
@@ -365,7 +366,7 @@ public class AdminBean implements AdminBeanLocal {
 
     @Override
     public void updateUserData(Usertb u) {
-         try {
+        try {
             ObjectMapper mapper = new ObjectMapper();
             String requestBody = mapper.writeValueAsString(u);
 
@@ -383,5 +384,27 @@ public class AdminBean implements AdminBeanLocal {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    @Override
+    public List getGroupByGroupname(String gname) {
+        List group_data = new ArrayList();
+        try {
+            String url = "http://localhost:9090/projectgroups/getgroup/" + gname;
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            ProjectgroupsPK[] myrec = mapper.readValue(response.body().toString(), ProjectgroupsPK[].class);
+            for (ProjectgroupsPK rec : myrec) {
+                group_data.add(rec);
+            }
+            System.out.println(gname);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        System.out.println("This is Admin Bean");
+        return group_data;
     }
 }
