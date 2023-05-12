@@ -2,6 +2,7 @@
 package UserEJB;
 
 import entity.Tourplace;
+import entity.Usertb;
 import java.sql.Date;
 import java.util.List;
 import javax.ejb.Local;
@@ -11,9 +12,9 @@ public interface UserBeanLocal {
     
     public void registerUser(String uname, String fname, String lname, String email, String pass);
 
-    public List getUserData(String uname);
+    public Usertb getUserData(String uname);
 
-    public String updateProfile(String uname, String fname, String lname, String email, String pass);
+    public void updateUserData(Usertb u);
 
     public List getVehicle(int tourid);
 

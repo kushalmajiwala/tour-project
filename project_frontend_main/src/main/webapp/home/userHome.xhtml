@@ -1,15 +1,366 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
+            .context-header {
+                color: white;
+                background-color: #261A5C;
+                height: 35px;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                font-size: 20px;
+                line-height: 35px;
+            }
+            .social-container {
+                margin-left: 5%;
+            }
+            .phone-container {
+                margin-right: 2%;
+            }
+            .waicon, .igicon {
+                margin-left: 15px;
+            }
+            a {
+                text-decoration: none;
+                color: white;
+            }
+            .gallery-title {
+                background-color: #546e7a;
+                color: white;
+                font-size: 25px;
+                padding: 1.5%;
+                padding-left: 2%;
+                display:flex;
+                justify-content: space-between;
+            }
+            .gallery-path-home {
+                text-decoration:none;
+                color: white;
+            }
+            .gallery-path-home:hover{
+                color: #020873;
+            }
+            .menuTitle {
+                font-size: 25px;
+                text-align: center;
+                padding: 8%;
+                background-color: white;
+                color: black;
+                box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+            }
+            .navbar-container {
+                margin-top: 3%;
+            }
+            .navbar-container {
+                margin-top: 3%;
+            }
+            .inner-container {
+                text-align: center;
+                width: 100%;
+                height: 55px;
+                line-height: 55px;
+                display: flex;
+                justify-content: left;
+                background-color: black;
+            }
+            .icon-container {
+                width: 20%;
+                height: 100%;
+                background-color: white;
+                margin-top: -0.01%;
+                border-bottom: 0.5px solid #C4C4F2;
+                color: #484C8D;
+            }
+            .inner-button
+            {
+                font-size: 15px;
+                cursor: pointer;
+                border: none;
+                width: 100%;
+                height: 100%;
+                background-color: white;
+                border-bottom: 0.5px solid #C4C4F2;
+                color: #484C8D;
+                display: flex;
+                justify-content: left;
+                padding-top: 2.5%;
+            }
+            .badge-container {
+                background-color: white;
+                border-bottom: 0.5px solid #C4C4F2;
+            }
+            .inner-container:hover .inner-button{
+                background-color: #474792;
+                color: white;
+            }
+            .inner-container:hover .icon-container{
+                background-color: #474792;
+                color: white;
+            }
+            .inner-container:hover .badge-container{
+                background-color: #474792;
+                color: white;
+            }
+            .button-container {
+                width: 100%;
+            }
+            .add-vehicle-btn {
+                display: flex;
+                justify-content: right;
+                margin-top: 10%;
+            }
+            .input-title {
+                width: 100%;
+                margin-top: 5%;
+                border:2px solid #A0A0DC;
+                border-radius: 3px;
+            }
+            h4{
+                text-align: center;
+            }
+            .whole-page {
+                background-color: #E0E0F0;
+            }
+            .nav-unique {
+                padding-left: 4.5%;
+            }
+        </style>
     </h:head>
-    <h:body>
-        <h1>User Home</h1>
-        <h:form>
-            <h:commandButton value="logout" action="#{registrationController.redirectLogout()}"></h:commandButton>
-        </h:form>
+    <h:body class="whole-page">
+        <div class="context-header">
+            <div class="social-container">
+                <a href="mailto: kushalmajiwala1212@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://api.whatsapp.com/send?phone=919106884674" target="blank"><i class="fa-brands fa-whatsapp waicon"></i></a>
+                <a href="https://www.instagram.com/kushal__1212/" target="blank"><i class="fa-brands fa-instagram igicon"></i></a>
+            </div>
+            <div class="phone-container">
+                <a href=""><i class="fa-solid fa-phone"></i></a> +91 9106884674
+            </div>
+        </div>
+        <div class="gallery-title">
+            <div class="barTitle">
+                <p:commandButton icon="pi pi-bars" id="navbarTip" type="button" onclick="PF('sidebar1').show()" styleClass="rounded-button ui-button-secondary" style="margin-top: -1%;"><p:tooltip for="navbarTip" value="navbar" position="bottom"/></p:commandButton>
+                <span style="margin-left: 20px;">#{registrationController.currentUsername}</span>
+            </div>
+            <div class="gallery-path" style="font-size: 17px; margin-top: 0.7%;">
+                <a href="../index.xhtml" class="gallery-path-home">HOME</a> <span style="color: #61DAFB"> / </span><span style="color:#FC8F37;">USER HOME</span>
+            </div>
+        </div>
+        <p:sidebar widgetVar="sidebar1">
+            <div class="menuTitle">
+                #{registrationController.currentUsername}
+            </div>
+            <div class="navbar-container">
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa-solid fa-house"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Home" action="gallery.xhtml?faces-redirect=true" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa fa-car"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="All Tours" action="#{userController.redirectAllTours()}" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa-solid fa-cart-shopping"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="View Cart" styleClass="ui-button-flat inner-button nav-unique"></h:commandButton>
+                        </h:form>
+                        <div class="badge-container">
+                            <p:badge class="fa-beat" value="3" severity="danger"></p:badge>
+                        </div>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h2 class="icon-container"><i class="fa fa-comments"></i></h2>
+                        <h:form class="button-container">
+                            <h:commandButton value="Add Complaint" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa-solid fa-user-pen"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Edit Profile" action="#{userController.editProfileRedirect()}" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa-solid fa-pen-to-square"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Edit Password" action="#{userController.editPasswordRedirect()}" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h2 class="icon-container"><i class="fa-solid fa-face-smile"></i></h2>
+                        <h:form class="button-container">
+                            <h:commandButton value="Give Feedback" action="#{userController.goTofeedback()}" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h2 class="icon-container"><i class="fa-solid fa-database"></i></h2>
+                        <h:form class="button-container">
+                            <h:commandButton value="View History" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="menuContent">
+                    <div class="logout-container inner-container">
+                        <h3 class="icon-container"><i class="fa fa-sign-out"></i></h3>
+                        <h:form class="button-container">
+                            <h:commandButton value="Signout" action="#{userController.redirectLogout()}" styleClass="ui-button-flat inner-button"></h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </p:sidebar>
+        <!--Page Content-->
+        <div>
+            <div class="tour-container">
+                
+            </div>
+        </div>
+        <div class="all-dialogs">
+            <!--Edit Profile Dialog-->
+            <p:dialog widgetVar="editProfile" draggable="false" closable="false" minHeight="60" width="800" showEffect="fade" modal="true">
+                <h:form>
+                    <div style="display:flex; justify-content:center; width:100%; margin-top: -4.1%;">
+                        <h2>EDIT USER PROFILE</h2>
+                    </div><br/>
+                    <div class="edit-content">
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-user"></i>
+                            <p:inputText placeholder="Enter Username" disabled="true" value="#{userController.user_info.username}"  style="width: 100%;" />
+                        </span>
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-file-signature"></i>
+                            <p:inputText placeholder="Enter First Name" value="#{userController.user_info.fname}"  style="width: 100%;" />
+                        </span>
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-file-signature"></i>
+                            <p:inputText placeholder="Enter Last Name" value="#{userController.user_info.lname}"  style="width: 100%;" />
+                        </span>
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-envelope"></i>
+                            <p:inputText placeholder="Enter Email" value="#{userController.user_info.email}"  style="width: 100%;" />
+                        </span>
+                    </div>
+                    <div class="add-vehicle-btn">
+                        <p:commandButton value="Edit Profile" action="#{userController.performUserUpdate()}" styleClass="ui-button-raised ui-button-info" style="margin-right: 2%;" />
+                        <p:commandButton value="Close" action="#{userController.closeEditProfileDialog()}" styleClass="ui-button-raised ui-button-danger" />
+                    </div>
+                </h:form>
+            </p:dialog>
+            <p:dialog widgetVar="editProfileEmptyField" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Any of the fields should not be empty
+                </h4>
+            </p:dialog>
+            <p:dialog widgetVar="profileEdited" closable="false" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-check" style="color:green;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Profile Edited Successfully
+                </h4>
+                <div class="add-vehicle-btn">
+                    <p:commandButton value="Close" action="#{userController.closeEditProfileDialog()}" styleClass="ui-button-raised ui-button-danger" />
+                </div>
+            </p:dialog>
+            <!--Edit Password Dialog-->
+            <p:dialog widgetVar="editPassword" draggable="false" closable="false" minHeight="60" width="800" showEffect="fade" modal="true">
+                <h:form>
+                    <div style="display:flex; justify-content:center; width:100%; margin-top: -4.1%;">
+                        <h2>EDIT PASSWORD</h2>
+                    </div><br/>
+                    <div class="edit-content">
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-lock"></i>
+                            <p:password placeholder="Enter Current Password" value="#{userController.current_password}"  style="width: 100%;" />
+                        </span>
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-lock"></i>
+                            <p:password placeholder="Enter New Password" value="#{userController.new_password}"  style="width: 100%;" />
+                        </span>
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-lock"></i>
+                            <p:password placeholder="Confirm New Password" value="#{userController.confirm_new_password}"  style="width: 100%;" />
+                        </span>
+                    </div>
+                    <div class="add-vehicle-btn">
+                        <p:commandButton value="Edit Password" action="#{userController.performPasswordUpdate()}" styleClass="ui-button-raised ui-button-info" style="margin-right: 2%;" />
+                        <p:commandButton value="Close" action="#{userController.closeEditPasswordDialog()}" styleClass="ui-button-raised ui-button-danger" />
+                    </div>
+                </h:form>
+            </p:dialog>
+            <p:dialog widgetVar="emptyPasswordField" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Any of the fields should not be empty
+                </h4>
+            </p:dialog>
+            <p:dialog widgetVar="incorrectCurrentPassword" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Incorrect Current Password
+                </h4>
+            </p:dialog>
+            <p:dialog widgetVar="sameCurrentPassword" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    New Password cannot be same as old Password
+                </h4>
+            </p:dialog>
+            <p:dialog widgetVar="invalidNewConfirmPassword" minHeight="30" width="600" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    New Password and Confirm New Password are not matching
+                </h4>
+            </p:dialog>
+            <p:dialog widgetVar="passwordUpdated" closable="false" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-check" style="color:green;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Password Edited Successfully
+                </h4>
+                <div class="add-vehicle-btn">
+                    <p:commandButton value="Close" action="#{userController.passwordChangedSuccessfull()}" styleClass="ui-button-raised ui-button-danger" />
+                </div>
+            </p:dialog>
+        </div>
     </h:body>
 </html>
 

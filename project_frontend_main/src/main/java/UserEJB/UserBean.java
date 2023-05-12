@@ -84,14 +84,45 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
-    public List getUserData(String uname) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Usertb getUserData(String uname) {
+        Usertb mylist = new Usertb();
+        try {
+            String url = "http://localhost:9090/user/getdata/" + uname;
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            Usertb myrec = mapper.readValue(response.body().toString(), Usertb.class);
+            mylist = myrec;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return mylist;
     }
 
     @Override
-    public String updateProfile(String uname, String fname, String lname, String email, String pass) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void updateUserData(Usertb u) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String requestBody = mapper.writeValueAsString(u);
+
+            String url = "http://localhost:9090/user/updatedata";
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
+
 
     @Override
     public List getVehicle(int tourid) {
