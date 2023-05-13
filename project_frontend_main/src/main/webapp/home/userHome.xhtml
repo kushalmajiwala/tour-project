@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
         <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
@@ -19,7 +20,7 @@
                 line-height: 35px;
             }
             .social-container {
-                margin-left: 5%;
+                margin-left: 3%;
             }
             .phone-container {
                 margin-right: 2%;
@@ -125,11 +126,52 @@
             h4{
                 text-align: center;
             }
-            .whole-page {
-                background-color: #E0E0F0;
-            }
             .nav-unique {
                 padding-left: 4.5%;
+            }
+            .tour-container {
+                width: 100%;
+                display: flex;
+            }
+            .content-container {
+                float: right;
+                width: 60%;
+            }
+            .image-container {
+                width: 40%;
+                height: 320px;
+            }
+            .tour-name {
+                /*background-color: blue;*/
+                width: 100%;
+                height: 25%;
+                margin-top: -3%;
+                text-align: center;
+                border-bottom: 1px solid #9C9CB2;
+            }
+            .basic-info, .basic-info1 {
+                color:#ff5722;
+                display: flex;
+                justify-content: space-around;
+                width: 100%;
+                border-bottom: 1px solid #9C9CB2;
+            }
+            .basic-info {
+                padding: 3%;
+            }
+            .basic-info1 {
+                padding: 3%;
+                padding-top: 7%;
+                border: none;
+            }
+            .mybtn {
+                height: 40px;
+                width: 23%;
+            }
+            .page-title {
+                display: flex;
+                justify-content: center;
+
             }
         </style>
     </h:head>
@@ -213,7 +255,7 @@
                     <div class="logout-container inner-container">
                         <h2 class="icon-container"><i class="fa-solid fa-face-smile"></i></h2>
                         <h:form class="button-container">
-                            <h:commandButton value="Give Feedback" action="#{userController.goTofeedback()}" styleClass="ui-button-flat inner-button"></h:commandButton>
+                            <h:commandButton value="Give Feedback" styleClass="ui-button-flat inner-button"></h:commandButton>
                         </h:form>
                     </div>
                 </div>
@@ -237,8 +279,40 @@
         </p:sidebar>
         <!--Page Content-->
         <div>
+            <div class="page-title">
+                <h1>AVAILABLE TOURS</h1>
+            </div>
             <div class="tour-container">
-                
+                <f:view>
+                    <h:form>
+                        <p:dataTable value="#{userController.allTours}" var="item">
+                            <p:column style="border: none;background-color: #F3F3F3;">
+                                <p:card style="width: 100%; margin-bottom: 2em; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius: 10px;">
+                                    <div class="tour-container">
+                                        <div class="mb-3 image-container">
+                                            <p:graphicImage url="../images#{item.tour_pic}" styleClass="product-image" height="100%" width="100%"/>
+                                        </div>
+                                        <div class="content-container">
+                                            <div class="tour-name">
+                                                <h1>#{item.tour_title}</h1>
+                                            </div>
+                                            <div class="basic-info">
+                                                <h2 style="padding-top: 0.5%;"><span>&#8377;</span>#{item.per_person_price}</h2>
+                                                <h2 style="padding-top: 0.5%;"><i class="pi pi-clock"></i> <span style="color: black;">#{userController.getDayDiff(item.start_date, item.end_date)}D / #{userController.getDayDiff(item.start_date, item.end_date) - 1}N</span></h2>
+                                                <h2 style="padding-top: 0.5%;"><i class="pi pi-calendar"></i> <span style="color: black;">#{item.start_date}</span></h2>
+                                                <h2 style="padding-top: 0.5%;"><i class="pi pi-stopwatch"></i> <span style="color: black;">#{item.journey_begin_time}</span></h2>
+                                            </div>
+                                            <div class="basic-info1">
+                                                <p:commandButton icon="fa-solid fa-circle-info" action="#{userController.populate_places(item.tourmasterid, item.tour_pic, item.start_date, item.end_date, item.tour_title, item.per_person_price)}" value="View Details"  styleClass="ui-button-raised ui-button-info mybtn" />
+                                                <p:commandButton icon="fa-solid fa-bookmark" value="Book Now" styleClass="ui-button-raised ui-button-info mybtn" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </p:card>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
             </div>
         </div>
         <div class="all-dialogs">
