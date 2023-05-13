@@ -171,7 +171,6 @@
             .page-title {
                 display: flex;
                 justify-content: center;
-
             }
         </style>
     </h:head>
@@ -180,7 +179,7 @@
             <div class="social-container">
                 <a href="mailto: kushalmajiwala1212@gmail.com"><i class="fa-solid fa-envelope"></i></a>
                 <a href="https://api.whatsapp.com/send?phone=919106884674" target="blank"><i class="fa-brands fa-whatsapp waicon"></i></a>
-                <a href="https://www.instagram.com/kushal__1212/" target="blank"><i class="fa-brands fa-instagram igicon"></i></a>
+                <a href="https://www.instagram.com/unique_tours_123/" target="blank"><i class="fa-brands fa-instagram igicon"></i></a>
             </div>
             <div class="phone-container">
                 <a href=""><i class="fa-solid fa-phone"></i></a> +91 9106884674
@@ -255,7 +254,7 @@
                     <div class="logout-container inner-container">
                         <h2 class="icon-container"><i class="fa-solid fa-face-smile"></i></h2>
                         <h:form class="button-container">
-                            <h:commandButton value="Give Feedback" styleClass="ui-button-flat inner-button"></h:commandButton>
+                            <h:commandButton value="Give Feedback" action="#{userController.openGiveFeedbackDialog()}" styleClass="ui-button-flat inner-button"></h:commandButton>
                         </h:form>
                     </div>
                 </div>
@@ -432,6 +431,51 @@
                 </h4>
                 <div class="add-vehicle-btn">
                     <p:commandButton value="Close" action="#{userController.passwordChangedSuccessfull()}" styleClass="ui-button-raised ui-button-danger" />
+                </div>
+            </p:dialog>
+            <!--Give Rating Dialog-->
+            <p:dialog widgetVar="giveFeedback" draggable="false" closable="false" minHeight="60" width="800" showEffect="fade" modal="true">
+                <h:form>
+                    <div style="display:flex; justify-content:center; width:100%; margin-top: -4.1%;">
+                        <h2>LEAVE A REVIEW</h2>
+                    </div><br/>
+                    <div class="edit-content">
+                        <h5 style="display: flex; justify-content: center;">Click the stars to rate us</h5>
+                        <div style="display: flex; justify-content: center;">
+                            <p:rating value="#{userController.rating}" cancel="false"/>
+                        </div>
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-file-signature"></i>
+                            <p:inputText placeholder="Enter Subject" value="#{userController.subject}"  style="width: 100%;" />
+                        </span>
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-message"></i>
+                            <p:inputTextarea placeholder="Enter Message" rows="4" value="#{userController.message}"  style="width: 100%;" />
+                        </span>
+                    </div>
+                    <div class="add-vehicle-btn">
+                        <p:commandButton value="Submit" action="#{userController.submitRating()}" styleClass="ui-button-raised ui-button-info" style="margin-right: 2%;" />
+                        <p:commandButton value="Close" action="#{userController.closeGiveFeedbackDialog()}" styleClass="ui-button-raised ui-button-danger" />
+                    </div>
+                </h:form>
+            </p:dialog>
+            <p:dialog widgetVar="giveFeedbackEmptyField" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Any of the fields should not be empty
+                </h4>
+            </p:dialog>
+            <p:dialog widgetVar="feedbackSubmitted" closable="false" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-check" style="color:green;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Rating Submitted Successfully
+                </h4>
+                <div class="add-vehicle-btn">
+                    <p:commandButton value="Close" action="#{userController.closeGiveFeedbackDialog()}" styleClass="ui-button-raised ui-button-danger" />
                 </div>
             </p:dialog>
         </div>

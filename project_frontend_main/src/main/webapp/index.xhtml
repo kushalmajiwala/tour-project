@@ -6,6 +6,8 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Unique Travels</title>
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
@@ -228,6 +230,17 @@
                 height: 250px;
                 box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
             }
+            .rating-star {
+                font-size: 60px;
+            }
+            .rating-container {
+                margin-top: 4%;
+                display: flex;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                justify-content: center;
+            }
         </style>
     </h:head>
     <h:body> 
@@ -240,10 +253,11 @@
                 </div>
                 <ul class="nav-links" style="padding-top: 1%;">
                     <li><a href="index.xhtml#home" class="decorate">Home</a></li>
-                    <li><a href="#about" class="decorate">About Us</a></li>
+                    <li><a href="#about" class="decorate">About</a></li>
                     <li><a href="home/gallery.xhtml" class="decorate">Gallery</a></li>
                     <li><a href="#upcoming-tours" class="decorate">Upcoming Tours</a></li>
-                    <li><a href="#contact" class="decorate">Contact Us</a></li>
+                    <li><a href="#rating" class="decorate">Rating</a></li>
+                    <li><a href="#contact" class="decorate">Contact</a></li>
                     <li><h:form><h:commandButton class="login-button" value="Login" action="#{registrationController.redirectLogin()}"></h:commandButton></h:form></li>
                     <li><a href="home/register.xhtml"><button class="register-button" href="#">Register</button></a></li>
                     <p:outputPanel id="sendTooltip"><li><p:link href="https://wa.me/919106884674/?text=Hello,%20I%20am%20Interested%20in%20your%20tour" target="blank" ><button class="send-button"><i class="pi pi-whatsapp send-text"></i></button></p:link></li></p:outputPanel>
@@ -259,7 +273,6 @@
                 <div class="w3-col m6 w3-padding-large w3-hide-small">
                     <img src="images/aboutimage.jpg" class="w3-round w3-image w3-opacity-min" alt="Table Setting" width="600" height="750"/>
                 </div>
-
                 <div class="w3-col m6 w3-padding-large">
                     <h1 class="w3-center">About Our Tours</h1><br/>
                     <h5 class="w3-center">Tradition since 2013</h5>
@@ -300,9 +313,28 @@
                 </div>
             </div>
         </div>
+        <div id="rating">
+            <div class="w3-row w3-padding-64 w3-theme-l5 w3-light-grey" style="display: inline-block;
+                vertical-align: middle;">
+                <div class="w3-col m6 w3-padding-large w3-hide-small rating-container">
+                    <span style="font-size: 80px; margin-right: 5%;">#{userController.averageRating}</span>
+                    <i class="fa-solid fa-star rating-star" style="color: #{userController.star_color1};"></i>
+                    <i class="fa-solid fa-star rating-star" style="color: #{userController.star_color2};"></i>
+                    <i class="fa-solid fa-star rating-star" style="color: #{userController.star_color3};"></i>
+                    <i class="fa-solid fa-star rating-star" style="color: #{userController.star_color4};"></i>
+                    <i class="fa-solid fa-star rating-star" style="color: #{userController.star_color5};"></i>
+                </div>
+                <div class="w3-col m6 w3-padding-large" style="margin-top: -3%;">
+                    <h1 class="w3-center">Our Ratings</h1><br/>
+                    <h5 class="w3-center">Tradition since 2013</h5>
+                    <p class="w3-large">Out ratings are honest feedback given by our past tourists. they give rating based on the services we provide throughout our tour journey.</p>
+                    <p class="w3-large w3-text-grey w3-hide-medium">If you have completed tour journey with us before then you can also give your honest feedback on our web application. Login is required to give rating or feedback.</p>
+                </div>
+            </div>
+        </div>
         <div id="contact">
             <div
-                class="w3-container w3-padding-64 w3-theme-l5 w3-light-grey"
+                class="w3-container w3-padding-64 w3-theme-l5 w3-light-white"
                 id="contact"
                 >
                 <div class="w3-row">

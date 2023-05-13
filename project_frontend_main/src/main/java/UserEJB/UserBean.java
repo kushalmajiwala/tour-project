@@ -1,6 +1,7 @@
 package UserEJB;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import entity.Feedback;
 import entity.Gallery;
 import entity.ProjectgroupsPK;
 import entity.Tourmaster;
@@ -122,7 +123,6 @@ public class UserBean implements UserBeanLocal {
             System.out.println(e);
         }
     }
-
 
     @Override
     public List getVehicle(int tourid) {
@@ -267,8 +267,26 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
-    public String addFeedback(String uname, String rating, String subject, String message) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void addFeedback(Feedback f) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String requestBody = mapper.writeValueAsString(f);
+
+            String url = "http://localhost:9090/feedback/addfeedback";
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            System.out.println("Group added Successfully...");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -301,4 +319,23 @@ public class UserBean implements UserBeanLocal {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    @Override
+    public List getFeedback() {
+        List feedback_record = new ArrayList();
+        try {
+            String url = "http://localhost:9090/feedback/getallfeedback";
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            Feedback[] myrec = mapper.readValue(response.body().toString(), Feedback[].class);
+            for (Feedback rec : myrec) {
+                feedback_record.add(rec);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return feedback_record;
+    }
 }

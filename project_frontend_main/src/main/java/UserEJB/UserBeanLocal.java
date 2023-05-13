@@ -1,6 +1,7 @@
 
 package UserEJB;
 
+import entity.Feedback;
 import entity.Tourplace;
 import entity.Usertb;
 import java.sql.Date;
@@ -48,7 +49,7 @@ public interface UserBeanLocal {
     
     public List getGalleryData(String tourname);
     
-    public String addFeedback(String uname, String rating, String subject, String message);
+    public void addFeedback(Feedback f);
     
     public String addComplaint(String uname, String subject, String message);
     
@@ -61,4 +62,6 @@ public interface UserBeanLocal {
     public String getCart(String uname);
     
     public String deleteCart(int cartid);
+    
+    public List getFeedback();
 }

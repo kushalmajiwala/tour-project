@@ -1,6 +1,7 @@
 package Controllers;
 
 import UserEJB.UserBeanLocal;
+import entity.Feedback;
 import entity.Tourmaster;
 import entity.Tourplace;
 import entity.Usertb;
@@ -419,5 +420,208 @@ public class UserController implements Serializable {
 
     public String redirectToUserHome() {
         return "userHome.xhtml?faces-redirect=true";
+    }
+    //Give Feedback
+    int rating = 0;
+    String subject;
+    String message;
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public void openGiveFeedbackDialog() {
+        rating = 0;
+        subject = "";
+        message = "";
+        current.executeScript("PF('giveFeedback').show();");
+    }
+
+    public String closeGiveFeedbackDialog() {
+        rating = 0;
+        subject = "";
+        message = "";
+        return "userHome.xhtml?faces-redirect=true";
+    }
+
+    public void submitRating() {
+        String current_rating = "";
+        System.out.println(rating + " - " + subject + " - " + message);
+        if (rating == 0 || subject.isEmpty() || message.isEmpty()) {
+            current.executeScript("PF('giveFeedbackEmptyField').show();");
+        } else {
+            switch (rating) {
+                case 1:
+                    current_rating = "one";
+                    break;
+                case 2:
+                    current_rating = "two";
+                    break;
+                case 3:
+                    current_rating = "three";
+                    break;
+                case 4:
+                    current_rating = "four";
+                    break;
+                case 5:
+                    current_rating = "five";
+                    break;
+                default:
+                    break;
+            }
+            Feedback f = new Feedback();
+            f.setUsername(getCurrentUsername());
+            f.setRating(current_rating);
+            f.setSubject(subject);
+            f.setMessage(message);
+            ubl.addFeedback(f);
+            current.executeScript("PF('feedbackSubmitted').show();");
+            rating = 0;
+            subject = "";
+            message = "";
+        }
+    }
+    //Rating Work
+    String star_color1 = "#8c8c8c";
+    String star_color2 = "#8c8c8c";
+    String star_color3 = "#8c8c8c";
+    String star_color4 = "#8c8c8c";
+    String star_color5 = "#8c8c8c";
+    float avg_rating = 0;
+
+    public float getAvg_rating() {
+        return avg_rating;
+    }
+
+    public void setAvg_rating(float avg_rating) {
+        this.avg_rating = avg_rating;
+    }
+
+    public String getStar_color1() {
+        return star_color1;
+    }
+
+    public void setStar_color1(String star_color1) {
+        this.star_color1 = star_color1;
+    }
+
+    public String getStar_color2() {
+        return star_color2;
+    }
+
+    public void setStar_color2(String star_color2) {
+        this.star_color2 = star_color2;
+    }
+
+    public String getStar_color3() {
+        return star_color3;
+    }
+
+    public void setStar_color3(String star_color3) {
+        this.star_color3 = star_color3;
+    }
+
+    public String getStar_color4() {
+        return star_color4;
+    }
+
+    public void setStar_color4(String star_color4) {
+        this.star_color4 = star_color4;
+    }
+
+    public String getStar_color5() {
+        return star_color5;
+    }
+
+    public void setStar_color5(String star_color5) {
+        this.star_color5 = star_color5;
+    }
+
+    public float getAverageRating() {
+        avg_rating = 0;
+        int total_feedback = 0;
+        int temp_num = 0;
+        List<Feedback> all_feedback = new ArrayList<>();
+        all_feedback = ubl.getFeedback();
+        total_feedback = all_feedback.size();
+        for (Feedback f : all_feedback) {
+            switch (f.getRating()) {
+                case "one":
+                    avg_rating += 1;
+                    break;
+                case "two":
+                    avg_rating += 2;
+                    break;
+                case "three":
+                    avg_rating += 3;
+                    break;
+                case "four":
+                    avg_rating += 4;
+                    break;
+                case "five":
+                    avg_rating += 5;
+                    break;
+                default:
+                    break;
+            }
+        }
+        avg_rating = avg_rating / total_feedback;
+        if (avg_rating > 0 && avg_rating <= 1.5) {
+            star_color1 = "#1D3AB8";
+            star_color2 = "#8c8c8c";
+            star_color3 = "#8c8c8c";
+            star_color4 = "#8c8c8c";
+            star_color5 = "#8c8c8c";
+        } else if (avg_rating > 1.5 && avg_rating <= 2.5) {
+            star_color1 = "#1D3AB8";
+            star_color2 = "#1D3AB8";
+            star_color3 = "#8c8c8c";
+            star_color4 = "#8c8c8c";
+            star_color5 = "#8c8c8c";
+        } else if (avg_rating > 2.5 && avg_rating <= 3.5) {
+            star_color1 = "#1D3AB8";
+            star_color2 = "#1D3AB8";
+            star_color3 = "#1D3AB8";
+            star_color4 = "#8c8c8c";
+            star_color5 = "#8c8c8c";
+        } else if (avg_rating > 3.5 && avg_rating <= 4.5) {
+            star_color1 = "#1D3AB8";
+            star_color2 = "#1D3AB8";
+            star_color3 = "#1D3AB8";
+            star_color4 = "#1D3AB8";
+            star_color5 = "#8c8c8c";
+        } else if (avg_rating > 4.5) {
+            star_color1 = "#1D3AB8";
+            star_color2 = "#1D3AB8";
+            star_color3 = "#1D3AB8";
+            star_color4 = "#1D3AB8";
+            star_color5 = "#1D3AB8";
+        }
+        return round(avg_rating, 1);
+    }
+
+    private static float round(double value, int precision) {
+        int scale = (int) Math.pow(10, precision);
+        return (float) Math.round(value * scale) / scale;
     }
 }
