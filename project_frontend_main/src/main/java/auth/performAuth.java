@@ -57,7 +57,7 @@ public class performAuth implements HttpAuthenticationMechanism, Serializable {
                     }
                 } else {
                     System.out.println("Else Executed");
-                    res.sendRedirect("loginError.xhtml");
+                    res.sendRedirect("loginError.xhtml?faces-redirect=true");
                 }
             }
         } catch (Exception e) {

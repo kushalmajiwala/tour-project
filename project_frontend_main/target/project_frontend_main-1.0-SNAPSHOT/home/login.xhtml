@@ -2,13 +2,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      >
     <h:head>
         <title>Facelet Title</title>
-        <script
-            src="https://kit.fontawesome.com/66aa7c98b3.js"
-            crossorigin="anonymous"
-        ></script>
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             *{
                 margin: 0;
@@ -64,11 +63,15 @@
             }
 
             span {
-                margin: 0 2rem;
-                color: blue;
-                cursor: pointer;
+                /*margin: 0 2rem;*/
+                /*cursor: pointer;*/
             }
-
+            .input-title {
+                width: 100%;
+                margin-top: 5%;
+                display: flex;
+                justify-content: center;
+            }
             button,  input[type="submit"] {
                 margin: 2rem;
                 margin-bottom: 1.5rem;
@@ -184,7 +187,11 @@
             }
             .closeBtn:hover {
                 color: #131418;
-
+            }
+            .add-vehicle-btn {
+                display: flex;
+                justify-content: right;
+                margin-top: 10%;
             }
         </style>
     </h:head>
@@ -210,6 +217,7 @@
                 <input type="password" name="password" id="password" />
                 <input type="submit" value="Login" name="submit"></input>
                 <h4>Not Registered Yet ? <a href="register.xhtml">Register</a></h4>
+                <h4 style="margin-top: -5%;"><h:form><h:commandLink value="Forgot Password ?" onclick="PF('takeUsername').show()"></h:commandLink></h:form></h4>
             </form>
         </div>
         <div class="all-dialogs">
@@ -220,6 +228,107 @@
                 <h4 class="m-0">
                     Invalid Username or Password
                 </h4>
+            </p:dialog>
+        </div>
+        <div class="all-dialogs">
+            <p:dialog widgetVar="editPassword" draggable="false" closable="false" minHeight="60" width="800" showEffect="fade" modal="true">
+                <h:form>
+                    <div style="display:flex; justify-content:center; width:100%;">
+                        <h2>EDIT PASSWORD</h2>
+                    </div><br/>
+                    <div class="edit-content">
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-lock"></i>
+                            <p:password placeholder="Enter New Password" value="#{registrationController.new_password}"  style="width: 90%;" />
+                        </span>
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-lock"></i>
+                            <p:password placeholder="Confirm New Password" value="#{registrationController.confirm_new_password}"  style="width: 90%;" />
+                        </span>
+                    </div>
+                    <div class="add-vehicle-btn">
+                        <p:commandButton value="Edit Password" action="#{registrationController.editPassword()}" styleClass="ui-button-raised ui-button-info" style="margin-right: 2%;" />
+                        <p:commandButton value="Close" action="#{registrationController.closeEditPasswordDialog()}" styleClass="ui-button-raised ui-button-danger" />
+                    </div>
+                </h:form>
+            </p:dialog>
+            <p:dialog widgetVar="takeUsername" draggable="false" minHeight="70" width="550" showEffect="fade" modal="true">
+                <h2 style="text-align: center; margin-top: -1%;">USERNAME</h2>
+                <h:form>
+                    <span class="ui-input-icon-left input-title">
+                        <i class="fa-solid fa-user"></i>
+                        <p:inputText placeholder="Enter Your Username" value="#{registrationController.current_username}" style="width: 90%;" />
+                    </span>
+                    <div class="add-vehicle-btn">
+                        <p:commandButton value="Send" action="#{registrationController.submitUsernameForForgotPassword()}"  styleClass="ui-button-raised ui-button-info" style="margin-right: 2%; color: white;" />
+                    </div>
+                </h:form>
+            </p:dialog>
+            <p:dialog widgetVar="forgotEmptyField" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h3 class="m-0" style="text-align: center;">
+                    Please Enter the Username
+                </h3>
+            </p:dialog>
+            <p:dialog widgetVar="invalidUsername" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h3 class="m-0" style="text-align: center; margin-bottom: 10%;">
+                    Please enter valid username
+                </h3>
+            </p:dialog>
+            <p:dialog widgetVar="getVerificationCode" draggable="false" minHeight="70" width="550" showEffect="fade" modal="true">
+                <h2 style="text-align: center; margin-top: -1%;">VERIFICATION CODE</h2>
+                <h6 style="text-align: center; margin-top: 2%;">Enter Verification Code which is sent to the email registered with your username</h6>
+                <h:form>
+                    <span class="ui-input-icon-left input-title">
+                        <i class="fa-solid fa-lock"></i>
+                        <p:inputText placeholder="Enter Verification Code" value="#{registrationController.user_code}" style="width: 90%;" />
+                    </span>
+                    <div class="add-vehicle-btn">
+                        <p:commandButton value="Submit" action="#{registrationController.checkVerificationCode()}"  styleClass="ui-button-raised ui-button-info" style="margin-right: 2%; color: white;" />
+                    </div>
+                </h:form>
+            </p:dialog>
+            <p:dialog widgetVar="invalidVerificationCode" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h3 class="m-0" style="text-align: center; margin-bottom: 10%;">
+                    Invalid Verification Code
+                </h3>
+            </p:dialog>
+            <p:dialog widgetVar="emptyPasswordField" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h3 class="m-0" style="text-align: center; margin-bottom: 10%;">
+                    Any of the fields should not be empty
+                </h3>
+            </p:dialog>
+            <p:dialog widgetVar="invalidNewConfirmPassword" minHeight="30" width="630" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h3 class="m-0" style="text-align: center; margin-bottom: 10%;">
+                    New Password and Confirm Password are not matching
+                </h3>
+            </p:dialog>
+            <p:dialog widgetVar="passwordUpdated" closable="false" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-check" style="color:green;font-size: 60px;"></i>
+                </div><br/>
+                <h:form>
+                <h3 class="m-0" style="text-align: center; margin-bottom: 10%;">
+                    Password Edited Successfully
+                </h3>
+                    <div class="add-vehicle-btn">
+                        <p:commandButton value="Close" action="#{registrationController.closePasswordEditedDialog()}" styleClass="ui-button-raised ui-button-danger" />
+                    </div>
+                </h:form>
             </p:dialog>
         </div>
     </h:body>

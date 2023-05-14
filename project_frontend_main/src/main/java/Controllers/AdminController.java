@@ -17,8 +17,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
+import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 import org.primefaces.PrimeFaces;
@@ -934,7 +943,7 @@ public class AdminController implements Serializable {
         List<String> labels = new ArrayList<>();
         labels.add("Admin");
         labels.add("User");
-        
+
         data.setLabels(labels);
         barModel.setData(data);
     }

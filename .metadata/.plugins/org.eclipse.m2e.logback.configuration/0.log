@@ -544,3 +544,7 @@
 2023-05-12 16:45:26,134 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
 2023-05-13 10:09:14,232 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
 2023-05-13 16:21:39,308 [Worker-3: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2023-05-14 09:34:43,113 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2023-05-14 16:46:22,252 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2023-05-14 16:46:40,511 [Worker-9: Launching Executing test in E__programming_sem8_project_Project_Backend] INFO  o.e.m.i.launch.MavenLaunchDelegate - E:\programming\sem8_project\Project_Backend
+2023-05-14 16:46:40,513 [Worker-9: Launching Executing test in E__programming_sem8_project_Project_Backend] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B test -Dstyle.color=always
