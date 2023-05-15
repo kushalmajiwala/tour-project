@@ -268,7 +268,7 @@
                 <div style="display:flex; justify-content:center; width:100%;">
                     <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
                 </div><br/>
-                <h3 class="m-0" style="text-align: center;">
+                <h3 class="m-0" style="text-align: center; margin-bottom: 10%;">
                     Please Enter the Username
                 </h3>
             </p:dialog>
@@ -289,6 +289,7 @@
                         <p:inputText placeholder="Enter Verification Code" value="#{registrationController.user_code}" style="width: 90%;" />
                     </span>
                     <div class="add-vehicle-btn">
+                        <p:commandButton value="Resend Code" action="#{registrationController.sendOTP()}"  styleClass="ui-button-raised" style="margin-right: 2%; color: white;" />
                         <p:commandButton value="Submit" action="#{registrationController.checkVerificationCode()}"  styleClass="ui-button-raised ui-button-info" style="margin-right: 2%; color: white;" />
                     </div>
                 </h:form>
@@ -329,6 +330,14 @@
                         <p:commandButton value="Close" action="#{registrationController.closePasswordEditedDialog()}" styleClass="ui-button-raised ui-button-danger" />
                     </div>
                 </h:form>
+            </p:dialog>
+             <p:dialog widgetVar="newVerificationCode" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-check" style="color:green;font-size: 60px;"></i>
+                </div><br/>
+                <h3 class="m-0" style="text-align: center; margin-bottom: 10%;">
+                    New Verification Code is sent
+                </h3>
             </p:dialog>
         </div>
     </h:body>

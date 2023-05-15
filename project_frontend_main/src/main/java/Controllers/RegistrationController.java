@@ -281,13 +281,20 @@ public class RegistrationController implements Serializable {
             actual_code = getRandomNumberString();
             current_username = forgotUser.getUsername();
             send("kushalmajiwala1212@gmail.com", "vqbcqcjhyfkfhdpn", forgotUser.getEmail(), "change password", "Your OTP -> " + actual_code);
-
             current.executeScript("PF('getVerificationCode').show();");
         } else {
             actual_code = "";
             user_code = "";
             current.executeScript("PF('invalidUsername').show();");
         }
+    }
+
+    public void sendOTP() {
+        forgotUser = ubl.getUserData(current_username);
+        actual_code = getRandomNumberString();
+        current_username = forgotUser.getUsername();
+        send("kushalmajiwala1212@gmail.com", "vqbcqcjhyfkfhdpn", forgotUser.getEmail(), "change password", "Your OTP -> " + actual_code);
+        current.executeScript("PF('newVerificationCode').show();");
     }
 
     public void checkVerificationCode() {
@@ -305,7 +312,7 @@ public class RegistrationController implements Serializable {
 
         if (new_password.isEmpty() || confirm_new_password.isEmpty()) {
             current.executeScript("PF('emptyPasswordField').show();");
-        }else if (!new_password.equals(confirm_new_password)) {
+        } else if (!new_password.equals(confirm_new_password)) {
             current.executeScript("PF('invalidNewConfirmPassword').show();");
         } else {
             encrypted_current_password = pb.generate(new_password.toCharArray());
@@ -324,7 +331,8 @@ public class RegistrationController implements Serializable {
         current_username = "";
         return "login.xhtml?faces-redirect=true";
     }
-     public String closePasswordEditedDialog() {
+
+    public String closePasswordEditedDialog() {
         forgotUser = new Usertb();
         actual_code = "";
         user_code = "";
