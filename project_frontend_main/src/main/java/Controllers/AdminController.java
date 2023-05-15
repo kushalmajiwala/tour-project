@@ -17,17 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
-import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 import org.primefaces.PrimeFaces;
@@ -946,5 +937,59 @@ public class AdminController implements Serializable {
 
         data.setLabels(labels);
         barModel.setData(data);
+    }
+    //Toggle Theme Change
+    String color = "black";
+    String bgcolor = "white";
+    String themeIcon = "fa-solid fa-moon";
+    String themeName = "Dark Mode";
+
+    public String getThemeIcon() {
+        return themeIcon;
+    }
+
+    public void setThemeIcon(String themeIcon) {
+        this.themeIcon = themeIcon;
+    }
+
+    public String getThemeName() {
+        return themeName;
+    }
+
+    public void setThemeName(String themeName) {
+        this.themeName = themeName;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getBgcolor() {
+        return bgcolor;
+    }
+
+    public void setBgcolor(String bgcolor) {
+        this.bgcolor = bgcolor;
+    }
+
+    public String changeTheme() {
+        System.out.println("Changing Theme");
+        System.out.println(color);
+        if (color.equals("black")) {
+            color = "white";
+            bgcolor = "#343434";
+            themeIcon = "fa-solid fa-sun";
+            themeName = "Light Mode";
+        } else {
+            color = "black";
+            bgcolor = "white";
+            themeIcon = "fa-solid fa-moon";
+            themeName = "Dark Mode";
+        }
+        return "adminHome.xhtml?faces-redirect=true";
     }
 }

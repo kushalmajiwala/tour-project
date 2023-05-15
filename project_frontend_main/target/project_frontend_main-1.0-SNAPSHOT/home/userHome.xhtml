@@ -170,7 +170,12 @@
             }
             .page-title {
                 display: flex;
-                justify-content: center;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .whole-page {
+                background-color: #{userController.bgcolor};
+                color: #{userController.color};
             }
         </style>
     </h:head>
@@ -280,6 +285,7 @@
         <div>
             <div class="page-title">
                 <h1>AVAILABLE TOURS</h1>
+                <p:commandButton icon="#{userController.themeIcon}" value="#{userController.themeName}" action="#{userController.changeTheme()}" styleClass="ui-button-raised" style="color: white; background-color: black; height: 50px; border:none; border-radius: 15px;" />
             </div>
             <div class="tour-container">
                 <f:view>

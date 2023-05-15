@@ -624,4 +624,58 @@ public class UserController implements Serializable {
         int scale = (int) Math.pow(10, precision);
         return (float) Math.round(value * scale) / scale;
     }
+    //Toggle Theme Change
+    String color = "black";
+    String bgcolor = "white";
+    String themeIcon = "fa-solid fa-moon";
+    String themeName = "Dark Mode";
+
+    public String getThemeIcon() {
+        return themeIcon;
+    }
+
+    public void setThemeIcon(String themeIcon) {
+        this.themeIcon = themeIcon;
+    }
+
+    public String getThemeName() {
+        return themeName;
+    }
+
+    public void setThemeName(String themeName) {
+        this.themeName = themeName;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getBgcolor() {
+        return bgcolor;
+    }
+
+    public void setBgcolor(String bgcolor) {
+        this.bgcolor = bgcolor;
+    }
+
+    public String changeTheme() {
+        System.out.println("Changing Theme");
+        System.out.println(color);
+        if (color.equals("black")) {
+            color = "white";
+            bgcolor = "#343434";
+            themeIcon = "fa-solid fa-sun";
+            themeName = "Light Mode";
+        } else {
+            color = "black";
+            bgcolor = "white";
+            themeIcon = "fa-solid fa-moon";
+            themeName = "Dark Mode";
+        }
+        return "userHome.xhtml?faces-redirect=true";
+    }
 }

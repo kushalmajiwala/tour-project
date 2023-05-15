@@ -88,7 +88,8 @@
             }
             .page-title{
                 display:flex;
-                justify-content: space-around;
+                justify-content: space-between;
+                align-items: center;
             }
             .rounded-button {
                 height: 100px;
@@ -185,9 +186,13 @@
             .nav-unique {
                 padding-left: 4.5%;
             }
+            .whole-page {
+                background-color: #{adminController.bgcolor};
+                color: #{adminController.color};
+            }
         </style>
     </h:head>
-    <h:body>
+    <h:body class="whole-page">
         <div class="gallery-title">
             <div class="barTitle">
                 <p:commandButton icon="pi pi-bars" id="navbarTip" type="button" onclick="PF('sidebar1').show()" styleClass="rounded-button ui-button-secondary" style="margin-top: -1%;"><p:tooltip for="navbarTip" value="navbar" position="bottom"/></p:commandButton>
@@ -306,6 +311,7 @@
                         <p:tooltip for="addTour" value="Add New Tour" position="bottom"/>
                     </h:form>
                 </h1>
+                <p:commandButton icon="#{adminController.themeIcon}" value="#{adminController.themeName}" action="#{adminController.changeTheme()}" styleClass="ui-button-raised" style="color: white; background-color: black; height: 50px; border:none; border-radius: 15px;" />
             </div>
             <f:view>
                 <h:form>
