@@ -992,4 +992,17 @@ public class AdminController implements Serializable {
         }
         return "adminHome.xhtml?faces-redirect=true";
     }
+    //Complaint Working
+    int total_complaint;
+    public int getTotal_complaint() {
+        return total_complaint;
+    }
+    public void setTotal_complaint(int total_complaint) {
+        this.total_complaint = total_complaint;
+    }   
+    public int getAllComplaints()
+    {
+        total_complaint = abl.getAllComplaint().size();
+        return total_complaint;
+    }
 }

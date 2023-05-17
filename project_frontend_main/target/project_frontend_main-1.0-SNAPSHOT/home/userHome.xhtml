@@ -235,7 +235,7 @@
                     <div class="logout-container inner-container">
                         <h2 class="icon-container"><i class="fa fa-comments"></i></h2>
                         <h:form class="button-container">
-                            <h:commandButton value="Add Complaint" styleClass="ui-button-flat inner-button"></h:commandButton>
+                            <h:commandButton value="Add Complaint" action="#{userController.openAddComplaintDialog()}" styleClass="ui-button-flat inner-button"></h:commandButton>
                         </h:form>
                     </div>
                 </div>
@@ -483,6 +483,47 @@
                 <div class="add-vehicle-btn">
                     <p:commandButton value="Close" action="#{userController.closeGiveFeedbackDialog()}" styleClass="ui-button-raised ui-button-danger" />
                 </div>
+            </p:dialog>
+            <!--Add Complaint Dialog-->
+            <p:dialog widgetVar="addComplaint" draggable="false" closable="false" minHeight="60" width="800" showEffect="fade" modal="true">
+                <h:form>
+                    <div style="display:flex; justify-content:center; width:100%; margin-top: -4.1%;">
+                        <h2>REPORT YOUR ISSUE HERE</h2>
+                    </div><br/>
+                    <div class="edit-content">
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-file-signature"></i>
+                            <p:inputText placeholder="Enter Subject" value="#{userController.cp.subject}"  style="width: 100%;" />
+                        </span>
+                        <span class="ui-input-icon-left input-title">
+                            <i class="fa-solid fa-message"></i>
+                            <p:inputTextarea placeholder="Enter Message" value="#{userController.cp.message}" rows="4" style="width: 100%;" />
+                        </span>
+                    </div>
+                    <div class="add-vehicle-btn">
+                        <p:commandButton value="Submit" action="#{userController.performAddComplaint()}" styleClass="ui-button-raised ui-button-info" style="margin-right: 2%;" />
+                        <p:commandButton value="Close" action="#{userController.closeAddComplaintDialog()}" styleClass="ui-button-raised ui-button-danger" />
+                    </div>
+                </h:form>
+            </p:dialog>
+            <p:dialog widgetVar="complaintAdded" closable="false" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-check" style="color:green;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Complaint Added Successfully
+                </h4>
+                <div class="add-vehicle-btn">
+                    <p:commandButton value="Close" action="#{userController.closeAddComplaintDialog()}" styleClass="ui-button-raised ui-button-danger" />
+                </div>
+            </p:dialog>
+             <p:dialog widgetVar="addComplaintEmptyField" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Any of the fields should not be empty
+                </h4>
             </p:dialog>
         </div>
     </h:body>

@@ -238,7 +238,7 @@
                             <h:commandButton value="View Complaint" styleClass="ui-button-flat inner-button nav-unique"></h:commandButton>
                         </h:form>
                         <div class="badge-container">
-                            <p:badge value="3" class="fa-beat" severity="danger"></p:badge>
+                            <p:badge value="#{adminController.allComplaints}" class="fa-beat" severity="danger"></p:badge>
                         </div>
                     </div>
                 </div>
@@ -300,7 +300,7 @@
                 </h1>
                 <h1>
                     <h:form><i class="fa-solid fa-message-exclamation"></i>
-                        <p:badge value="8" severity="danger">
+                        <p:badge value="#{adminController.allComplaints}" severity="danger">
                             <p:commandButton icon="pi pi-thumbs-down-fill" value="View Complaint" styleClass="ui-button-raised ui-button-secondary" />
                         </p:badge>
                     </h:form>

@@ -1,6 +1,7 @@
 package Controllers;
 
 import UserEJB.UserBeanLocal;
+import entity.Complaint;
 import entity.Feedback;
 import entity.Tourmaster;
 import entity.Tourplace;
@@ -676,6 +677,38 @@ public class UserController implements Serializable {
             themeIcon = "fa-solid fa-moon";
             themeName = "Dark Mode";
         }
+        return "userHome.xhtml?faces-redirect=true";
+    }
+    //Add Complaint Working
+    Complaint cp = new Complaint();
+
+    public Complaint getCp() {
+        return cp;
+    }
+
+    public void setCp(Complaint cp) {
+        this.cp = cp;
+    }
+
+    public void openAddComplaintDialog() {
+        cp = new Complaint();
+        current.executeScript("PF('addComplaint').show();");
+    }
+
+    public void performAddComplaint() {
+        cp.setUsername(getCurrentUsername());
+        System.out.println(cp.getSubject() + " - " + cp.getMessage() + " - " + cp.getUsername());
+        if (cp.getSubject().isEmpty() || cp.getMessage().isEmpty()) {
+             current.executeScript("PF('addComplaintEmptyField').show();");
+        } else {
+            ubl.addComplaint(cp);
+            current.executeScript("PF('complaintAdded').show();");
+            cp = new Complaint();
+        }
+    }
+
+    public String closeAddComplaintDialog() {
+        cp = new Complaint();
         return "userHome.xhtml?faces-redirect=true";
     }
 }

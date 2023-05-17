@@ -1,6 +1,7 @@
 
 package UserEJB;
 
+import entity.Complaint;
 import entity.Feedback;
 import entity.Tourplace;
 import entity.Usertb;
@@ -51,7 +52,7 @@ public interface UserBeanLocal {
     
     public void addFeedback(Feedback f);
     
-    public String addComplaint(String uname, String subject, String message);
+    public void addComplaint(Complaint c);
     
     public List getComplaint(String uname);
     

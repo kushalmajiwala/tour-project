@@ -1,6 +1,7 @@
 package AdminEJB;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import entity.Complaint;
 import entity.Gallery;
 import entity.ProjectgroupsPK;
 import entity.Tourmaster;
@@ -341,7 +342,22 @@ public class AdminBean implements AdminBeanLocal {
 
     @Override
     public List getAllComplaint() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List mylist = new ArrayList();
+        try {
+            String url = "http://localhost:9090/complaint/getallcomplaint";
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            Complaint[] myrec = mapper.readValue(response.body().toString(), Complaint[].class);
+            for (Complaint rec : myrec) {
+                mylist.add(rec);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return mylist;
     }
 
     @Override

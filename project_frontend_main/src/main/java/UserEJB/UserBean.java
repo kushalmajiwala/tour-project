@@ -1,6 +1,7 @@
 package UserEJB;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import entity.Complaint;
 import entity.Feedback;
 import entity.Gallery;
 import entity.ProjectgroupsPK;
@@ -290,8 +291,26 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
-    public String addComplaint(String uname, String subject, String message) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void addComplaint(Complaint c) {
+         try {
+            ObjectMapper mapper = new ObjectMapper();
+            String requestBody = mapper.writeValueAsString(c);
+
+            String url = "http://localhost:9090/complaint/addcomplaint";
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            System.out.println("Group added Successfully...");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
