@@ -168,15 +168,17 @@
         </style>
     </h:head>
     <h:body class="whole-page">
-        <div class="gallery-title">
-            <div class="barTitle">
-                <p:commandButton icon="fa-solid fa-arrow-left" id="goBackTip" action="#{adminController.redirectToAdminHome()}" styleClass="rounded-button ui-button-secondary" style="margin-top: -1%;"><p:tooltip for="goBackTip" value="Back" position="bottom"/></p:commandButton>
-                <span style="margin-left: 20px;">#{registrationController.currentUsername}</span>
+        <h:form>
+            <div class="gallery-title">
+                <div class="barTitle">
+                    <p:commandButton icon="fa-solid fa-arrow-left" id="goBackTip" action="#{adminController.redirectToAdminHome()}" styleClass="rounded-button ui-button-secondary" style="margin-top: -1%;"><p:tooltip for="goBackTip" value="Back" position="bottom"/></p:commandButton>
+                    <span style="margin-left: 20px;">#{registrationController.currentUsername}</span>
+                </div>
+                <div class="gallery-path" style="font-size: 17px; margin-top: 0.7%;">
+                    <a href="../index.xhtml" class="gallery-path-home">HOME</a> <span style="color: #61DAFB"> / </span><span style="color:#FC8F37;">EDIT TOUR</span>
+                </div>
             </div>
-            <div class="gallery-path" style="font-size: 17px; margin-top: 0.7%;">
-                <a href="../index.xhtml" class="gallery-path-home">HOME</a> <span style="color: #61DAFB"> / </span><span style="color:#FC8F37;">EDIT TOUR</span>
-            </div>
-        </div>
+        </h:form>
         <div class="form-container">
             <div class="add-form">
                 <div class="form-title">

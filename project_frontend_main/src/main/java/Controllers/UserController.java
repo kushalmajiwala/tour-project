@@ -630,6 +630,33 @@ public class UserController implements Serializable {
     String bgcolor = "white";
     String themeIcon = "fa-solid fa-moon";
     String themeName = "Dark Mode";
+    String txtColor = "black";
+    String cardBgColor = "white";
+    String loopBgColor = "#F3F3F3";
+
+    public String getCardBgColor() {
+        return cardBgColor;
+    }
+
+    public void setCardBgColor(String cardBgColor) {
+        this.cardBgColor = cardBgColor;
+    }
+
+    public String getLoopBgColor() {
+        return loopBgColor;
+    }
+
+    public void setLoopBgColor(String loopBgColor) {
+        this.loopBgColor = loopBgColor;
+    }
+
+    public String getTxtColor() {
+        return txtColor;
+    }
+
+    public void setTxtColor(String txtColor) {
+        this.txtColor = txtColor;
+    }
 
     public String getThemeIcon() {
         return themeIcon;
@@ -671,11 +698,17 @@ public class UserController implements Serializable {
             bgcolor = "#343434";
             themeIcon = "fa-solid fa-sun";
             themeName = "Light Mode";
+            txtColor = "white";
+            cardBgColor = "#262E47";
+            loopBgColor = "#bfbfbf";
         } else {
             color = "black";
             bgcolor = "white";
             themeIcon = "fa-solid fa-moon";
             themeName = "Dark Mode";
+            txtColor = "black";
+            cardBgColor = "white";
+            loopBgColor = "#F3F3F3";
         }
         return "userHome.xhtml?faces-redirect=true";
     }
@@ -699,11 +732,10 @@ public class UserController implements Serializable {
         cp.setUsername(getCurrentUsername());
         System.out.println(cp.getSubject() + " - " + cp.getMessage() + " - " + cp.getUsername());
         if (cp.getSubject().isEmpty() || cp.getMessage().isEmpty()) {
-             current.executeScript("PF('addComplaintEmptyField').show();");
+            current.executeScript("PF('addComplaintEmptyField').show();");
         } else {
             ubl.addComplaint(cp);
             current.executeScript("PF('complaintAdded').show();");
-            cp = new Complaint();
         }
     }
 

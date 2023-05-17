@@ -233,9 +233,9 @@
                 </div>
                 <div class="menuContent">
                     <div class="logout-container inner-container">
-                        <h2 class="icon-container"><i class="fa fa-comments"></i></h2>
+                        <h2 class="icon-container"><i class="fa-solid fa-face-frown"></i></h2>
                         <h:form class="button-container">
-                            <h:commandButton value="View Complaint" styleClass="ui-button-flat inner-button nav-unique"></h:commandButton>
+                            <h:commandButton value="View Complaint" action="#{adminController.redirectAllComplaints()}" styleClass="ui-button-flat inner-button nav-unique"></h:commandButton>
                         </h:form>
                         <div class="badge-container">
                             <p:badge value="#{adminController.allComplaints}" class="fa-beat" severity="danger"></p:badge>
@@ -301,7 +301,7 @@
                 <h1>
                     <h:form><i class="fa-solid fa-message-exclamation"></i>
                         <p:badge value="#{adminController.allComplaints}" severity="danger">
-                            <p:commandButton icon="pi pi-thumbs-down-fill" value="View Complaint" styleClass="ui-button-raised ui-button-secondary" />
+                            <p:commandButton icon="fa-solid fa-face-frown" value="View Complaint" action="#{adminController.redirectAllComplaints()}" styleClass="ui-button-raised ui-button-secondary" />
                         </p:badge>
                     </h:form>
                 </h1>
@@ -316,21 +316,22 @@
             <f:view>
                 <h:form>
                     <p:dataTable value="#{adminController.allTours}" var="item">
-                        <p:column style="border: none;background-color: #F3F3F3;">
-                            <p:card style="width: 100%; margin-bottom: 2em; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius: 10px;">
+                        <!--background-color: #F3F3F3;-->
+                        <p:column style="border: none; background-color: #{adminController.loopBgColor};"> 
+                            <p:card style="width: 100%; margin-bottom: 2em; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius: 10px; background-color: #{adminController.cardBgColor};">
                                 <div class="tour-container">
                                     <div class="mb-3 image-container">
                                         <p:graphicImage url="../images#{item.tour_pic}" styleClass="product-image" height="100%" width="100%"/>
                                     </div>
                                     <div class="content-container">
                                         <div class="tour-name">
-                                            <h1>#{item.tour_title}</h1>
+                                            <h1 style="color: #{adminController.txtColor};">#{item.tour_title}</h1>
                                         </div>
                                         <div class="basic-info">
                                             <h2 style="padding-top: 0.5%;"><span>&#8377;</span>#{item.per_person_price}</h2>
-                                            <h2 style="padding-top: 0.5%;"><i class="pi pi-clock"></i> <span style="color: black;">#{adminController.getDayDiff(item.start_date, item.end_date)}D / #{adminController.getDayDiff(item.start_date, item.end_date) - 1}N</span></h2>
-                                            <h2 style="padding-top: 0.5%;"><i class="pi pi-calendar"></i> <span style="color: black;">#{item.start_date}</span></h2>
-                                            <h2 style="padding-top: 0.5%;"><i class="pi pi-stopwatch"></i> <span style="color: black;">#{item.journey_begin_time}</span></h2>
+                                            <h2 style="padding-top: 0.5%;"><i class="pi pi-clock"></i> <span style="color: #{adminController.txtColor};">#{adminController.getDayDiff(item.start_date, item.end_date)}D / #{adminController.getDayDiff(item.start_date, item.end_date) - 1}N</span></h2>
+                                            <h2 style="padding-top: 0.5%;"><i class="pi pi-calendar"></i> <span style="color: #{adminController.txtColor};">#{item.start_date}</span></h2>
+                                            <h2 style="padding-top: 0.5%;"><i class="pi pi-stopwatch"></i> <span style="color: #{adminController.txtColor};">#{item.journey_begin_time}</span></h2>
                                         </div>
                                         <div class="basic-info1">
                                             <p:commandButton icon="fa-solid fa-plus" value="Add Place" action="#{adminController.openAddPlaceDialog(item.tourmasterid)}" styleClass="ui-button-raised ui-button-info mybtn" />

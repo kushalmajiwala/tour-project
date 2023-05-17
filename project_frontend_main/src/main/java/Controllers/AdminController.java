@@ -1,6 +1,7 @@
 package Controllers;
 
 import AdminEJB.AdminBeanLocal;
+import entity.Complaint;
 import entity.Tourmaster;
 import entity.Tourplace;
 import entity.Usertb;
@@ -943,6 +944,33 @@ public class AdminController implements Serializable {
     String bgcolor = "white";
     String themeIcon = "fa-solid fa-moon";
     String themeName = "Dark Mode";
+    String txtColor = "black";
+    String cardBgColor = "white";
+    String loopBgColor = "#F3F3F3";
+
+    public String getCardBgColor() {
+        return cardBgColor;
+    }
+
+    public void setCardBgColor(String cardBgColor) {
+        this.cardBgColor = cardBgColor;
+    }
+
+    public String getLoopBgColor() {
+        return loopBgColor;
+    }
+
+    public void setLoopBgColor(String loopBgColor) {
+        this.loopBgColor = loopBgColor;
+    }
+
+    public String getTxtColor() {
+        return txtColor;
+    }
+
+    public void setTxtColor(String txtColor) {
+        this.txtColor = txtColor;
+    }
 
     public String getThemeIcon() {
         return themeIcon;
@@ -984,25 +1012,67 @@ public class AdminController implements Serializable {
             bgcolor = "#343434";
             themeIcon = "fa-solid fa-sun";
             themeName = "Light Mode";
+            txtColor = "white";
+            cardBgColor = "#262E47";
+            loopBgColor = "#bfbfbf";
         } else {
             color = "black";
             bgcolor = "white";
             themeIcon = "fa-solid fa-moon";
             themeName = "Dark Mode";
+            txtColor = "black";
+            cardBgColor = "white";
+            loopBgColor = "#F3F3F3";
         }
         return "adminHome.xhtml?faces-redirect=true";
     }
     //Complaint Working
     int total_complaint;
+    int delete_complaintid;
+
+    public int getDelete_complaintid() {
+        return delete_complaintid;
+    }
+
+    public void setDelete_complaintid(int delete_complaintid) {
+        this.delete_complaintid = delete_complaintid;
+    }
+
     public int getTotal_complaint() {
         return total_complaint;
     }
+
     public void setTotal_complaint(int total_complaint) {
         this.total_complaint = total_complaint;
-    }   
-    public int getAllComplaints()
-    {
+    }
+
+    public int getAllComplaints() {
         total_complaint = abl.getAllComplaint().size();
         return total_complaint;
+    }
+
+    public String redirectAllComplaints() {
+        return "allComplaints.xhtml?faces-redirect=true";
+    }
+
+    public List<Complaint> getAllComplaintDetails() {
+        return abl.getAllComplaint();
+    }
+
+    public void openDeleteComplaintDialog(int complaintid) {
+        System.out.println(complaintid);
+        delete_complaintid = complaintid;
+        current.executeScript("PF('confirmDeleteComplaint').show();");
+    }
+
+    public void deleteComplaint() {
+        abl.deleteComplaint(delete_complaintid);
+        current.executeScript("PF('complaintDeleted').show();");
+        delete_complaintid = 0;
+    }
+
+    public String closeDeleteComplaintDialog() {
+        delete_complaintid = 0;
+        return "allComplaints.xhtml?faces-redirect=true";
     }
 }

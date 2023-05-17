@@ -366,8 +366,22 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
-    public String deleteComplaint(int cid) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deleteComplaint(int cid) {
+        try {
+            String url = "http://localhost:9090/complaint/deletecomplaint/" + cid;
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .DELETE()
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override

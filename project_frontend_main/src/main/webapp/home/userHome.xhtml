@@ -233,7 +233,7 @@
                 </div>
                 <div class="menuContent">
                     <div class="logout-container inner-container">
-                        <h2 class="icon-container"><i class="fa fa-comments"></i></h2>
+                        <h2 class="icon-container"><i class="fa-solid fa-face-frown"></i></h2>
                         <h:form class="button-container">
                             <h:commandButton value="Add Complaint" action="#{userController.openAddComplaintDialog()}" styleClass="ui-button-flat inner-button"></h:commandButton>
                         </h:form>
@@ -291,21 +291,21 @@
                 <f:view>
                     <h:form>
                         <p:dataTable value="#{userController.allTours}" var="item">
-                            <p:column style="border: none;background-color: #F3F3F3;">
-                                <p:card style="width: 100%; margin-bottom: 2em; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius: 10px;">
+                            <p:column style="border: none; background-color: #{userController.loopBgColor};">
+                                <p:card style="width: 100%; margin-bottom: 2em; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius: 10px; background-color: #{userController.cardBgColor};">
                                     <div class="tour-container">
                                         <div class="mb-3 image-container">
                                             <p:graphicImage url="../images#{item.tour_pic}" styleClass="product-image" height="100%" width="100%"/>
                                         </div>
                                         <div class="content-container">
                                             <div class="tour-name">
-                                                <h1>#{item.tour_title}</h1>
+                                                <h1 style="color: #{userController.txtColor};">#{item.tour_title}</h1>
                                             </div>
                                             <div class="basic-info">
                                                 <h2 style="padding-top: 0.5%;"><span>&#8377;</span>#{item.per_person_price}</h2>
-                                                <h2 style="padding-top: 0.5%;"><i class="pi pi-clock"></i> <span style="color: black;">#{userController.getDayDiff(item.start_date, item.end_date)}D / #{userController.getDayDiff(item.start_date, item.end_date) - 1}N</span></h2>
-                                                <h2 style="padding-top: 0.5%;"><i class="pi pi-calendar"></i> <span style="color: black;">#{item.start_date}</span></h2>
-                                                <h2 style="padding-top: 0.5%;"><i class="pi pi-stopwatch"></i> <span style="color: black;">#{item.journey_begin_time}</span></h2>
+                                                <h2 style="padding-top: 0.5%;"><i class="pi pi-clock"></i> <span style="color: #{userController.txtColor};">#{userController.getDayDiff(item.start_date, item.end_date)}D / #{userController.getDayDiff(item.start_date, item.end_date) - 1}N</span></h2>
+                                                <h2 style="padding-top: 0.5%;"><i class="pi pi-calendar"></i> <span style="color: #{userController.txtColor};">#{item.start_date}</span></h2>
+                                                <h2 style="padding-top: 0.5%;"><i class="pi pi-stopwatch"></i> <span style="color: #{userController.txtColor};">#{item.journey_begin_time}</span></h2>
                                             </div>
                                             <div class="basic-info1">
                                                 <p:commandButton icon="fa-solid fa-circle-info" action="#{userController.populate_places(item.tourmasterid, item.tour_pic, item.start_date, item.end_date, item.tour_title, item.per_person_price)}" value="View Details"  styleClass="ui-button-raised ui-button-info mybtn" />

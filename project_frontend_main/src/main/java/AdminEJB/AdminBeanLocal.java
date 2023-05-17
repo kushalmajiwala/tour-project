@@ -56,7 +56,7 @@ public interface AdminBeanLocal {
 
     public List getComplaint(String uname);
 
-    public String deleteComplaint(int cid);
+    public void deleteComplaint(int cid);
 
     public String getCart(String uname);
     

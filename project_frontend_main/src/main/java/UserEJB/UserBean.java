@@ -307,7 +307,6 @@ public class UserBean implements UserBeanLocal {
 
             HttpResponse response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
-            System.out.println("Group added Successfully...");
         } catch (Exception e) {
             System.out.println(e);
         }
