@@ -628,11 +628,74 @@ public class UserController implements Serializable {
     //Toggle Theme Change
     String color = "black";
     String bgcolor = "white";
-    String themeIcon = "fa-solid fa-moon";
+    String themeIcon = "fa-solid fa-moon fa-beat-fade";
     String themeName = "Dark Mode";
     String txtColor = "black";
     String cardBgColor = "white";
     String loopBgColor = "#F3F3F3";
+    String sidebarBgColor = "white";
+    String menuTitleBgColor = "white";
+    String menuTitleColor = "black";
+    String navbarContentBgColor = "white";
+    String navbarContentColor = "#484C8D";
+    String navbarContentBorderColor = "0.5px solid #C4C4F2";
+    String hoverBgColor = "#474792";
+
+    public String getHoverBgColor() {
+        return hoverBgColor;
+    }
+
+    public void setHoverBgColor(String hoverBgColor) {
+        this.hoverBgColor = hoverBgColor;
+    }
+
+    public String getNavbarContentBgColor() {
+        return navbarContentBgColor;
+    }
+
+    public void setNavbarContentBgColor(String navbarContentBgColor) {
+        this.navbarContentBgColor = navbarContentBgColor;
+    }
+
+    public String getNavbarContentColor() {
+        return navbarContentColor;
+    }
+
+    public void setNavbarContentColor(String navbarContentColor) {
+        this.navbarContentColor = navbarContentColor;
+    }
+
+    public String getNavbarContentBorderColor() {
+        return navbarContentBorderColor;
+    }
+
+    public void setNavbarContentBorderColor(String navbarContentBorderColor) {
+        this.navbarContentBorderColor = navbarContentBorderColor;
+    }
+
+    public String getMenuTitleBgColor() {
+        return menuTitleBgColor;
+    }
+
+    public void setMenuTitleBgColor(String menuTitleBgColor) {
+        this.menuTitleBgColor = menuTitleBgColor;
+    }
+
+    public String getMenuTitleColor() {
+        return menuTitleColor;
+    }
+
+    public void setMenuTitleColor(String menuTitleColor) {
+        this.menuTitleColor = menuTitleColor;
+    }
+
+    public String getSidebarBgColor() {
+        return sidebarBgColor;
+    }
+
+    public void setSidebarBgColor(String sidebarBgColor) {
+        this.sidebarBgColor = sidebarBgColor;
+    }
 
     public String getCardBgColor() {
         return cardBgColor;
@@ -696,19 +759,33 @@ public class UserController implements Serializable {
         if (color.equals("black")) {
             color = "white";
             bgcolor = "#343434";
-            themeIcon = "fa-solid fa-sun";
+            themeIcon = "fa-solid fa-sun fa-beat-fade";
             themeName = "Light Mode";
             txtColor = "white";
             cardBgColor = "#262E47";
             loopBgColor = "#bfbfbf";
+            sidebarBgColor = "black";
+            menuTitleBgColor = "black";
+            menuTitleColor = "white";
+            navbarContentBgColor = "black";
+            navbarContentColor = "white";
+            navbarContentBorderColor = "none";
+            hoverBgColor = "#2C2C2C";
         } else {
             color = "black";
             bgcolor = "white";
-            themeIcon = "fa-solid fa-moon";
+            themeIcon = "fa-solid fa-moon fa-beat-fade";
             themeName = "Dark Mode";
             txtColor = "black";
             cardBgColor = "white";
             loopBgColor = "#F3F3F3";
+            sidebarBgColor = "white";
+            menuTitleBgColor = "white";
+            menuTitleColor = "black";
+            navbarContentBgColor = "white";
+            navbarContentColor = "#484C8D";
+            navbarContentBorderColor = "0.5px solid #C4C4F2";
+            hoverBgColor = "#474792";
         }
         return "userHome.xhtml?faces-redirect=true";
     }
