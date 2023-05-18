@@ -225,7 +225,7 @@
                                 <div class="username-container">
                                     <span class="complaint-username">#{item.username}</span>
                                     <p:commandButton id="deleteTooltip" icon="fa-solid fa-trash" action="#{adminController.openDeleteComplaintDialog(item.complaintid)}" styleClass="rounded-button ui-button-danger ui-button-outlined"/>
-                                        <p:tooltip for="deleteTooltip" value="remove this complaint" position="bottom"/>
+                                    <p:tooltip for="deleteTooltip" value="remove this complaint" position="bottom"/>
                                 </div>
                                 <div class="subject-container">
                                     <i class="fa-solid fa-file-signature" style="font-size: 18px; margin-right: 1%;"></i>
@@ -242,7 +242,7 @@
             </h:form>
         </f:view>
         <div class="all-dialogs">
-             <p:dialog widgetVar="confirmDeleteComplaint" draggable="false" closable="false" minHeight="30" width="450" showEffect="fade" modal="true">
+            <p:dialog widgetVar="confirmDeleteComplaint" draggable="false" closable="false" minHeight="30" width="450" showEffect="fade" modal="true">
                 <div style="display:flex; justify-content:center; width:100%;">
                     <i class="pi pi-exclamation-circle" style="color:#BEBC3A; font-size: 60px;"></i>
                 </div><br/>
