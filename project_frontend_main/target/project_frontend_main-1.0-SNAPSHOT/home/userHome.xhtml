@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
         <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
@@ -287,6 +289,23 @@
         <div>
             <div class="page-title">
                 <h1>AVAILABLE TOURS</h1>
+                <h:form>
+                    <p:cascadeSelect value="#{userController.selected_tour}" var="item" style="min-width: 14rem" placeholder="Search Tour">
+                        <f:ajax event="itemSelect" listener="#{userController.searchedTour}"/>
+                        <f:selectItem  itemLabel="Show All Tours" value="#{null}"></f:selectItem>
+                        <f:selectItems value="#{userController.populateTourTitle()}"/>
+                    </p:cascadeSelect>
+                </h:form>
+                <h:form style="margin-left: -8%;">
+                    <p:commandButton icon="fa-solid fa-magnifying-glass" action="#{userController.refreshPage()}" value="Search Tour" styleClass="ui-button-raised"/>
+                </h:form>
+                <h1>
+                    <h:form>
+                        <p:badge value="8" severity="danger"><i class="fa-solid fa-message-captions"></i>
+                            <p:commandButton icon="fa-solid fa-cart-shopping" value="View Cart" styleClass="ui-button-raised ui-button-success" style="color: white;" />
+                        </p:badge>
+                    </h:form>
+                </h1>
                 <h:form>
                     <p:commandButton icon="#{userController.themeIcon}" value="#{userController.themeName}" action="#{userController.changeTheme()}" styleClass="ui-button-raised" style="color: white; background-color: black; height: 50px; border:none; border-radius: 15px;" />
                 </h:form>

@@ -18,6 +18,7 @@ import javax.ejb.EJB;
 import javax.servlet.http.HttpSession;
 import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 import org.primefaces.PrimeFaces;
+import org.primefaces.event.SelectEvent;
 
 @Named(value = "userController")
 @SessionScoped
@@ -216,7 +217,45 @@ public class UserController implements Serializable {
         return "userHome.xhtml?faces-redirect=true";
     }
 
+    List<Tourmaster> all_tours = new ArrayList<>();
+    List<Tourmaster> searched_tours = new ArrayList<>();
+
+    public List<Tourmaster> getAll_tours() {
+        return all_tours;
+    }
+
+    public void setAll_tours(List<Tourmaster> all_tours) {
+        this.all_tours = all_tours;
+    }
+
+    public List<Tourmaster> getSearched_tours() {
+        return searched_tours;
+    }
+
+    public void setSearched_tours(List<Tourmaster> searched_tours) {
+        this.searched_tours = searched_tours;
+    }
+
     public List<Tourmaster> getAllTours() {
+
+        searched_tours = new ArrayList<>();
+        all_tours = ubl.showMasterData();
+        if (selected_tour == null) {
+            return all_tours;
+        } else if (selected_tour.equals("")) {
+            return all_tours;
+        } else {
+            for (Tourmaster tm : all_tours) {
+                if (tm.getTour_title().equals(selected_tour)) {
+                    searched_tours.add(tm);
+                    break;
+                }
+            }
+            return searched_tours;
+        }
+    }
+
+    public List<Tourmaster> getTours() {
         return ubl.showMasterData();
     }
     //Day difference
@@ -818,6 +857,42 @@ public class UserController implements Serializable {
 
     public String closeAddComplaintDialog() {
         cp = new Complaint();
+        return "userHome.xhtml?faces-redirect=true";
+    }
+    //Search For Userhome
+    List<String> tour_title = new ArrayList<>();
+    String selected_tour = "";
+
+    public List<String> getTour_title() {
+        return tour_title;
+    }
+
+    public void setTour_title(List<String> tour_title) {
+        this.tour_title = tour_title;
+    }
+
+    public String getSelected_tour() {
+        return selected_tour;
+    }
+
+    public void setSelected_tour(String selected_tour) {
+        this.selected_tour = selected_tour;
+    }
+
+    public List<String> populateTourTitle() {
+        tour_title = new ArrayList<>();
+        for (Tourmaster tm : getTours()) {
+            tour_title.add(tm.getTour_title());
+        }
+        return tour_title;
+    }
+
+    public String searchedTour(SelectEvent e) {
+        System.out.println(e);
+        return "userHome.xhtml?faces-redirect=true";
+    }
+
+    public String refreshPage() {
         return "userHome.xhtml?faces-redirect=true";
     }
 }
