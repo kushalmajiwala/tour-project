@@ -186,8 +186,21 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
-    public String getTourMaster(int tourid) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Tourmaster getTourMaster(int tourid) {
+        Tourmaster mylist = new Tourmaster();
+        try {
+            String url = "http://localhost:9090/tourmaster/gettour/" + tourid;
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            Tourmaster myrec = mapper.readValue(response.body().toString(), Tourmaster.class);
+            mylist = myrec;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return mylist;
     }
 
     @Override

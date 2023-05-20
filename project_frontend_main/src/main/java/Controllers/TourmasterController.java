@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import org.primefaces.PrimeFaces;
 
 @Named(value = "tourmasterController")
 @SessionScoped
@@ -163,5 +164,53 @@ public class TourmasterController implements Serializable {
         List<Vehicle> all_vehicle = userbean.getVehicle(tourmasterid);
         System.out.println("All Vehicle -> " + all_vehicle);
         return all_vehicle;
+    }
+    //Contact working
+    String contact_name = "";
+    String contact_email = "";
+    String contact_message = "";
+
+    public String getContact_name() {
+        return contact_name;
+    }
+
+    public void setContact_name(String contact_name) {
+        this.contact_name = contact_name;
+    }
+
+    public String getContact_email() {
+        return contact_email;
+    }
+
+    public void setContact_email(String contact_email) {
+        this.contact_email = contact_email;
+    }
+
+    public String getContact_message() {
+        return contact_message;
+    }
+
+    public void setContact_message(String contact_message) {
+        this.contact_message = contact_message;
+    }
+    PrimeFaces current = PrimeFaces.current();
+    public void submitContact()
+    {
+        System.out.println(contact_name + " - " + contact_email + " - " + contact_message);
+        if(contact_name.isEmpty() || contact_email.isEmpty() || contact_message.isEmpty())
+        {
+            current.executeScript("PF('emptyField').show();");
+        }
+        else
+        {
+            current.executeScript("PF('sentContact').show();");
+        }
+    }
+    public String closeDialog()
+    {
+        contact_name = "";
+        contact_email = "";
+        contact_message = "";
+        return "index.xhtml#contact?faces-redirect=true";
     }
 }

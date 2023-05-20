@@ -3,6 +3,7 @@ package UserEJB;
 
 import entity.Complaint;
 import entity.Feedback;
+import entity.Tourmaster;
 import entity.Tourplace;
 import entity.Usertb;
 import java.sql.Date;
@@ -24,7 +25,7 @@ public interface UserBeanLocal {
 
     public List showMasterData();
 
-    public String getTourMaster(int tourid);
+    public Tourmaster getTourMaster(int tourid);
     
     public String addTour(int tourmasterid, String username, String payment_method);
     

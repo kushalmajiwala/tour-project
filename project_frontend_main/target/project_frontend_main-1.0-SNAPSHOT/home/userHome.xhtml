@@ -127,6 +127,10 @@
                 border:2px solid #A0A0DC;
                 border-radius: 3px;
             }
+            .person-input {
+                border:2px solid #A0A0DC;
+                border-radius: 3px;
+            }
             h4{
                 text-align: center;
             }
@@ -180,6 +184,10 @@
             .whole-page {
                 background-color: #{userController.bgcolor};
                 color: #{userController.color};
+            }
+            .head {
+                color: #161547;
+                font-weight: bolder;
             }
         </style>
     </h:head>
@@ -332,7 +340,7 @@
                                             </div>
                                             <div class="basic-info1">
                                                 <p:commandButton icon="fa-solid fa-circle-info" action="#{userController.populate_places(item.tourmasterid, item.tour_pic, item.start_date, item.end_date, item.tour_title, item.per_person_price)}" value="View Details"  styleClass="ui-button-raised ui-button-info mybtn" />
-                                                <p:commandButton icon="fa-solid fa-bookmark" value="Book Now" styleClass="ui-button-raised ui-button-info mybtn" />
+                                                <p:commandButton action="#{userController.openBookTourDialog(item)}" ajax="false" icon="fa-solid fa-bookmark" value="Book Now" styleClass="ui-button-raised ui-button-info mybtn" />
                                             </div>
                                         </div>
                                     </div>
@@ -547,6 +555,67 @@
                 <h4 class="m-0">
                     Any of the fields should not be empty
                 </h4>
+            </p:dialog>
+            <p:dialog widgetVar="bookTour" draggable="false" closable="false" minHeight="60" width="850" showEffect="fade" modal="true">
+                <h:form>
+                    <div style="display:flex; justify-content:center; width:100%; margin-top: -3.8%;">
+                        <h2>ENTER REQUIRED BOOKING DETAILS</h2>
+                    </div><br/>
+                    <div style="width: 100%;">
+                        <div style="width: 100%;display:flex; justify-content: space-between;box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;padding:3%;border-radius: 10px;">
+                            <h3><span class="head">Tour-name : </span>#{userController.booking_master.tour_title}</h3>
+                            <h3><span class="head">Date : </span>#{userController.booking_master.start_date}</h3>
+                            <h3><span class="head">Price : </span>#{userController.booking_master.per_person_price}</h3>
+                            <h3><span class="head">Time : </span>#{userController.booking_master.journey_begin_time}</h3>
+                        </div>
+                        <div style="text-align: center; width: 100%;">
+                            <h3 class="mt-0">Select Payment Method</h3>
+                            <div style="display:flex; justify-content: center;">
+                                <p:selectOneRadio id="console">
+                                    <f:selectItem itemLabel="Cash" itemValue="cash"/>
+                                    <f:selectItem itemLabel="Cheque" itemValue="cheque"/>
+                                </p:selectOneRadio>
+                            </div>
+                        </div><br/><p:divider/>
+                        <div style="text-align:center;">
+                            <h3 class="mt-0">ENTER PERSON DETAIL</h3>
+                            <div class="all-content">
+                                <div style="display:flex; justify-content: space-evenly; width: 100%;">
+                                    <span class="ui-input-icon-left person-input">
+                                        <i class="fa-solid fa-file-signature "></i>
+                                        <p:inputText placeholder="Enter First Name" style="width: 100%;" />
+                                    </span>
+                                    <span class="ui-input-icon-left person-input">
+                                        <i class="fa-solid fa-file-signature"></i>
+                                        <p:inputText placeholder="Enter Last Name" style="width: 100%;" />
+                                    </span>
+                                    <span class="ui-input-icon-left person-input">
+                                        <i class="fa-solid fa-envelope"></i>
+                                        <p:inputText placeholder="Enter Email" style="width: 100%;" />
+                                    </span>
+                                </div>
+                                <div style="display:flex; justify-content: space-evenly; margin-top: 3%; width: 100%;">
+                                    <span class="ui-input-icon-left person-input">
+                                        <i class="fa-solid fa-file-signature"></i>
+                                        <p:inputText placeholder="Enter Phone Number" style="width: 100%;" />
+                                    </span>
+                                    <p:datePicker id="startDatePicker" placeholder="Select Start Date" showIcon="true" class="person-input" pattern="yyyy-MMM-dd"/>
+                                    <span class="ui-input-icon-left person-input">
+                                        <p:selectOneMenu style="width: 220px;" syncTooltip="Select Gender">
+                                            <f:selectItem itemLabel="Select Gender" itemValue="#{null}"/>
+                                            <f:selectItem itemLabel="Male" itemValue="male"/>
+                                            <f:selectItem itemLabel="Female" itemValue="female"/>
+                                        </p:selectOneMenu>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="add-vehicle-btn" style="margin-top: 5%;">
+                        <p:commandButton value="Book" styleClass="ui-button-raised ui-button-info" style="margin-right: 2%;" />
+                        <p:commandButton value="Close" action="#{userController.closeBookTourDialog()}" styleClass="ui-button-raised ui-button-danger" />
+                    </div>
+                </h:form>
             </p:dialog>
         </div>
     </h:body>

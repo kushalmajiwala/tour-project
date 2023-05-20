@@ -895,4 +895,25 @@ public class UserController implements Serializable {
     public String refreshPage() {
         return "userHome.xhtml?faces-redirect=true";
     }
+    //Booking and Cart Working
+    Tourmaster booking_master = new Tourmaster();
+
+    public Tourmaster getBooking_master() {
+        return booking_master;
+    }
+
+    public void setBooking_master(Tourmaster booking_master) {
+        this.booking_master = booking_master;
+    }
+
+    public void openBookTourDialog(Tourmaster tm) {
+        booking_master = new Tourmaster();
+        System.out.println(tm.getTour_title());
+        booking_master = ubl.getTourMaster(tm.getTourmasterid());
+        current.executeScript("PF('bookTour').show();");
+    }
+    public String closeBookTourDialog()
+    {
+        return "userHome.xhtml?faces-redirect=true";
+    }
 }
