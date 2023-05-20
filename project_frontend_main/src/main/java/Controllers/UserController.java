@@ -3,6 +3,8 @@ package Controllers;
 import UserEJB.UserBeanLocal;
 import entity.Complaint;
 import entity.Feedback;
+import entity.Person;
+import entity.Tour;
 import entity.Tourmaster;
 import entity.Tourplace;
 import entity.Usertb;
@@ -792,7 +794,7 @@ public class UserController implements Serializable {
         this.bgcolor = bgcolor;
     }
 
-    public String changeTheme() {
+    public void changeTheme() {
         System.out.println("Changing Theme");
         System.out.println(color);
         if (color.equals("black")) {
@@ -826,7 +828,7 @@ public class UserController implements Serializable {
             navbarContentBorderColor = "0.5px solid #C4C4F2";
             hoverBgColor = "#474792";
         }
-        return "userHome.xhtml?faces-redirect=true";
+//        return "userHome.xhtml?faces-redirect=true";
     }
     //Add Complaint Working
     Complaint cp = new Complaint();
@@ -905,15 +907,95 @@ public class UserController implements Serializable {
     public void setBooking_master(Tourmaster booking_master) {
         this.booking_master = booking_master;
     }
+    int book_tourmasterid = 0;
+
+    public int getBook_tourmasterid() {
+        return book_tourmasterid;
+    }
+
+    public void setBook_tourmasterid(int book_tourmasterid) {
+        this.book_tourmasterid = book_tourmasterid;
+    }
+    
 
     public void openBookTourDialog(Tourmaster tm) {
+        book_tourmasterid = tm.getTourmasterid();
         booking_master = new Tourmaster();
         System.out.println(tm.getTour_title());
-        booking_master = ubl.getTourMaster(tm.getTourmasterid());
+        booking_master = tm;
         current.executeScript("PF('bookTour').show();");
+    }
+    Tour tour = new Tour();
+    Person person = new Person();
+
+    public Tour getTour() {
+        return tour;
+    }
+
+    public void setTour(Tour tour) {
+        this.tour = tour;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+    
+    Date insert_dob;
+    public Date getInsert_dob() {
+        return insert_dob;
+    }
+    public void setInsert_dob(Date insert_dob) {
+        this.insert_dob = insert_dob;
+    }
+    
+    public void performBooking()
+    {
+        System.out.println(book_tourmasterid);
+        try {
+            java.sql.Date actual_dob = new java.sql.Date(insert_dob.getTime());
+            System.out.println("sqlDate:" + actual_dob);
+            
+            person.setDob(actual_dob);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+       
+        if(tour.getPayment_method().isEmpty() || person.getFname().isEmpty() || person.getLname().isEmpty() || person.getEmail().isEmpty() || person.getDob() == null || person.getPhoneno().isEmpty() || person.getGender() == null || person.getGender().isEmpty())
+        {
+            current.executeScript("PF('bookingEmptyField').show();");
+        }
+        else
+        {
+            //Adding Tour
+            tour.setTourmasterid(book_tourmasterid);
+            tour.setUsername(getCurrentUsername());
+            tour.setPayment_status("remaining");
+            Tour response = ubl.addTour(tour);
+            System.out.println("Added Cart Id -> " + response.getTourid());
+            
+            //Adding Person
+            person.setTourid(response.getTourid());
+            person.setUsername(getCurrentUsername());
+            ubl.addPerson(person);
+            current.executeScript("PF('cartAdded').show();");
+        }
     }
     public String closeBookTourDialog()
     {
+        insert_dob = null;
+        tour = new Tour();
+        person = new Person();
         return "userHome.xhtml?faces-redirect=true";
+    }
+    //Getting Cart Size
+    public int total_cart_items()
+    {
+        System.out.println(ubl.getTour(getCurrentUsername()));
+        return ubl.getTour(getCurrentUsername()).size();
     }
 }

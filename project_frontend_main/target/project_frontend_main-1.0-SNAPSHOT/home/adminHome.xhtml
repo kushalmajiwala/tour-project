@@ -314,7 +314,7 @@
                     </h:form>
                 </h1>
                 <h:form>
-                    <p:commandButton icon="#{adminController.themeIcon}" value="#{adminController.themeName}" action="#{adminController.changeTheme()}" styleClass="ui-button-raised" style="color: white; background-color: black; height: 50px; border:none; border-radius: 15px;" />
+                    <p:commandButton icon="#{adminController.themeIcon}" ajax="false" value="#{adminController.themeName}" action="#{adminController.changeTheme()}" styleClass="ui-button-raised" style="color: white; background-color: black; height: 50px; border:none; border-radius: 15px;" />
                 </h:form>
             </div>
             <f:view>

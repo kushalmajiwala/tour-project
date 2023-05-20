@@ -3,6 +3,8 @@ package UserEJB;
 
 import entity.Complaint;
 import entity.Feedback;
+import entity.Person;
+import entity.Tour;
 import entity.Tourmaster;
 import entity.Tourplace;
 import entity.Usertb;
@@ -27,7 +29,7 @@ public interface UserBeanLocal {
 
     public Tourmaster getTourMaster(int tourid);
     
-    public String addTour(int tourmasterid, String username, String payment_method);
+    public Tour addTour(Tour t);
     
     public String updateTour(int tourmasterid, String username, String payment_method);
     
@@ -35,7 +37,7 @@ public interface UserBeanLocal {
     
     public String deleteTour(int tourid);
     
-    public String addPerson(int tourid, String uname, String fname, String lname, String email, String pno, Date dob, String gender);
+    public void addPerson(Person p);
     
     public String updatePerson(int tourid, String uname, String fname, String lname, String email, String pno, Date dob, String gender);
     
@@ -61,7 +63,7 @@ public interface UserBeanLocal {
     
     public String addCart(int tourid, String uname, String payment_status);
    
-    public String getCart(String uname);
+    public List getCart(String uname);
     
     public String deleteCart(int cartid);
     

@@ -1067,7 +1067,7 @@ public class AdminController implements Serializable {
         this.bgcolor = bgcolor;
     }
 
-    public String changeTheme() {
+    public void changeTheme() {
         System.out.println("Changing Theme");
         System.out.println(color);
         if (color.equals("black")) {
@@ -1101,7 +1101,7 @@ public class AdminController implements Serializable {
             navbarContentBorderColor = "0.5px solid #C4C4F2";
             hoverBgColor = "#474792";
         }
-        return "adminHome.xhtml?faces-redirect=true";
+//        return "adminHome.xhtml?faces-redirect=true";
     }
     //Complaint Working
     int total_complaint;

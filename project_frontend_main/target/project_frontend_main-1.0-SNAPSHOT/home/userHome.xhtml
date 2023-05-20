@@ -239,7 +239,7 @@
                             <h:commandButton value="View Cart" styleClass="ui-button-flat inner-button nav-unique"></h:commandButton>
                         </h:form>
                         <div class="badge-container">
-                            <p:badge class="fa-beat" value="3" severity="danger"></p:badge>
+                            <p:badge class="fa-beat" value="#{userController.total_cart_items()}" severity="danger"></p:badge>
                         </div>
                     </div>
                 </div>
@@ -305,17 +305,15 @@
                     </p:cascadeSelect>
                     <p:commandButton icon="fa-solid fa-magnifying-glass" action="#{userController.refreshPage()}" value="Search Tour" styleClass="ui-button-raised"/>
                 </h:form>
-                <!--                <h:form style="margin-left: -8%;">
-                                </h:form>-->
                 <h1>
                     <h:form>
-                        <p:badge value="8" severity="danger"><i class="fa-solid fa-message-captions"></i>
+                        <p:badge value="#{userController.total_cart_items()}" severity="danger"><i class="fa-solid fa-message-captions"></i>
                             <p:commandButton icon="fa-solid fa-cart-shopping" value="View Cart" styleClass="ui-button-raised ui-button-success" style="color: white;" />
                         </p:badge>
                     </h:form>
                 </h1>
                 <h:form>
-                    <p:commandButton icon="#{userController.themeIcon}" value="#{userController.themeName}" action="#{userController.changeTheme()}" styleClass="ui-button-raised" style="color: white; background-color: black; height: 50px; border:none; border-radius: 15px;" />
+                    <p:commandButton icon="#{userController.themeIcon}" ajax="false" value="#{userController.themeName}" action="#{userController.changeTheme()}" styleClass="ui-button-raised" style="color: white; background-color: black; height: 50px; border:none; border-radius: 15px;" />
                 </h:form>
             </div>
             <div class="tour-container">
@@ -565,13 +563,13 @@
                         <div style="width: 100%;display:flex; justify-content: space-between;box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;padding:3%;border-radius: 10px;">
                             <h3><span class="head">Tour-name : </span>#{userController.booking_master.tour_title}</h3>
                             <h3><span class="head">Date : </span>#{userController.booking_master.start_date}</h3>
-                            <h3><span class="head">Price : </span>#{userController.booking_master.per_person_price}</h3>
+                            <h3><span class="head">Price : </span><span>&#8377;</span>#{userController.booking_master.per_person_price}</h3>
                             <h3><span class="head">Time : </span>#{userController.booking_master.journey_begin_time}</h3>
                         </div>
                         <div style="text-align: center; width: 100%;">
                             <h3 class="mt-0">Select Payment Method</h3>
                             <div style="display:flex; justify-content: center;">
-                                <p:selectOneRadio id="console">
+                                <p:selectOneRadio id="console" value="#{userController.tour.payment_method}">
                                     <f:selectItem itemLabel="Cash" itemValue="cash"/>
                                     <f:selectItem itemLabel="Cheque" itemValue="cheque"/>
                                 </p:selectOneRadio>
@@ -583,25 +581,25 @@
                                 <div style="display:flex; justify-content: space-evenly; width: 100%;">
                                     <span class="ui-input-icon-left person-input">
                                         <i class="fa-solid fa-file-signature "></i>
-                                        <p:inputText placeholder="Enter First Name" style="width: 100%;" />
+                                        <p:inputText placeholder="Enter First Name" value="#{userController.person.fname}" style="width: 100%;" />
                                     </span>
                                     <span class="ui-input-icon-left person-input">
                                         <i class="fa-solid fa-file-signature"></i>
-                                        <p:inputText placeholder="Enter Last Name" style="width: 100%;" />
+                                        <p:inputText placeholder="Enter Last Name" value="#{userController.person.lname}" style="width: 100%;" />
                                     </span>
                                     <span class="ui-input-icon-left person-input">
                                         <i class="fa-solid fa-envelope"></i>
-                                        <p:inputText placeholder="Enter Email" style="width: 100%;" />
+                                        <p:inputText placeholder="Enter Email" value="#{userController.person.email}" style="width: 100%;" />
                                     </span>
                                 </div>
                                 <div style="display:flex; justify-content: space-evenly; margin-top: 3%; width: 100%;">
                                     <span class="ui-input-icon-left person-input">
                                         <i class="fa-solid fa-file-signature"></i>
-                                        <p:inputText placeholder="Enter Phone Number" style="width: 100%;" />
+                                        <p:inputText placeholder="Enter Phone Number" value="#{userController.person.phoneno}" style="width: 100%;" />
                                     </span>
-                                    <p:datePicker id="startDatePicker" placeholder="Select Start Date" showIcon="true" class="person-input" pattern="yyyy-MMM-dd"/>
+                                    <p:datePicker id="startDatePicker" value="#{userController.insert_dob}" placeholder="Select Start Date" showIcon="true" class="person-input" pattern="yyyy-MMM-dd"/>
                                     <span class="ui-input-icon-left person-input">
-                                        <p:selectOneMenu style="width: 220px;" syncTooltip="Select Gender">
+                                        <p:selectOneMenu style="width: 220px;" value="#{userController.person.gender}">
                                             <f:selectItem itemLabel="Select Gender" itemValue="#{null}"/>
                                             <f:selectItem itemLabel="Male" itemValue="male"/>
                                             <f:selectItem itemLabel="Female" itemValue="female"/>
@@ -612,10 +610,29 @@
                         </div>
                     </div>
                     <div class="add-vehicle-btn" style="margin-top: 5%;">
-                        <p:commandButton value="Book" styleClass="ui-button-raised ui-button-info" style="margin-right: 2%;" />
+                        <p:commandButton value="Book" action="#{userController.performBooking()}" styleClass="ui-button-raised ui-button-info" style="margin-right: 2%;" />
                         <p:commandButton value="Close" action="#{userController.closeBookTourDialog()}" styleClass="ui-button-raised ui-button-danger" />
                     </div>
                 </h:form>
+            </p:dialog>
+            <p:dialog widgetVar="bookingEmptyField" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Any of the fields should not be empty
+                </h4>
+            </p:dialog>
+            <p:dialog widgetVar="cartAdded" closable="false" minHeight="30" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-check" style="color:green;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Tour Added to Cart Successfully
+                </h4>
+                <div class="add-vehicle-btn">
+                    <p:commandButton value="Close" action="#{userController.closeBookTourDialog()}" styleClass="ui-button-raised ui-button-danger" />
+                </div>
             </p:dialog>
         </div>
     </h:body>

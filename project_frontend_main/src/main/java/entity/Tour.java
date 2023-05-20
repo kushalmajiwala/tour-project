@@ -11,4 +11,5 @@ public class Tour {
     private int tourmasterid;
     private String username;
     private String payment_method;
+    private String payment_status;
 }

@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Complaint;
 import entity.Feedback;
 import entity.Gallery;
+import entity.Person;
 import entity.ProjectgroupsPK;
+import entity.Tour;
 import entity.Tourmaster;
 import entity.Tourplace;
 import entity.Usertb;
@@ -204,8 +206,29 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
-    public String addTour(int tourmasterid, String username, String payment_method) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Tour addTour(Tour t) {
+        Tour res = new Tour();
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String requestBody = mapper.writeValueAsString(t);
+
+            String url = "http://localhost:9090/tour/addtour";
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            Tour myrec = mapper.readValue(response.body().toString(), Tour.class);
+            res = myrec;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return res;
     }
 
     @Override
@@ -215,7 +238,23 @@ public class UserBean implements UserBeanLocal {
 
     @Override
     public List getTour(String uname) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Tour> cart_list = new ArrayList();
+        try {
+            String url = "http://localhost:9090/tour/gettour/" + uname;
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            Tour[] myrec = mapper.readValue(response.body().toString(), Tour[].class);
+            for (Tour rec : myrec) {
+                cart_list.add(rec);
+            }
+            System.out.println("This is UserBean...");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return cart_list;
     }
 
     @Override
@@ -224,8 +263,26 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
-    public String addPerson(int tourid, String uname, String fname, String lname, String email, String pno, Date dob, String gender) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void addPerson(Person p) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String requestBody = mapper.writeValueAsString(p);
+
+            String url = "http://localhost:9090/person/addperson";
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            System.out.println("Group added Successfully...");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -305,7 +362,7 @@ public class UserBean implements UserBeanLocal {
 
     @Override
     public void addComplaint(Complaint c) {
-         try {
+        try {
             ObjectMapper mapper = new ObjectMapper();
             String requestBody = mapper.writeValueAsString(c);
 
@@ -341,8 +398,24 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
-    public String getCart(String uname) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List getCart(String uname) {
+        List<Tour> cart_list = new ArrayList();
+        try {
+            String url = "http://localhost:9090/cart/getcart/" + uname;
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            Tour[] myrec = mapper.readValue(response.body().toString(), Tour[].class);
+            for (Tour rec : myrec) {
+                cart_list.add(rec);
+            }
+            System.out.println("This is UserBean...");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return cart_list;
     }
 
     @Override
