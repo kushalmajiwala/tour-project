@@ -154,7 +154,7 @@ public class RegistrationController implements Serializable {
         System.out.println(u.getUsername().toString());
         System.out.println("User Registered Successfully...");
 
-        if (u.getUsername().isEmpty() || u.getFname().isEmpty() || u.getLname().isEmpty() || u.getEmail().isEmpty() || u.getPassword().isEmpty() || rpass.isEmpty()) {
+        if (u.getUsername() == null || u.getUsername().isEmpty() || u.getFname().isEmpty() || u.getLname().isEmpty() || u.getEmail().isEmpty() || u.getPassword().isEmpty() || rpass.isEmpty()) {
             System.out.println("Empty Field");
             current.executeScript("PF('emptyField').show();");
             return "register.xhtml";

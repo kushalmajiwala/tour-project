@@ -917,7 +917,6 @@ public class UserController implements Serializable {
         this.book_tourmasterid = book_tourmasterid;
     }
     
-
     public void openBookTourDialog(Tourmaster tm) {
         book_tourmasterid = tm.getTourmasterid();
         booking_master = new Tourmaster();
@@ -965,7 +964,7 @@ public class UserController implements Serializable {
             System.out.println(e);
         }
        
-        if(tour.getPayment_method().isEmpty() || person.getFname().isEmpty() || person.getLname().isEmpty() || person.getEmail().isEmpty() || person.getDob() == null || person.getPhoneno().isEmpty() || person.getGender() == null || person.getGender().isEmpty())
+        if(tour.getPayment_method() == null || tour.getPayment_method().isEmpty() || person.getFname().isEmpty() || person.getLname().isEmpty() || person.getEmail().isEmpty() || person.getDob() == null || person.getPhoneno().isEmpty() || person.getGender() == null || person.getGender().isEmpty())
         {
             current.executeScript("PF('bookingEmptyField').show();");
         }
