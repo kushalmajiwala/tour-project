@@ -314,6 +314,31 @@ public class UserController implements Serializable {
         }
         return day_diff;
     }
+
+    public String getRealTime(String actual_time) {
+        String time = "";
+        try {
+            int hourOfDay = Integer.parseInt(actual_time.split(":")[0]);
+            int minute = Integer.parseInt(actual_time.split(":")[1]);
+
+            time = ((hourOfDay > 12) ? hourOfDay % 12 : hourOfDay) + ":" + (minute < 10 ? ("0" + minute) : minute) + " " + ((hourOfDay >= 12) ? "PM" : "AM");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return time;
+    }
+    public String meetingTime(String actual_time) {
+        String time = "";
+        try {
+            int hourOfDay = Integer.parseInt(actual_time.split(":")[0]) - 1;
+            int minute = Integer.parseInt(actual_time.split(":")[1]);
+
+            time = ((hourOfDay > 12) ? hourOfDay % 12 : hourOfDay) + ":" + (minute < 10 ? ("0" + minute) : minute) + " " + ((hourOfDay >= 12) ? "PM" : "AM");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return time;
+    }
     //showUserTemplate
     String sDate;
     String eDate;
@@ -324,6 +349,16 @@ public class UserController implements Serializable {
     int data_length;
     int day_num;
     String picUrl;
+    String journey_begin_time;
+
+    public String getJourney_begin_time() {
+        return journey_begin_time;
+    }
+
+    public void setJourney_begin_time(String journey_begin_time) {
+        this.journey_begin_time = journey_begin_time;
+    }
+    
 
     public String getPicUrl() {
         return picUrl;
@@ -417,13 +452,14 @@ public class UserController implements Serializable {
 
     List<Tourplace> all_places;
 
-    public String populate_places(int tourplaceid, String pic_url, String start_date, String end_date, String tour_title, int tour_price) {
+    public String populate_places(int tourplaceid, String pic_url, String start_date, String end_date, String tour_title, int tour_price, String begin_time) {
         tourmasterid = tourplaceid;
         sDate = start_date;
         eDate = end_date;
         picUrl = pic_url;
         tourTitle = tour_title;
         tourPrice = tour_price;
+        journey_begin_time = begin_time;
         day_num = 0;
         SimpleDateFormat obj = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -916,7 +952,7 @@ public class UserController implements Serializable {
     public void setBook_tourmasterid(int book_tourmasterid) {
         this.book_tourmasterid = book_tourmasterid;
     }
-    
+
     public void openBookTourDialog(Tourmaster tm) {
         book_tourmasterid = tm.getTourmasterid();
         booking_master = new Tourmaster();
@@ -942,41 +978,39 @@ public class UserController implements Serializable {
     public void setPerson(Person person) {
         this.person = person;
     }
-    
+
     Date insert_dob;
+
     public Date getInsert_dob() {
         return insert_dob;
     }
+
     public void setInsert_dob(Date insert_dob) {
         this.insert_dob = insert_dob;
     }
-    
-    public void performBooking()
-    {
+
+    public void performBooking() {
         System.out.println(book_tourmasterid);
         try {
             java.sql.Date actual_dob = new java.sql.Date(insert_dob.getTime());
             System.out.println("sqlDate:" + actual_dob);
-            
+
             person.setDob(actual_dob);
 
         } catch (Exception e) {
             System.out.println(e);
         }
-       
-        if(tour.getPayment_method() == null || tour.getPayment_method().isEmpty() || person.getFname().isEmpty() || person.getLname().isEmpty() || person.getEmail().isEmpty() || person.getDob() == null || person.getPhoneno().isEmpty() || person.getGender() == null || person.getGender().isEmpty())
-        {
+
+        if (tour.getPayment_method() == null || tour.getPayment_method().isEmpty() || person.getFname().isEmpty() || person.getLname().isEmpty() || person.getEmail().isEmpty() || person.getDob() == null || person.getPhoneno().isEmpty() || person.getGender() == null || person.getGender().isEmpty()) {
             current.executeScript("PF('bookingEmptyField').show();");
-        }
-        else
-        {
+        } else {
             //Adding Tour
             tour.setTourmasterid(book_tourmasterid);
             tour.setUsername(getCurrentUsername());
             tour.setPayment_status("remaining");
             Tour response = ubl.addTour(tour);
             System.out.println("Added Cart Id -> " + response.getTourid());
-            
+
             //Adding Person
             person.setTourid(response.getTourid());
             person.setUsername(getCurrentUsername());
@@ -984,16 +1018,16 @@ public class UserController implements Serializable {
             current.executeScript("PF('cartAdded').show();");
         }
     }
-    public String closeBookTourDialog()
-    {
+
+    public String closeBookTourDialog() {
         insert_dob = null;
         tour = new Tour();
         person = new Person();
         return "userHome.xhtml?faces-redirect=true";
     }
+
     //Getting Cart Size
-    public int total_cart_items()
-    {
+    public int total_cart_items() {
         System.out.println(ubl.getTour(getCurrentUsername()));
         return ubl.getTour(getCurrentUsername()).size();
     }

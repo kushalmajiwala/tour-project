@@ -267,7 +267,7 @@
                             <h:commandButton value="Booking Details" styleClass="ui-button-flat inner-button nav-unique"></h:commandButton>
                         </h:form>
                         <div class="badge-container">
-                            <p:badge value="3" class="fa-beat" severity="danger"></p:badge>
+                            <p:badge value="#{adminController.totalBookings()}" class="fa-beat" severity="danger"></p:badge>
                         </div>
                     </div>
                 </div>
@@ -295,7 +295,7 @@
                 <h1>All Tours</h1>
                 <h1>
                     <h:form>
-                        <p:badge value="8" severity="danger"><i class="fa-solid fa-message-captions"></i>
+                        <p:badge value="#{adminController.totalBookings()}" severity="danger"><i class="fa-solid fa-message-captions"></i>
                             <p:commandButton icon="fa-solid fa-file-pen" value="Booking Details" styleClass="ui-button-raised ui-button-success" style="color: white;" />
                         </p:badge>
                     </h:form>
@@ -335,7 +335,7 @@
                                             <h2 style="padding-top: 0.5%;"><span>&#8377;</span>#{item.per_person_price}</h2>
                                             <h2 style="padding-top: 0.5%;"><i class="pi pi-clock"></i> <span style="color: #{adminController.txtColor};">#{adminController.getDayDiff(item.start_date, item.end_date)}D / #{adminController.getDayDiff(item.start_date, item.end_date) - 1}N</span></h2>
                                             <h2 style="padding-top: 0.5%;"><i class="pi pi-calendar"></i> <span style="color: #{adminController.txtColor};">#{item.start_date}</span></h2>
-                                            <h2 style="padding-top: 0.5%;"><i class="pi pi-stopwatch"></i> <span style="color: #{adminController.txtColor};">#{item.journey_begin_time}</span></h2>
+                                            <h2 style="padding-top: 0.5%;"><i class="pi pi-stopwatch"></i> <span style="color: #{adminController.txtColor};">#{adminController.getRealTime(item.journey_begin_time)}</span></h2>
                                         </div>
                                         <div class="basic-info1">
                                             <p:commandButton icon="fa-solid fa-plus" value="Add Place" action="#{adminController.openAddPlaceDialog(item.tourmasterid)}" styleClass="ui-button-raised ui-button-info mybtn" />

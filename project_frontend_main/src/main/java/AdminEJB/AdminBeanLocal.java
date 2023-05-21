@@ -43,6 +43,8 @@ public interface AdminBeanLocal {
     public void deleteTourMaster(int tourid);
 
     public List getTour(String uname);
+    
+    public List getAllTour();
 
     public List getPersons(int tourid);
 

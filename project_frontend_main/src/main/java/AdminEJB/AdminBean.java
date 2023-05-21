@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Complaint;
 import entity.Gallery;
 import entity.ProjectgroupsPK;
+import entity.Tour;
 import entity.Tourmaster;
 import entity.Tourplace;
 import entity.Usertb;
@@ -436,5 +437,25 @@ public class AdminBean implements AdminBeanLocal {
         }
         System.out.println("This is Admin Bean");
         return group_data;
+    }
+
+    @Override
+    public List getAllTour() {
+        List mylist = new ArrayList();
+        try {
+            String url = "http://localhost:9090/tour/getalltour";
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            Tour[] myrec = mapper.readValue(response.body().toString(), Tour[].class);
+            for (Tour rec : myrec) {
+                mylist.add(rec);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return mylist;
     }
 }

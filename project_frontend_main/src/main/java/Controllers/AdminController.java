@@ -169,6 +169,19 @@ public class AdminController implements Serializable {
         return day_diff;
     }
 
+    public String getRealTime(String actual_time) {
+        String time = "";
+        try {
+            int hourOfDay = Integer.parseInt(actual_time.split(":")[0]);
+            int minute = Integer.parseInt(actual_time.split(":")[1]);
+
+            time = ((hourOfDay > 12) ? hourOfDay % 12 : hourOfDay) + ":" + (minute < 10 ? ("0" + minute) : minute) + " " + ((hourOfDay >= 12) ? "PM" : "AM");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return time;
+    }
+
     public String addTourRedirect() {
         tm = new Tourmaster();
         tm.setTour_title("");
@@ -1151,5 +1164,10 @@ public class AdminController implements Serializable {
     public String closeDeleteComplaintDialog() {
         delete_complaintid = 0;
         return "allComplaints.xhtml?faces-redirect=true";
+    }
+    //Booking Details Working
+    public int totalBookings()
+    {
+        return abl.getAllTour().size();
     }
 }

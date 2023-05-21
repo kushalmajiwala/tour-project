@@ -36,19 +36,30 @@ public class TourmasterController implements Serializable {
     int days_diff;
     int data_length;
     int day_num;
-    
+    String journey_begin_time;
+
+    public String getJourney_begin_time() {
+        return journey_begin_time;
+    }
+
+    public void setJourney_begin_time(String journey_begin_time) {
+        this.journey_begin_time = journey_begin_time;
+    }
+
     int tourmasterid;
+
     public int getTourmasterid() {
         return tourmasterid;
     }
+
     public void setTourmasterid(int tourmasterid) {
         this.tourmasterid = tourmasterid;
     }
-    
 
     public int getDay_num() {
         return day_num;
     }
+
     public void setDay_num(int day_num) {
         this.day_num = day_num;
     }
@@ -56,6 +67,7 @@ public class TourmasterController implements Serializable {
     public int getData_length() {
         return data_length;
     }
+
     public void setData_length(int data_length) {
         this.data_length = data_length;
     }
@@ -63,6 +75,7 @@ public class TourmasterController implements Serializable {
     public int getTime_diff() {
         return time_diff;
     }
+
     public void setTime_diff(int time_diff) {
         this.time_diff = time_diff;
     }
@@ -70,6 +83,7 @@ public class TourmasterController implements Serializable {
     public int getDays_diff() {
         return days_diff;
     }
+
     public void setDays_diff(int days_diff) {
         this.days_diff = days_diff;
     }
@@ -77,6 +91,7 @@ public class TourmasterController implements Serializable {
     public int getTourPrice() {
         return tourPrice;
     }
+
     public void setTourPrice(int tourPrice) {
         this.tourPrice = tourPrice;
     }
@@ -84,6 +99,7 @@ public class TourmasterController implements Serializable {
     public String getPicUrl() {
         return picUrl;
     }
+
     public void setPicUrl(String picUrl) {
         this.picUrl = picUrl;
     }
@@ -91,6 +107,7 @@ public class TourmasterController implements Serializable {
     public String getStartDate() {
         return startDate;
     }
+
     public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
@@ -98,6 +115,7 @@ public class TourmasterController implements Serializable {
     public String getEndDate() {
         return endDate;
     }
+
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
@@ -105,61 +123,85 @@ public class TourmasterController implements Serializable {
     public String getTourTitle() {
         return tourTitle;
     }
+
     public void setTourTitle(String tourTitle) {
         this.tourTitle = tourTitle;
     }
-    
+
     List<String> temp = new ArrayList<>();
-    public List<String> tempFunc()
-    {
+
+    public List<String> tempFunc() {
         temp = new ArrayList<>();
         temp.add("Surat");
         return temp;
     }
-    
+
+    public String getRealTime(String actual_time) {
+        String time = "";
+        try {
+            int hourOfDay = Integer.parseInt(actual_time.split(":")[0]);
+            int minute = Integer.parseInt(actual_time.split(":")[1]);
+
+            time = ((hourOfDay > 12) ? hourOfDay % 12 : hourOfDay) + ":" + (minute < 10 ? ("0" + minute) : minute) + " " + ((hourOfDay >= 12) ? "PM" : "AM");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return time;
+    }
+
+    public String meetingTime(String actual_time) {
+        String time = "";
+        try {
+            int hourOfDay = Integer.parseInt(actual_time.split(":")[0]) - 1;
+            int minute = Integer.parseInt(actual_time.split(":")[1]);
+
+            time = ((hourOfDay > 12) ? hourOfDay % 12 : hourOfDay) + ":" + (minute < 10 ? ("0" + minute) : minute) + " " + ((hourOfDay >= 12) ? "PM" : "AM");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return time;
+    }
+
     List<Tourplace> all_places;
-    public String populate_places(int tourplaceid, String pic_url, String start_date, String end_date, String tour_title, int tour_price)
-    {
+
+    public String populate_places(int tourplaceid, String pic_url, String start_date, String end_date, String tour_title, int tour_price, String begin_time) {
         tourmasterid = tourplaceid;
         picUrl = pic_url;
         startDate = start_date;
         endDate = end_date;
         tourTitle = tour_title;
         tourPrice = tour_price;
+        journey_begin_time = begin_time;
         day_num = 0;
-        SimpleDateFormat obj = new SimpleDateFormat("yyyy-MM-dd");   
-    
-        try
-        {
-             Date sdate = obj.parse(startDate);
-             Date edate = obj.parse(endDate);
-             
-             time_diff = (int) (edate.getTime() - sdate.getTime());
-             days_diff = (time_diff / (1000*60*60*24)) % 365;   
-        }
-        catch(Exception e)
-        {
+        SimpleDateFormat obj = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date sdate = obj.parse(startDate);
+            Date edate = obj.parse(endDate);
+
+            time_diff = (int) (edate.getTime() - sdate.getTime());
+            days_diff = (time_diff / (1000 * 60 * 60 * 24)) % 365;
+        } catch (Exception e) {
             System.out.println(e);
         }
-        
+
         System.out.println("Done");
         all_places = new ArrayList<>();
         all_places = userbean.getPlaces(tourplaceid);
         data_length = all_places.size();
-        
+
         System.out.println("All Tours -> " + all_places);
         System.out.println("I am done Here");
-        
+
         return "home/showTemplate.xhtml?faces-redirect=true";
     }
-    
-    public List<Tourplace> getAllPlaces()
-    {
+
+    public List<Tourplace> getAllPlaces() {
         System.out.println("Getting Places -> " + all_places);
         return all_places;
     }
-    public List<Vehicle> getAllVehicleByTourmasterid()
-    {
+
+    public List<Vehicle> getAllVehicleByTourmasterid() {
         System.out.println("Getting Vehicle");
         List<Vehicle> all_vehicle = userbean.getVehicle(tourmasterid);
         System.out.println("All Vehicle -> " + all_vehicle);
@@ -194,20 +236,17 @@ public class TourmasterController implements Serializable {
         this.contact_message = contact_message;
     }
     PrimeFaces current = PrimeFaces.current();
-    public void submitContact()
-    {
+
+    public void submitContact() {
         System.out.println(contact_name + " - " + contact_email + " - " + contact_message);
-        if(contact_name.isEmpty() || contact_email.isEmpty() || contact_message.isEmpty())
-        {
+        if (contact_name.isEmpty() || contact_email.isEmpty() || contact_message.isEmpty()) {
             current.executeScript("PF('emptyField').show();");
-        }
-        else
-        {
+        } else {
             current.executeScript("PF('sentContact').show();");
         }
     }
-    public String closeDialog()
-    {
+
+    public String closeDialog() {
         contact_name = "";
         contact_email = "";
         contact_message = "";

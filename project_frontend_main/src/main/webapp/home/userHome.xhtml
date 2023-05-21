@@ -187,7 +187,8 @@
             }
             .head {
                 color: #161547;
-                font-weight: bolder;
+                font-weight: 900;
+                border-bottom: 2px solid #161547;
             }
         </style>
     </h:head>
@@ -334,10 +335,10 @@
                                                 <h2 style="padding-top: 0.5%;"><span>&#8377;</span>#{item.per_person_price}</h2>
                                                 <h2 style="padding-top: 0.5%;"><i class="pi pi-clock"></i> <span style="color: #{userController.txtColor};">#{userController.getDayDiff(item.start_date, item.end_date)}D / #{userController.getDayDiff(item.start_date, item.end_date) - 1}N</span></h2>
                                                 <h2 style="padding-top: 0.5%;"><i class="pi pi-calendar"></i> <span style="color: #{userController.txtColor};">#{item.start_date}</span></h2>
-                                                <h2 style="padding-top: 0.5%;"><i class="pi pi-stopwatch"></i> <span style="color: #{userController.txtColor};">#{item.journey_begin_time}</span></h2>
+                                                <h2 style="padding-top: 0.5%;"><i class="pi pi-stopwatch"></i> <span style="color: #{userController.txtColor};">#{userController.getRealTime(item.journey_begin_time)}</span></h2>
                                             </div>
                                             <div class="basic-info1">
-                                                <p:commandButton icon="fa-solid fa-circle-info" action="#{userController.populate_places(item.tourmasterid, item.tour_pic, item.start_date, item.end_date, item.tour_title, item.per_person_price)}" value="View Details"  styleClass="ui-button-raised ui-button-info mybtn" />
+                                                <p:commandButton icon="fa-solid fa-circle-info" action="#{userController.populate_places(item.tourmasterid, item.tour_pic, item.start_date, item.end_date, item.tour_title, item.per_person_price, item.journey_begin_time)}" value="View Details"  styleClass="ui-button-raised ui-button-info mybtn" />
                                                 <p:commandButton action="#{userController.openBookTourDialog(item)}" ajax="false" icon="fa-solid fa-bookmark" value="Book Now" styleClass="ui-button-raised ui-button-info mybtn" />
                                             </div>
                                         </div>
@@ -561,10 +562,10 @@
                     </div><br/>
                     <div style="width: 100%;">
                         <div style="width: 100%;display:flex; justify-content: space-between;box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;padding:3%;border-radius: 10px;">
-                            <h3><span class="head">Tour-name : </span>#{userController.booking_master.tour_title}</h3>
-                            <h3><span class="head">Date : </span>#{userController.booking_master.start_date}</h3>
-                            <h3><span class="head">Price : </span><span>&#8377;</span>#{userController.booking_master.per_person_price}</h3>
-                            <h3><span class="head">Time : </span>#{userController.booking_master.journey_begin_time}</h3>
+                            <h3><span class="head">TOURNAME</span> : #{userController.booking_master.tour_title}</h3>
+                            <h3><span class="head">DATE</span> : #{userController.booking_master.start_date}</h3>
+                            <h3><span class="head">PRICE</span> : <span>&#8377;</span>#{userController.booking_master.per_person_price}</h3>
+                            <h3><span class="head">TIME</span> : #{userController.getRealTime(userController.booking_master.journey_begin_time)}</h3>
                         </div>
                         <div style="text-align: center; width: 100%;">
                             <h3 class="mt-0">Select Payment Method</h3>

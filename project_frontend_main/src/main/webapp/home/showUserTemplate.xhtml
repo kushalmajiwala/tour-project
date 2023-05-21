@@ -149,8 +149,8 @@
                         <p:column>
                             <h:outputText value="Day - 1" class="days-of-tour"/>
                             <h:outputText value="&nbsp; :- " class="dot-after-heading"/><br/><br/>
-                            <h:outputText value="We will meet at Surat Railway Station at 10pm on #{userController.sDate}."/><br/><br/>
-                            <h:outputText value="And our train jounery will begin at 11pm."/><br/><br/>
+                            <h:outputText value="We will meet at Surat Railway Station at #{userController.meetingTime(userController.journey_begin_time)} on #{userController.sDate}."/><br/><br/>
+                            <h:outputText value="And our train jounery will begin at #{userController.getRealTime(userController.journey_begin_time)}."/><br/><br/>
                             Our Tour Journey includes Vehicles Like :-
                             <p:dataTable style="padding-top: 0%" value="#{userController.getAllVehicleByTourmasterid()}" var="val">
                                 <p:column style="border:none;">
