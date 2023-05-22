@@ -292,7 +292,23 @@ public class UserBean implements UserBeanLocal {
 
     @Override
     public List getPersons(int tourid) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Person> cart_list = new ArrayList();
+        try {
+            String url = "http://localhost:9090/person/getperson/" + tourid;
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            Person[] myrec = mapper.readValue(response.body().toString(), Person[].class);
+            for (Person rec : myrec) {
+                cart_list.add(rec);
+            }
+            System.out.println("This is UserBean...");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return cart_list;
     }
 
     @Override

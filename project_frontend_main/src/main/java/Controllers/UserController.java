@@ -327,6 +327,7 @@ public class UserController implements Serializable {
         }
         return time;
     }
+
     public String meetingTime(String actual_time) {
         String time = "";
         try {
@@ -358,7 +359,6 @@ public class UserController implements Serializable {
     public void setJourney_begin_time(String journey_begin_time) {
         this.journey_begin_time = journey_begin_time;
     }
-    
 
     public String getPicUrl() {
         return picUrl;
@@ -1031,12 +1031,82 @@ public class UserController implements Serializable {
         System.out.println(ubl.getTour(getCurrentUsername()));
         return ubl.getTour(getCurrentUsername()).size();
     }
-    public List<Tour> getAllCartItems()
-    {
+
+    public List<Tour> getAllCartItems() {
         return ubl.getTour(getCurrentUsername());
     }
-    public String cartRedirect()
-    {
+
+    public String cartRedirect() {
         return "myCart.xhtml?faces-redirect=true";
+    }
+
+    //Working on Cart Details
+    public String getCartTourPic(int tourmasterid) {
+        return ubl.getTourMaster(tourmasterid).getTour_pic();
+    }
+
+    public String getCartTourName(int tourmasterid) {
+        return ubl.getTourMaster(tourmasterid).getTour_title();
+    }
+
+    public Date getCartTourStartDate(int tourmasterid) {
+        return ubl.getTourMaster(tourmasterid).getStart_date();
+    }
+
+    public Date getCartTourEndDate(int tourmasterid) {
+        return ubl.getTourMaster(tourmasterid).getEnd_date();
+    }
+
+    public int getCartTourPrice(int tourmasterid) {
+        return ubl.getTourMaster(tourmasterid).getPer_person_price();
+    }
+
+    public String getCartTourTime(int tourmasterid) {
+        return ubl.getTourMaster(tourmasterid).getJourney_begin_time();
+    }
+
+    public String getCartTourAddress(int tourmasterid) {
+        return ubl.getTourMaster(tourmasterid).getPickup_address();
+    }
+
+    public int getTotalPerson(int tourmasterid) {
+        return ubl.getPersons(tourmasterid).size();
+    }
+    //Cancel or Remove Cart Item
+    String cancel_button_name = "Remove Cart Item";
+    String status_color;
+
+    public String getStatus_color() {
+        return status_color;
+    }
+
+    public void setStatus_color(String status_color) {
+        this.status_color = status_color;
+    }
+
+    public String getCancel_button_name() {
+        return cancel_button_name;
+    }
+
+    public void setCancel_button_name(String cancel_button_name) {
+        this.cancel_button_name = cancel_button_name;
+    }
+
+    public String getRemoveCartButtonName(String payment_status) {
+        if (payment_status.equals("done")) {
+            cancel_button_name = "Cancel Booking";
+        } else if (payment_status.equals("remaining")) {
+            cancel_button_name = "Remove Cart Item";
+        }
+        return cancel_button_name;
+    }
+
+    public String getStatusColor(String payment_status) {
+         if (payment_status.equals("done")) {
+            status_color = "#29C90F";
+        } else if (payment_status.equals("remaining")) {
+            status_color = "red";
+        }
+        return status_color;
     }
 }
