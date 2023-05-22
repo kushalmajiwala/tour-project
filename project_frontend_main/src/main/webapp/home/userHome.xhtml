@@ -8,6 +8,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
+        <!--<script src="//code.tidio.co/34dcjiij4xbxxxxihbhendxxiwmjxtz2.js"></script>-->
         <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
@@ -237,7 +238,7 @@
                     <div class="logout-container inner-container">
                         <h3 class="icon-container"><i class="fa-solid fa-cart-shopping"></i></h3>
                         <h:form class="button-container">
-                            <h:commandButton value="View Cart" styleClass="ui-button-flat inner-button nav-unique"></h:commandButton>
+                            <h:commandButton value="View Cart" action="#{userController.cartRedirect()}" styleClass="ui-button-flat inner-button nav-unique"></h:commandButton>
                         </h:form>
                         <div class="badge-container">
                             <p:badge class="fa-beat" value="#{userController.total_cart_items()}" severity="danger"></p:badge>
@@ -309,7 +310,7 @@
                 <h1>
                     <h:form>
                         <p:badge value="#{userController.total_cart_items()}" severity="danger"><i class="fa-solid fa-message-captions"></i>
-                            <p:commandButton icon="fa-solid fa-cart-shopping" value="View Cart" styleClass="ui-button-raised ui-button-success" style="color: white;" />
+                            <p:commandButton icon="fa-solid fa-cart-shopping" action="#{userController.cartRedirect()}" value="View Cart" styleClass="ui-button-raised ui-button-success" style="color: white;" />
                         </p:badge>
                     </h:form>
                 </h1>

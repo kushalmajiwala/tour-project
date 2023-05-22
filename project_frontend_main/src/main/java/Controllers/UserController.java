@@ -1031,4 +1031,12 @@ public class UserController implements Serializable {
         System.out.println(ubl.getTour(getCurrentUsername()));
         return ubl.getTour(getCurrentUsername()).size();
     }
+    public List<Tour> getAllCartItems()
+    {
+        return ubl.getTour(getCurrentUsername());
+    }
+    public String cartRedirect()
+    {
+        return "myCart.xhtml?faces-redirect=true";
+    }
 }

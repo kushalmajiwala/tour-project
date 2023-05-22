@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
+            .closeBtn {
+                margin-top: 3.2%;
+                text-align: right;
+                padding-right: 2%;
+                color: white;
+                text-decoration: none;
+            }
+            .closeBtn:hover {
+                color: #131418;
+            }
+            .close-container {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                padding-right: 2%;
+                color: white;
+                background-color: #211E63;
+                margin-top: 1%;
+            }
+            .title{
+                font-size: 50px;
+                padding: 2%;
+                font-weight: 900;
+            }
+            .product-image {
+                width: 80%;
+                height: 500px;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+            }
+            .gallery-title {
+                background-color: #546e7a;
+                color: white;
+                font-size: 25px;
+                padding: 1.5%;
+                padding-left: 2%;
+                display:flex;
+                justify-content: space-between;
+            }
+            .gallery-path-home {
+                text-decoration:none;
+                color: white;
+            }
+            .gallery-path-home:hover{
+                color: #020873;
+            }
+            .basic-info {
+                color:#ff5722;
+                display: flex;
+                justify-content: space-around;
+                width: 100%;
+            }
+            .image-container {
+                padding-top: 4%;
+                background-color: #EEF0EF;
+            }
+            .content-title{
+                font-size: 40px;
+                padding: 2%;
+                color: white;
+                font-weight: 900;
+                margin-top: 1%;
+                width: 100%;
+                background-color: #211E63;
+                display: flex;
+            }
+            .all-content {
+                background-color: #EEF0EF;
+            }
+            .image-inner{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            .bookBtn {
+                height: 45px;
+                width: 140px;
+            }
+            .no-border {
+                border: none;
+            }
+            .days-of-tour {
+                font-size: 20px;
+                font-weight: 700;
+                color: #33306D;
+                border-bottom: 2px solid #33306D;
+            }
+            .dot-after-heading {
+                font-size: 20px;
+                font-weight: 700;
+                color: #33306D;
+            }
+        </style>
+    </h:head>
+    <h:body style="background-color: #E0E0F0;">
+        <h:form>
+            <div class="gallery-title">
+                <div>
+                    <p:commandButton icon="fa-solid fa-arrow-left" id="goBackTip" action="#{userController.redirectToUserHome()}" styleClass="rounded-button ui-button-secondary" style="margin-top: -1%;"><p:tooltip for="goBackTip" value="Back" position="bottom"/></p:commandButton>
+                    <span style="margin-left: 20px;">MY CART</span>
+                </div>
+                <div class="gallery-path" style="font-size: 17px; margin-top: 0.7%;">
+                    <a href="../index.xhtml" class="gallery-path-home">HOME</a> <span style="color: #61DAFB"> / </span><span style="color:#FC8F37;">MY CART</span>
+                </div>
+            </div>
+        </h:form>
+        <f:view>
+            <h:form>
+                <p:dataTable value="#{userController.allCartItems}" var="item">
+                    <p:column style="border: none; background-color: #E0E0F0; display: flex; justify-content: center;">
+                        <p:card style="width: 85%; margin-bottom: 1em; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius: 10px;">
+                            
+                        </p:card>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </f:view>
+
+    </h:body>
+</html>
+
