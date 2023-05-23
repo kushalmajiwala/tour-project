@@ -1023,6 +1023,7 @@ public class UserController implements Serializable {
         insert_dob = null;
         tour = new Tour();
         person = new Person();
+        booking_master = new Tourmaster();
         return "userHome.xhtml?faces-redirect=true";
     }
 
@@ -1102,11 +1103,113 @@ public class UserController implements Serializable {
     }
 
     public String getStatusColor(String payment_status) {
-         if (payment_status.equals("done")) {
+        if (payment_status.equals("done")) {
             status_color = "#29C90F";
         } else if (payment_status.equals("remaining")) {
             status_color = "red";
         }
         return status_color;
+    }
+    
+    int add_person_tourid;
+
+    public int getAdd_person_tourid() {
+        return add_person_tourid;
+    }
+
+    public void setAdd_person_tourid(int add_person_tourid) {
+        this.add_person_tourid = add_person_tourid;
+    }
+    
+
+    public void openAddPersonDialog(Tour t) {
+        System.out.println("Adding person with -> " + t.getTourid());
+        add_person_tourid = t.getTourid();
+        booking_master = ubl.getTourMaster(t.getTourmasterid());
+        current.executeScript("PF('addPerson').show();");
+    }
+
+    public void performAddPerson() {
+        try {
+            java.sql.Date actual_dob = new java.sql.Date(insert_dob.getTime());
+            System.out.println("sqlDate:" + actual_dob);
+
+            person.setDob(actual_dob);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        if (person.getFname().isEmpty() || person.getLname().isEmpty() || person.getEmail().isEmpty() || person.getDob() == null || person.getPhoneno().isEmpty() || person.getGender() == null || person.getGender().isEmpty()) {
+            current.executeScript("PF('addPersonEmptyField').show();");
+        } else {
+            //Adding Person
+            person.setTourid(add_person_tourid);
+            person.setUsername(getCurrentUsername());
+            ubl.addPerson(person);
+            current.executeScript("PF('personAdded').show();");
+        }
+    }
+
+    public String closeAddPersonDialog() {
+        insert_dob = null;
+        tour = new Tour();
+        person = new Person();
+        add_person_tourid = 0;
+        booking_master = new Tourmaster();
+        return "myCart.xhtml?faces-redirect=true";
+    }
+    //Removing Cart Item
+    int delete_cart_tourid;
+    String delete_cart_payment_status;
+
+    public int getDelete_cart_tourid() {
+        return delete_cart_tourid;
+    }
+
+    public void setDelete_cart_tourid(int delete_cart_tourid) {
+        this.delete_cart_tourid = delete_cart_tourid;
+    }
+
+    public String getDelete_cart_payment_status() {
+        return delete_cart_payment_status;
+    }
+
+    public void setDelete_cart_payment_status(String delete_cart_payment_status) {
+        this.delete_cart_payment_status = delete_cart_payment_status;
+    }
+    
+    public void openDeleteCartDialog(Tour t)
+    {
+        delete_cart_tourid = t.getTourid();
+        delete_cart_payment_status = t.getPayment_status();
+        
+        if(delete_cart_payment_status.equals("done"))
+        {
+            current.executeScript("PF('cancelBooking').show();");
+        }
+        else if(delete_cart_payment_status.equals("remaining"))
+        {
+            current.executeScript("PF('removeCart').show();");
+        }
+    }
+    public void performCartRemove()
+    {
+        if(delete_cart_payment_status.equals("done"))
+        {
+            ubl.deleteTour(delete_cart_tourid);
+            current.executeScript("PF('bookingCancelled').show();");
+        }
+        else if(delete_cart_payment_status.equals("remaining"))
+        {
+            ubl.deleteTour(delete_cart_tourid);
+            current.executeScript("PF('cartRemoved').show();");
+        }
+    }
+    public String closeRemoveCartDialog()
+    {
+        delete_cart_tourid = 0;
+        delete_cart_payment_status = "";
+        return "myCart.xhtml?faces-redirect=true";
     }
 }

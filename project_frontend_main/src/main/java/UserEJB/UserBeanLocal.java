@@ -35,7 +35,7 @@ public interface UserBeanLocal {
     
     public List getTour(String uname);
     
-    public String deleteTour(int tourid);
+    public void deleteTour(int tourid);
     
     public void addPerson(Person p);
     
