@@ -13,7 +13,6 @@ import entity.Usertb;
 import entity.Vehicle;
 import java.net.URI;
 import java.net.http.*;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;

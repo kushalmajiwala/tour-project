@@ -1,5 +1,6 @@
 package AdminEJB;
 
+import entity.Tour;
 import entity.Tourmaster;
 import entity.Tourplace;
 import entity.Usertb;
@@ -38,7 +39,7 @@ public interface AdminBeanLocal {
 
     public void updateTourMaster(Tourmaster tm);
     
-    public String getTourMaster(int tourid);
+    public Tourmaster getTourMaster(int tourid);
 
     public void deleteTourMaster(int tourid);
 
@@ -62,7 +63,7 @@ public interface AdminBeanLocal {
 
     public String getCart(String uname);
     
-    public String updateStatus(int tourid, String uname, String payment_status);
+    public void updateStatus(Tour t);
     
     public List getGroupByGroupname(String gname);
 }

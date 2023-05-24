@@ -8,7 +8,6 @@ import entity.Tour;
 import entity.Tourmaster;
 import entity.Tourplace;
 import entity.Usertb;
-import java.sql.Date;
 import java.util.List;
 import javax.ejb.Local;
 

@@ -3,6 +3,7 @@ package AdminEJB;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Complaint;
 import entity.Gallery;
+import entity.Person;
 import entity.ProjectgroupsPK;
 import entity.Tour;
 import entity.Tourmaster;
@@ -274,8 +275,21 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
-    public String getTourMaster(int tourid) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Tourmaster getTourMaster(int tourid) {
+        Tourmaster mylist = new Tourmaster();
+        try {
+            String url = "http://localhost:9090/tourmaster/gettour/" + tourid;
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            Tourmaster myrec = mapper.readValue(response.body().toString(), Tourmaster.class);
+            mylist = myrec;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return mylist;
     }
 
     @Override
@@ -306,7 +320,23 @@ public class AdminBean implements AdminBeanLocal {
 
     @Override
     public List getPersons(int tourid) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Person> cart_list = new ArrayList();
+        try {
+            String url = "http://localhost:9090/person/getperson/" + tourid;
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            Person[] myrec = mapper.readValue(response.body().toString(), Person[].class);
+            for (Person rec : myrec) {
+                cart_list.add(rec);
+            }
+            System.out.println("This is UserBean...");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return cart_list;
     }
 
     @Override
@@ -391,8 +421,25 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
-    public String updateStatus(int tourid, String uname, String payment_status) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void updateStatus(Tour t) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String requestBody = mapper.writeValueAsString(t);
+
+            String url = "http://localhost:9090/tour/updatetour";
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package Controllers;
 
 import AdminEJB.AdminBeanLocal;
 import entity.Complaint;
+import entity.Tour;
 import entity.Tourmaster;
 import entity.Tourplace;
 import entity.Usertb;
@@ -1165,9 +1166,135 @@ public class AdminController implements Serializable {
         delete_complaintid = 0;
         return "allComplaints.xhtml?faces-redirect=true";
     }
+
     //Booking Details Working
-    public int totalBookings()
-    {
+    public int totalBookings() {
         return abl.getAllTour().size();
+    }
+
+    public String redirectBookingDetails() {
+        return "bookingDetails.xhtml?faces-redirect=true";
+    }
+
+    public List<Tour> getAllBookings() {
+        return abl.getAllTour();
+    }
+
+    //Working on Cart Details
+    public String getCartTourPic(int tourmasterid) {
+        return abl.getTourMaster(tourmasterid).getTour_pic();
+    }
+
+    public String getCartTourName(int tourmasterid) {
+        return abl.getTourMaster(tourmasterid).getTour_title();
+    }
+
+    public Date getCartTourStartDate(int tourmasterid) {
+        return abl.getTourMaster(tourmasterid).getStart_date();
+    }
+
+    public Date getCartTourEndDate(int tourmasterid) {
+        return abl.getTourMaster(tourmasterid).getEnd_date();
+    }
+
+    public int getCartTourPrice(int tourmasterid) {
+        return abl.getTourMaster(tourmasterid).getPer_person_price();
+    }
+
+    public String getCartTourTime(int tourmasterid) {
+        return abl.getTourMaster(tourmasterid).getJourney_begin_time();
+    }
+
+    public String getCartTourAddress(int tourmasterid) {
+        return abl.getTourMaster(tourmasterid).getPickup_address();
+    }
+
+    public int getTotalPerson(int tourmasterid) {
+        return abl.getPersons(tourmasterid).size();
+    }
+    String status_color;
+
+    public String getStatus_color() {
+        return status_color;
+    }
+
+    public void setStatus_color(String status_color) {
+        this.status_color = status_color;
+    }
+
+    public String getStatusColor(String payment_status) {
+        if (payment_status.equals("done")) {
+            status_color = "#29C90F";
+        } else if (payment_status.equals("remaining")) {
+            status_color = "red";
+        }
+        return status_color;
+    }
+
+    String confirm_button_name;
+    Boolean button_disabled;
+
+    public Boolean getButton_disabled() {
+        return button_disabled;
+    }
+
+    public void setButton_disabled(Boolean button_disabled) {
+        this.button_disabled = button_disabled;
+    }
+
+    public String getConfirm_button_name() {
+        return confirm_button_name;
+    }
+
+    public void setConfirm_button_name(String confirm_button_name) {
+        this.confirm_button_name = confirm_button_name;
+    }
+
+    public String getConfirmButtonName(String payment_status) {
+        if (payment_status.equals("done")) {
+            confirm_button_name = "Confirmed";
+        } else if (payment_status.equals("remaining")) {
+            confirm_button_name = "Confirm Booking";
+        }
+        return confirm_button_name;
+    }
+
+    public Boolean getButtonDisabled(String payment_status) {
+        if (payment_status.equals("done")) {
+            button_disabled = true;
+        } else if (payment_status.equals("remaining")) {
+            button_disabled = false;
+        }
+        return button_disabled;
+    }
+
+    public String getUserEmail(String username) {
+        return abl.getUserData(username).getEmail();
+    }
+    Tour confirm_booking = new Tour();
+
+    public Tour getConfirm_booking() {
+        return confirm_booking;
+    }
+
+    public void setConfirm_booking(Tour confirm_booking) {
+        this.confirm_booking = confirm_booking;
+    }
+
+    public void openConfirmBookingDialog(Tour t) {
+        confirm_booking = t;
+        System.out.println("This is the tour id -> " + confirm_booking.getTourid());
+        current.executeScript("PF('confirmBooking').show();");
+    }
+    public void performConfirmBooking()
+    {
+        confirm_booking.setPayment_status("done");
+        abl.updateStatus(confirm_booking);
+        current.executeScript("PF('bookingConfirmed').show();");
+    }
+    public String closeConfirmBookingDialog()
+    {
+        confirm_booking = new Tour();
+        return "bookingDetails.xhtml?faces-redirect=true";
     }
 }

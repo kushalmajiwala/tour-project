@@ -265,7 +265,7 @@
                     <div class="logout-container inner-container">
                         <h3 class="icon-container"><i class="fa fa-book"></i></h3>
                         <h:form class="button-container">
-                            <h:commandButton value="Booking Details" styleClass="ui-button-flat inner-button nav-unique"></h:commandButton>
+                            <h:commandButton value="Booking Details" action="#{adminController.redirectBookingDetails()}" styleClass="ui-button-flat inner-button nav-unique"></h:commandButton>
                         </h:form>
                         <div class="badge-container">
                             <p:badge value="#{adminController.totalBookings()}" class="fa-beat" severity="danger"></p:badge>
@@ -297,7 +297,7 @@
                 <h1>
                     <h:form>
                         <p:badge value="#{adminController.totalBookings()}" severity="danger"><i class="fa-solid fa-message-captions"></i>
-                            <p:commandButton icon="fa-solid fa-file-pen" value="Booking Details" styleClass="ui-button-raised ui-button-success" style="color: white;" />
+                            <p:commandButton icon="fa-solid fa-file-pen" value="Booking Details" action="#{adminController.redirectBookingDetails()}" styleClass="ui-button-raised ui-button-success" style="color: white;" />
                         </p:badge>
                     </h:form>
                 </h1>
