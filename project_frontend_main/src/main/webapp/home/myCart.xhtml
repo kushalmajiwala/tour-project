@@ -155,7 +155,7 @@
                                 <h3>ITEM</h3>
                                 <h3>TOTAL-PRICE</h3>
                             </div>
-                            <p:divider style="border: 1px solid black;"/>
+                            <p:divider style="border: 1px solid #EEEEEE;"/>
                             <div class="cart-item-container">
                                 <div class="mb-3 image-container">
                                     <p:graphicImage url="../images#{userController.getCartTourPic(item.tourmasterid)}" styleClass="product-image" height="100%" width="100%"/>
@@ -170,15 +170,15 @@
                                     <h3 style="color: #332D63;">PAYMENT-METHOD :- <span style="font-weight: 400;">#{item.payment_method}</span></h3>
                                     <h3 style="color: #332D63;">PAYMENT-STATUS :- <span style="font-weight: 400; color: #{userController.getStatusColor(item.payment_status)};">#{item.payment_status}</span></h3>
                                 </div>
-                                <p:divider layout="vertical" style="border: 1px solid black;" />
+                                <p:divider layout="vertical" style="border: 1px solid #EEEEEE;" />
                                 <div class="price-container">
                                     <h1 style="margin-top: -3%; color:#ff5722;"><span>&#8377;</span>#{userController.getCartTourPrice(item.tourmasterid) * userController.getTotalPerson(item.tourid)}</h1>
                                 </div>
                             </div>
-                            <p:divider style="border: 1px solid black;"/>
+                            <p:divider style="border: 1px solid #EEEEEE;"/>
                             <div class="button-container">
                                 <p:commandButton icon="fa-solid fa-plus" ajax="false" value="Add Person" action="#{userController.openAddPersonDialog(item)}" styleClass="ui-button-raised" style="width: 180px; height: 40px;" />
-                                <p:commandButton icon="fa-solid fa-edit" value="Edit Person" styleClass="ui-button-raised" style="width: 180px;height: 40px;"/>
+                                <p:commandButton icon="fa-solid fa-edit" action="#{userController.redirectEditPerson(item.tourid)}" value="Edit Person" styleClass="ui-button-raised" style="width: 180px;height: 40px;"/>
                                 <p:commandButton icon="fa-solid fa-trash" value="#{userController.getRemoveCartButtonName(item.payment_status)}" action="#{userController.openDeleteCartDialog(item)}" styleClass="ui-button-raised ui-button-danger" style="width: 180px; height: 40px;"/>
                             </div>
                         </p:card>

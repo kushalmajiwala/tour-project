@@ -39,11 +39,11 @@ public interface UserBeanLocal {
     
     public void addPerson(Person p);
     
-    public String updatePerson(int tourid, String uname, String fname, String lname, String email, String pno, Date dob, String gender);
+    public void updatePerson(Person p);
     
     public List getPersons(int tourid);
     
-    public String deletePerson(int pid);
+    public void deletePerson(int pid);
             
     public String addHistory(int tourid, String uname);
     

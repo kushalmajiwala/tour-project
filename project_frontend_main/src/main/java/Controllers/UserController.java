@@ -317,13 +317,15 @@ public class UserController implements Serializable {
 
     public String getRealTime(String actual_time) {
         String time = "";
-        try {
-            int hourOfDay = Integer.parseInt(actual_time.split(":")[0]);
-            int minute = Integer.parseInt(actual_time.split(":")[1]);
+        if (!actual_time.equals("")) {
+            try {
+                int hourOfDay = Integer.parseInt(actual_time.split(":")[0]);
+                int minute = Integer.parseInt(actual_time.split(":")[1]);
 
-            time = ((hourOfDay > 12) ? hourOfDay % 12 : hourOfDay) + ":" + (minute < 10 ? ("0" + minute) : minute) + " " + ((hourOfDay >= 12) ? "PM" : "AM");
-        } catch (Exception e) {
-            System.out.println(e);
+                time = ((hourOfDay > 12) ? hourOfDay % 12 : hourOfDay) + ":" + (minute < 10 ? ("0" + minute) : minute) + " " + ((hourOfDay >= 12) ? "PM" : "AM");
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
         return time;
     }
@@ -1110,7 +1112,7 @@ public class UserController implements Serializable {
         }
         return status_color;
     }
-    
+
     int add_person_tourid;
 
     public int getAdd_person_tourid() {
@@ -1120,7 +1122,6 @@ public class UserController implements Serializable {
     public void setAdd_person_tourid(int add_person_tourid) {
         this.add_person_tourid = add_person_tourid;
     }
-    
 
     public void openAddPersonDialog(Tour t) {
         System.out.println("Adding person with -> " + t.getTourid());
@@ -1178,38 +1179,127 @@ public class UserController implements Serializable {
     public void setDelete_cart_payment_status(String delete_cart_payment_status) {
         this.delete_cart_payment_status = delete_cart_payment_status;
     }
-    
-    public void openDeleteCartDialog(Tour t)
-    {
+
+    public void openDeleteCartDialog(Tour t) {
         delete_cart_tourid = t.getTourid();
         delete_cart_payment_status = t.getPayment_status();
-        
-        if(delete_cart_payment_status.equals("done"))
-        {
+
+        if (delete_cart_payment_status.equals("done")) {
             current.executeScript("PF('cancelBooking').show();");
-        }
-        else if(delete_cart_payment_status.equals("remaining"))
-        {
+        } else if (delete_cart_payment_status.equals("remaining")) {
             current.executeScript("PF('removeCart').show();");
         }
     }
-    public void performCartRemove()
-    {
-        if(delete_cart_payment_status.equals("done"))
-        {
+
+    public void performCartRemove() {
+        if (delete_cart_payment_status.equals("done")) {
             ubl.deleteTour(delete_cart_tourid);
             current.executeScript("PF('bookingCancelled').show();");
-        }
-        else if(delete_cart_payment_status.equals("remaining"))
-        {
+        } else if (delete_cart_payment_status.equals("remaining")) {
             ubl.deleteTour(delete_cart_tourid);
             current.executeScript("PF('cartRemoved').show();");
         }
     }
-    public String closeRemoveCartDialog()
-    {
+
+    public String closeRemoveCartDialog() {
         delete_cart_tourid = 0;
         delete_cart_payment_status = "";
+        return "myCart.xhtml?faces-redirect=true";
+    }
+    //Edit Person Working
+    List<Person> all_person = new ArrayList<>();
+    Date[] update_person_dob;
+
+    public Date[] getUpdate_person_dob() {
+        return update_person_dob;
+    }
+
+    public void setUpdate_person_dob(Date[] update_person_dob) {
+        this.update_person_dob = update_person_dob;
+    }
+
+    public List<Person> getAll_person() {
+        return all_person;
+    }
+
+    public void setAll_person(List<Person> all_person) {
+        this.all_person = all_person;
+    }
+
+    public String redirectEditPerson(int tourid) {
+        all_person = new ArrayList<>();
+        all_person = ubl.getPersons(tourid);
+
+        update_person_dob = new Date[all_person.size()];
+
+        for (int i = 0; i < all_person.size(); i++) {
+            update_person_dob[i] = new java.util.Date(all_person.get(i).getDob().getTime());
+        }
+        return "updatePerson.xhtml?faces-redirect=true";
+    }
+
+    public List<Person> getAllPerson() {
+        return all_person;
+    }
+
+    public void performPersonUpdate(Person p, Date dob) {
+
+        if (p.getFname().isEmpty() || p.getLname().isEmpty() || p.getEmail().isEmpty() || dob == null || p.getPhoneno().isEmpty() || p.getGender() == null || p.getGender().isEmpty()) {
+            current.executeScript("PF('editPersonEmptyField').show();");
+        } else {
+            try {
+                java.sql.Date actual_dob = new java.sql.Date(dob.getTime());
+                System.out.println("sqlDate:" + actual_dob);
+
+                p.setDob(actual_dob);
+
+                //Editing Person
+                ubl.updatePerson(p);
+                current.executeScript("PF('personEdited').show();");
+
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+    int delete_personid;
+
+    public int getDelete_personid() {
+        return delete_personid;
+    }
+
+    public void setDelete_personid(int delete_personid) {
+        this.delete_personid = delete_personid;
+    }
+            
+    public void openPersonDeleteDialog(int personid)
+    {
+        delete_personid = personid;
+        current.executeScript("PF('personDeleteConfirm').show();");
+    }
+    
+    public void performPersonDelete()
+    {
+        ubl.deletePerson(delete_personid);
+        current.executeScript("PF('personDeleted').show();");
+    }
+
+    public String closeDeletePersonDialog() {
+        return "updatePerson.xhtml?faces-redirect=true";
+    }
+
+    public String closeEditPersonDialog() {
+        all_person = new ArrayList<>();
+        update_person_dob = null;
+        return "myCart.xhtml?faces-redirect=true";
+    }
+
+    public String personDeleted()
+    {
+        return "myCart.xhtml?faces-redirect=true";
+    }
+    
+    public String redirectFromEditPersonToCart() {
         return "myCart.xhtml?faces-redirect=true";
     }
 }
