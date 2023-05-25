@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Complaint;
 import entity.Feedback;
 import entity.Gallery;
+import entity.History;
 import entity.Person;
 import entity.ProjectgroupsPK;
 import entity.Tour;
@@ -343,7 +344,7 @@ public class UserBean implements UserBeanLocal {
 
     @Override
     public void deletePerson(int pid) {
-         try {
+        try {
             String url = "http://localhost:9090/person/deleteperson/" + pid;
 
             HttpClient client = HttpClient.newHttpClient();
@@ -361,18 +362,101 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
-    public String addHistory(int tourid, String uname) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void addHistory(History h) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String requestBody = mapper.writeValueAsString(h);
+
+            String url = "http://localhost:9090/history/addhistory";
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            System.out.println("Group added Successfully...");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
     public List getHistory(String uname) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List history_record = new ArrayList();
+        try {
+            String url = "http://localhost:9090/history/gethistory/" + uname;
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            History[] myrec = mapper.readValue(response.body().toString(), History[].class);
+            for (History rec : myrec) {
+                history_record.add(rec);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return history_record;
     }
 
     @Override
-    public String deleteHistory(int hid) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public History getHistoryById(int tid) {
+        History mylist = new History();
+        try {
+            String url = "http://localhost:9090/history/gethistorybyid/" + tid;
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("accept", "application/json").build();
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            ObjectMapper mapper = new ObjectMapper();
+            History myrec = mapper.readValue(response.body().toString(), History.class);
+            mylist = myrec;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return mylist;
+    }
+
+    @Override
+    public void deleteHistory(int hid) {
+        try {
+            String url = "http://localhost:9090/history/deletehistory/" + hid;
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .DELETE()
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+     @Override
+    public void deleteHistoryByUsername(String username) {
+        try {
+            String url = "http://localhost:9090/history/deletehistorybyusername/" + username;
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .DELETE()
+                    .build();
+
+            HttpResponse response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override

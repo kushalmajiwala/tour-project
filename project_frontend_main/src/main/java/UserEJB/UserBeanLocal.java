@@ -3,6 +3,7 @@ package UserEJB;
 
 import entity.Complaint;
 import entity.Feedback;
+import entity.History;
 import entity.Person;
 import entity.Tour;
 import entity.Tourmaster;
@@ -44,11 +45,15 @@ public interface UserBeanLocal {
     
     public void deletePerson(int pid);
             
-    public String addHistory(int tourid, String uname);
+    public void addHistory(History h);
     
     public List getHistory(String uname);
     
-    public String deleteHistory(int hid);
+    public History getHistoryById(int tid);
+    
+    public void deleteHistory(int hid);
+    
+    public void deleteHistoryByUsername(String username);
     
     public List getGalleryData(String tourname);
     

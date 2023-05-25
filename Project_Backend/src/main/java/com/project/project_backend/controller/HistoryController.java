@@ -38,11 +38,22 @@ public class HistoryController {
     	List<Historytb> h = historyrepo.findHistoryByUsername(uname);
     	return h;
     }
+	@GetMapping("/gethistorybyid/{tid}")
+    public Historytb getHistoryByTourid(@PathVariable("tid") int tid)
+    {
+    	Historytb h = historyrepo.findHistoryByTourid(tid);
+    	return h;
+    }
 	@DeleteMapping("/deletehistory/{historyid}")
 	public Optional<Historytb> deleteHistory(@PathVariable("historyid") int historyid)
 	{
 		Optional<Historytb> h = historyrepo.findById(historyid);
 		historyrepo.deleteById(historyid);
 		return h;
+	}
+	@DeleteMapping("/deletehistorybyusername/{username}")
+	public void deleteHistoryByUsername(@PathVariable("username") String username)
+	{
+		historyrepo.deleteHistoryByUsername(username);
 	}
 }

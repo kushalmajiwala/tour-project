@@ -3,6 +3,7 @@ package Controllers;
 import UserEJB.UserBeanLocal;
 import entity.Complaint;
 import entity.Feedback;
+import entity.History;
 import entity.Person;
 import entity.Tour;
 import entity.Tourmaster;
@@ -13,9 +14,13 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpSession;
 import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
@@ -1271,15 +1276,13 @@ public class UserController implements Serializable {
     public void setDelete_personid(int delete_personid) {
         this.delete_personid = delete_personid;
     }
-            
-    public void openPersonDeleteDialog(int personid)
-    {
+
+    public void openPersonDeleteDialog(int personid) {
         delete_personid = personid;
         current.executeScript("PF('personDeleteConfirm').show();");
     }
-    
-    public void performPersonDelete()
-    {
+
+    public void performPersonDelete() {
         ubl.deletePerson(delete_personid);
         current.executeScript("PF('personDeleted').show();");
     }
@@ -1294,12 +1297,66 @@ public class UserController implements Serializable {
         return "myCart.xhtml?faces-redirect=true";
     }
 
-    public String personDeleted()
-    {
+    public String personDeleted() {
         return "myCart.xhtml?faces-redirect=true";
     }
-    
+
     public String redirectFromEditPersonToCart() {
         return "myCart.xhtml?faces-redirect=true";
+    }
+
+    //View History Working
+    public String redirectViewHistory() {
+        getAndUpdateHistory();
+        return "viewHistory.xhtml?faces-redirect=true";
+    }
+    List<History> user_history;
+
+    public List<History> getUser_history() {
+        return user_history;
+    }
+
+    public void setUser_history(List<History> user_history) {
+        this.user_history = user_history;
+    }
+
+    public void getAndUpdateHistory() {
+        List<Tour> all_cart_items = ubl.getTour(getCurrentUsername());
+        List<Tourmaster> all_tour = new ArrayList<>();
+        user_history = new ArrayList<>();
+
+        for (Tour t : all_cart_items) {
+            Tourmaster tm = ubl.getTourMaster(t.getTourmasterid());
+            all_tour.add(tm);
+            System.out.println("This is getting tour working -> " + tm.getTour_title());
+            boolean isDatePast = isDatePast(tm.getEnd_date().toString(), "yyyy-MM-dd");
+            if (isDatePast) {
+                System.out.println(t.getTourid() + " date is past...");
+                History h = new History();
+                h.setTourid(t.getTourid());
+                h.setUsername(getCurrentUsername());
+                user_history.add(h);
+            } else {
+                System.out.println(t.getTourid() + " date is yet to come...");
+            }
+        }
+        try {
+            ubl.deleteHistoryByUsername(getCurrentUsername());
+            for (History hist : user_history) {
+                ubl.addHistory(hist);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        System.out.println("This is my history -> " + user_history);
+    }
+
+    public static boolean isDatePast(final String date, final String dateFormat) {
+        LocalDate localDate = LocalDate.now(ZoneId.systemDefault());
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormat);
+        LocalDate inputDate = LocalDate.parse(date, dtf);
+
+        return inputDate.isBefore(localDate);
     }
 }
