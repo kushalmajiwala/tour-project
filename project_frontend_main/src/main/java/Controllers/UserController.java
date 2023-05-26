@@ -20,7 +20,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpSession;
 import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
@@ -1330,7 +1329,7 @@ public class UserController implements Serializable {
             all_tour.add(tm);
             System.out.println("This is getting tour working -> " + tm.getTour_title());
             boolean isDatePast = isDatePast(tm.getEnd_date().toString(), "yyyy-MM-dd");
-            if (isDatePast) {
+            if (isDatePast && t.getPayment_status().equals("done")) {
                 System.out.println(t.getTourid() + " date is past...");
                 History h = new History();
                 h.setTourid(t.getTourid());
@@ -1358,5 +1357,101 @@ public class UserController implements Serializable {
         LocalDate inputDate = LocalDate.parse(date, dtf);
 
         return inputDate.isBefore(localDate);
+    }
+
+    public List<History> getHistory() {
+        return ubl.getHistory(getCurrentUsername());
+    }
+
+    public String getHistoryTourPic(int tid) {
+        int current_masterid = 0;
+        List<Tour> all_tours = ubl.getTour(getCurrentUsername());
+        for (Tour t : all_tours) {
+            if (t.getTourid() == tid) {
+                current_masterid = t.getTourmasterid();
+            }
+        }
+        return ubl.getTourMaster(current_masterid).getTour_pic();
+    }
+
+    public String getHistoryTourName(int tid) {
+        int current_masterid = 0;
+        List<Tour> all_tours = ubl.getTour(getCurrentUsername());
+        for (Tour t : all_tours) {
+            if (t.getTourid() == tid) {
+                current_masterid = t.getTourmasterid();
+            }
+        }
+        return ubl.getTourMaster(current_masterid).getTour_title();
+    }
+
+    public String getHistoryTourStartDate(int tid) {
+        int current_masterid = 0;
+        List<Tour> all_tours = ubl.getTour(getCurrentUsername());
+        for (Tour t : all_tours) {
+            if (t.getTourid() == tid) {
+                current_masterid = t.getTourmasterid();
+            }
+        }
+        return ubl.getTourMaster(current_masterid).getStart_date().toString();
+    }
+
+    public int getHistoryTourPrice(int tid) {
+        int current_masterid = 0;
+        List<Tour> all_tours = ubl.getTour(getCurrentUsername());
+        for (Tour t : all_tours) {
+            if (t.getTourid() == tid) {
+                current_masterid = t.getTourmasterid();
+            }
+        }
+        return ubl.getTourMaster(current_masterid).getPer_person_price();
+    }
+
+    public String getHistoryTourEndDate(int tid) {
+        int current_masterid = 0;
+        List<Tour> all_tours = ubl.getTour(getCurrentUsername());
+        for (Tour t : all_tours) {
+            if (t.getTourid() == tid) {
+                current_masterid = t.getTourmasterid();
+            }
+        }
+        return ubl.getTourMaster(current_masterid).getEnd_date().toString();
+    }
+
+    public String getHistoryPaymentMethod(int tid) {
+        String method = "";
+        List<Tour> all_tours = ubl.getTour(getCurrentUsername());
+        for (Tour t : all_tours) {
+            if (t.getTourid() == tid) {
+                method = t.getPayment_method();
+            }
+        }
+        return method;
+    }
+    //Working on Deleting History
+    int delete_historyid;
+
+    public int getDelete_historyid() {
+        return delete_historyid;
+    }
+
+    public void setDelete_historyid(int delete_historyid) {
+        this.delete_historyid = delete_historyid;
+    }
+    
+    public void openDeleteHistoryDialog(int hid)
+    {
+        delete_historyid = hid;
+        current.executeScript("PF('historyDeleteConfirm').show();");
+    }
+    public void performHistoryDelete()
+    {
+        ubl.deleteHistory(delete_historyid);
+        current.executeScript("PF('historyDeleted').show();");
+    }
+    public String closeDeleteHistoryDialog()
+    {
+        delete_historyid = 0;
+        return "viewHistory.xhtml?faces-redirect=true";
     }
 }
