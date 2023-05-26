@@ -93,6 +93,8 @@ public class UserController implements Serializable {
         System.out.println(user_info.getUsername() + " - " + user_info.getEmail());
         if (user_info.getUsername().isEmpty() || user_info.getFname().isEmpty() || user_info.getLname().isEmpty() || user_info.getEmail().isEmpty()) {
             current.executeScript("PF('editProfileEmptyField').show();");
+        } else if (!user_info.getEmail().contains("@")) {
+            current.executeScript("PF('invalidEmail').show();");
         } else {
             ubl.updateUserData(user_info);
             current.executeScript("PF('profileEdited').show();");
@@ -189,6 +191,8 @@ public class UserController implements Serializable {
             current.executeScript("PF('incorrectCurrentPassword').show();");
         } else if (current_password.equals(new_password)) {
             current.executeScript("PF('sameCurrentPassword').show();");
+        } else if (new_password.length() < 8) {
+            current.executeScript("PF('passwordShortLength').show();");
         } else if (!new_password.equals(confirm_new_password)) {
             current.executeScript("PF('invalidNewConfirmPassword').show();");
         } else {
@@ -1438,19 +1442,18 @@ public class UserController implements Serializable {
     public void setDelete_historyid(int delete_historyid) {
         this.delete_historyid = delete_historyid;
     }
-    
-    public void openDeleteHistoryDialog(int hid)
-    {
+
+    public void openDeleteHistoryDialog(int hid) {
         delete_historyid = hid;
         current.executeScript("PF('historyDeleteConfirm').show();");
     }
-    public void performHistoryDelete()
-    {
+
+    public void performHistoryDelete() {
         ubl.deleteHistory(delete_historyid);
         current.executeScript("PF('historyDeleted').show();");
     }
-    public String closeDeleteHistoryDialog()
-    {
+
+    public String closeDeleteHistoryDialog() {
         delete_historyid = 0;
         return "viewHistory.xhtml?faces-redirect=true";
     }

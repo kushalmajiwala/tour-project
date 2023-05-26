@@ -158,6 +158,10 @@ public class RegistrationController implements Serializable {
             System.out.println("Empty Field");
             current.executeScript("PF('emptyField').show();");
             return "register.xhtml";
+        } else if (!u.getEmail().contains("@")) {
+            current.executeScript("PF('invalidEmail').show();");
+        } else if (u.getPassword().length() < 8) {
+            current.executeScript("PF('passwordShortLength').show();");
         } else if (u.getPassword().equals(rpass)) {
             List<Usertb> mylist = new ArrayList<>();
             try {
@@ -312,6 +316,8 @@ public class RegistrationController implements Serializable {
 
         if (new_password.isEmpty() || confirm_new_password.isEmpty()) {
             current.executeScript("PF('emptyPasswordField').show();");
+        } else if (new_password.length() < 8) {
+            current.executeScript("PF('passwordShortLength').show();");
         } else if (!new_password.equals(confirm_new_password)) {
             current.executeScript("PF('invalidNewConfirmPassword').show();");
         } else {

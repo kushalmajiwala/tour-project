@@ -505,6 +505,14 @@
                     Any of the fields should not be empty
                 </h4>
             </p:dialog>
+            <p:dialog widgetVar="invalidEmail" minHeight="40" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Please Enter the valid Email
+                </h4>
+            </p:dialog>
             <p:dialog widgetVar="profileEdited" closable="false" minHeight="30" width="450" showEffect="fade" modal="true">
                 <div style="display:flex; justify-content:center; width:100%;">
                     <i class="pi pi-check" style="color:green;font-size: 60px;"></i>
@@ -556,6 +564,14 @@
                 </div><br/>
                 <h4 class="m-0">
                     Incorrect Current Password
+                </h4>
+            </p:dialog>
+            <p:dialog widgetVar="passwordShortLength" minHeight="40" width="450" showEffect="fade" modal="true">
+                <div style="display:flex; justify-content:center; width:100%;">
+                    <i class="pi pi-times" style="color:red;font-size: 60px;"></i>
+                </div><br/>
+                <h4 class="m-0">
+                    Minimum length of the password should be 8
                 </h4>
             </p:dialog>
             <p:dialog widgetVar="sameCurrentPassword" minHeight="30" width="450" showEffect="fade" modal="true">

@@ -212,7 +212,7 @@
                         <div class="tour-image">
                             <p:fileUpload value="#{adminController.image}" mode="simple" skinSimple="true"/>
                             <!--<p:growl id="messages" showDetail="true" />-->  
-                            <p:commandButton ajax="false" action="#{adminController.uploadImage()}" icon="pi pi-upload" value="Upload"/>
+                            <p:commandButton ajax="false" action="#{adminController.reUploadImage()}" icon="pi pi-upload" value="Upload"/>
                         </div>
                         <div class="addBtn">
                             <p:commandButton value="Edit Tour" action="#{adminController.performUpdate()}" styleClass="ui-button-raised ui-button-info" style="width: 20%;"/>

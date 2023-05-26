@@ -232,8 +232,33 @@ public class AdminController implements Serializable {
         }
         image_url = "/" + file_name;
         System.out.println(image_url);
-        return "addTour.xhtml";
+        return "addTour.xhtml?faces-redirect=true";
     }
+     public String reUploadImage() {
+        String file_name = "";
+
+        try {
+            file_name = image.getFileName();
+            file_name = file_name.substring(file_name.lastIndexOf('\\') + 1);
+            System.out.println(image.getFileName());
+            byte[] fileContent = new byte[(int) image.getSize()];
+            InputStream in = image.getInputStream();
+            File fileToCreate = new File(upload_folder, file_name);
+            OutputStream output = new FileOutputStream(fileToCreate);
+            int temp = 0;
+            while ((temp = in.read(fileContent)) != -1) {
+                output.write(fileContent, 0, temp);
+            }
+            output.flush();
+            output.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        image_url = "/" + file_name;
+        System.out.println(image_url);
+        return "updateTour.xhtml?faces-redirect=true";
+    }
+
 
     public String addNewTour() {
         PrimeFaces current = PrimeFaces.current();
@@ -726,6 +751,8 @@ public class AdminController implements Serializable {
         System.out.println(user_info.getUsername() + " - " + user_info.getEmail());
         if (user_info.getUsername().isEmpty() || user_info.getFname().isEmpty() || user_info.getLname().isEmpty() || user_info.getEmail().isEmpty()) {
             current.executeScript("PF('editProfileEmptyField').show();");
+        }  else if (!user_info.getEmail().contains("@")) {
+            current.executeScript("PF('invalidEmail').show();");
         } else {
             abl.updateUserData(user_info);
             current.executeScript("PF('profileEdited').show();");
@@ -829,7 +856,10 @@ public class AdminController implements Serializable {
             current.executeScript("PF('incorrectCurrentPassword').show();");
         } else if (current_password.equals(new_password)) {
             current.executeScript("PF('sameCurrentPassword').show();");
-        } else if (!new_password.equals(confirm_new_password)) {
+        } else if(new_password.length() < 8){
+            current.executeScript("PF('passwordShortLength').show();");
+        }
+        else if (!new_password.equals(confirm_new_password)) {
             current.executeScript("PF('invalidNewConfirmPassword').show();");
         } else {
             user_info_password.setPassword(encrypted_current_password);
