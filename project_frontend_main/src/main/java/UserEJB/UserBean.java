@@ -12,6 +12,8 @@ import entity.Tourmaster;
 import entity.Tourplace;
 import entity.Usertb;
 import entity.Vehicle;
+import jakarta.annotation.security.DeclareRoles;
+import jakarta.annotation.security.RolesAllowed;
 import java.net.URI;
 import java.net.http.*;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import javax.ejb.Stateless;
 import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 
 @Stateless
+@DeclareRoles({"admin", "user"})
 public class UserBean implements UserBeanLocal {
 
     @Override
@@ -88,6 +91,7 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
+    @RolesAllowed("user")
     public Usertb getUserData(String uname) {
         Usertb mylist = new Usertb();
         try {
@@ -106,6 +110,7 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
+    @RolesAllowed("user")
     public void updateUserData(Usertb u) {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -168,6 +173,7 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
+    @RolesAllowed("user")
     public List showMasterData() {
         List mylist = new ArrayList();
         try {
@@ -277,6 +283,7 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
+    @RolesAllowed("user")
     public void addPerson(Person p) {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -300,6 +307,7 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
+    @RolesAllowed("user")
     public void updatePerson(Person p) {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -343,6 +351,7 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
+    @RolesAllowed("user")
     public void deletePerson(int pid) {
         try {
             String url = "http://localhost:9090/person/deleteperson/" + pid;
@@ -423,6 +432,7 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
+    @RolesAllowed("user")
     public void deleteHistory(int hid) {
         try {
             String url = "http://localhost:9090/history/deletehistory/" + hid;
@@ -440,7 +450,8 @@ public class UserBean implements UserBeanLocal {
             System.out.println(e);
         }
     }
-     @Override
+
+    @Override
     public void deleteHistoryByUsername(String username) {
         try {
             String url = "http://localhost:9090/history/deletehistorybyusername/" + username;
@@ -482,6 +493,7 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
+    @RolesAllowed("user")
     public void addFeedback(Feedback f) {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -505,6 +517,7 @@ public class UserBean implements UserBeanLocal {
     }
 
     @Override
+    @RolesAllowed("user")
     public void addComplaint(Complaint c) {
         try {
             ObjectMapper mapper = new ObjectMapper();

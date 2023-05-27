@@ -10,6 +10,7 @@ import entity.Tourmaster;
 import entity.Tourplace;
 import entity.Usertb;
 import entity.Vehicle;
+import jakarta.annotation.security.*;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -19,6 +20,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 @Stateless
+@DeclareRoles({"admin", "user"})
 public class AdminBean implements AdminBeanLocal {
 
     @Override
@@ -27,6 +29,7 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
+    @RolesAllowed("admin")
     public Usertb getUserData(String uname) {
         Usertb mylist = new Usertb();
         try {
@@ -45,6 +48,7 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
+    @RolesAllowed("admin")
     public void addVehicle(Vehicle v) {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -67,6 +71,7 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
+    @RolesAllowed("admin")
     public void updateVehicle(Vehicle v) {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -89,6 +94,7 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
+    @RolesAllowed("admin")
     public List getVehicle(int tourid) {
         List<Vehicle> mylist = new ArrayList();
         try {
@@ -109,6 +115,7 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
+    @RolesAllowed("admin")
     public void deleteVehicle(int vehicleid) {
         try {
             String url = "http://localhost:9090/vehicle/deletevehicle/" + vehicleid;
@@ -128,6 +135,7 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
+    @RolesAllowed("admin")
     public void addPlace(Tourplace tp) {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -150,6 +158,7 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
+    @RolesAllowed("admin")
     public void updatePlace(Tourplace tp) {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -192,6 +201,7 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
+    @RolesAllowed("admin")
     public void deletePlace(int placeid) {
         try {
             String url = "http://localhost:9090/tourplace/deleteplace/" + placeid;
@@ -231,6 +241,7 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
+    @RolesAllowed("admin")
     public void addTourMaster(Tourmaster tm) {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -253,6 +264,7 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
+    @RolesAllowed("admin")
     public void updateTourMaster(Tourmaster tm) {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -293,6 +305,7 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
+    @RolesAllowed("admin")
     public void deleteTourMaster(int tourid) {
         try {
             String url = "http://localhost:9090/tourmaster/deletetour/" + tourid;
@@ -397,6 +410,7 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
+    @RolesAllowed("admin")
     public void deleteComplaint(int cid) {
         try {
             String url = "http://localhost:9090/complaint/deletecomplaint/" + cid;

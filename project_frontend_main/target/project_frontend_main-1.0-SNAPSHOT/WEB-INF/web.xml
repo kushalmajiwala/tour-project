@@ -20,6 +20,22 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    <filter>
+        <filter-name>pageFilterUser</filter-name>
+        <filter-class>auth.pageFilterUser</filter-class>
+    </filter>
+    <filter>
+        <filter-name>pageFilterAdmin</filter-name>
+        <filter-class>auth.pageFilterAdmin</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>pageFilterAdmin</filter-name>
+        <url-pattern>/home/adminHome.xhtml</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>pageFilterUser</filter-name>
+        <url-pattern>/home/userHome.xhtml</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
