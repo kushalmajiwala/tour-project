@@ -3,14 +3,15 @@ E:\programming\sem8_project\project_frontend_main\src\main\java\Controllers\Regi
 E:\programming\sem8_project\project_frontend_main\src\main\java\com\mycompany\project_frontend_main\JakartaRestConfiguration.java
 E:\programming\sem8_project\project_frontend_main\src\main\java\entity\History.java
 E:\programming\sem8_project\project_frontend_main\src\main\java\entity\Vehicle.java
+E:\programming\sem8_project\project_frontend_main\src\main\java\auth\pageFilterAdmin.java
 E:\programming\sem8_project\project_frontend_main\src\main\java\Controllers\UserController.java
-E:\programming\sem8_project\project_frontend_main\src\main\java\auth\pageFilter.java
 E:\programming\sem8_project\project_frontend_main\src\main\java\Controllers\TourmasterController.java
 E:\programming\sem8_project\project_frontend_main\src\main\java\entity\ProjectgroupsPK.java
 E:\programming\sem8_project\project_frontend_main\src\main\java\auth\performAuth.java
 E:\programming\sem8_project\project_frontend_main\src\main\java\entity\Tourmaster.java
 E:\programming\sem8_project\project_frontend_main\src\main\java\com\mycompany\project_frontend_main\resources\JakartaEE8Resource.java
 E:\programming\sem8_project\project_frontend_main\src\main\java\Controllers\Util.java
+E:\programming\sem8_project\project_frontend_main\src\main\java\auth\pageFilterUser.java
 E:\programming\sem8_project\project_frontend_main\src\main\java\entity\Projectgroups.java
 E:\programming\sem8_project\project_frontend_main\src\main\java\entity\Person.java
 E:\programming\sem8_project\project_frontend_main\src\main\java\entity\Gallery.java
