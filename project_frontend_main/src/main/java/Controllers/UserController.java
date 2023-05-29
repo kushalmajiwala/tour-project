@@ -1,6 +1,8 @@
 package Controllers;
 
 import UserEJB.UserBeanLocal;
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
 import entity.Complaint;
 import entity.Feedback;
 import entity.History;
@@ -23,6 +25,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpSession;
 import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
+import org.json.JSONObject;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
@@ -1456,5 +1459,30 @@ public class UserController implements Serializable {
     public String closeDeleteHistoryDialog() {
         delete_historyid = 0;
         return "viewHistory.xhtml?faces-redirect=true";
+    }
+
+    //Working on Online Payment
+    public String getPaymentButtonDisplay(String payment_method) {
+        if (payment_method.equals("online")) {
+            return "block";
+        }
+        return "none";
+    }
+
+    public void payOnline() {
+        try {
+            RazorpayClient razorpay = new RazorpayClient("rzp_test_ZneboMX8f8lDSh", "HwWTBGMPfWiqCxkI0Q3GS3iA");
+            
+            System.out.println("payment is being done...");
+            JSONObject orderRequest = new JSONObject();
+            orderRequest.put("amount", 50000); // amount in the smallest currency unit
+            orderRequest.put("currency", "INR");
+            orderRequest.put("receipt", "order_rcptid_11");
+
+            Order order = razorpay.Orders.create(orderRequest);
+            System.out.println("Payment Done...");
+        } catch (Exception e) {
+            System.out.println(e);
+        }       
     }
 }

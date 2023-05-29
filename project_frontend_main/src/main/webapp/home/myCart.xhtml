@@ -8,7 +8,36 @@
         <title>Unique Travels</title>
         <link rel="icon" type="images/x-icon" href="../images/uniquelogo.jpg" />
         <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script>
+
+            function payment_func()
+            {
+                var options = {
+                    "key": "rzp_test_ZneboMX8f8lDSh", // Enter the Key ID generated from the Dashboard
+                    "amount": "100", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                    "currency": "INR",
+                    "name": "Acme Corp",
+                    "description": "Test Transaction",
+                    "image": "../images/uniquelogo.jpg",
+                    "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+                    "prefill": {
+                        "name": "Gaurav Kumar",
+                        "email": "gaurav.kumar@example.com",
+                        "contact": "9000090000"
+                    },
+                    "notes": {
+                        "address": "Razorpay Corporate Office"
+                    },
+                    "theme": {
+                        "color": "#3399cc"
+                    }
+                };
+                var rzp1 = new Razorpay(options);
+                rzp1.open();
+            }
+        </script>
         <style>
             .closeBtn {
                 margin-top: 3.2%;
@@ -184,6 +213,7 @@
                             <div class="button-container">
                                 <p:commandButton icon="fa-solid fa-plus" ajax="false" value="Add Person" action="#{userController.openAddPersonDialog(item)}" styleClass="ui-button-raised" style="width: 180px; height: 40px;" />
                                 <p:commandButton icon="fa-solid fa-edit" action="#{userController.redirectEditPerson(item.tourid)}" value="Edit Person" styleClass="ui-button-raised" style="width: 180px;height: 40px;"/>
+                                <p:commandButton icon="fa-brands fa-cc-amazon-pay" id="rzp-button1" value="Pay Now" onclick="payment_func()" styleClass="ui-button-raised" style="width: 180px; height: 40px; display: #{userController.getPaymentButtonDisplay(item.payment_method)};"/>
                                 <p:commandButton icon="fa-solid fa-trash" value="#{userController.getRemoveCartButtonName(item.payment_status)}" action="#{userController.openDeleteCartDialog(item)}" styleClass="ui-button-raised ui-button-danger" style="width: 180px; height: 40px;"/>
                             </div>
                         </p:card>
