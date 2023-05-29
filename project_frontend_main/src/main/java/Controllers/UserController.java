@@ -1468,21 +1468,33 @@ public class UserController implements Serializable {
         }
         return "none";
     }
+    public boolean getButtonAccessibility(String payment_status)
+    {
+        if(payment_status.equals("done"))
+        {
+            return true;
+        }
+        return false;
+    }
 
-    public void payOnline() {
-        try {
-            RazorpayClient razorpay = new RazorpayClient("rzp_test_ZneboMX8f8lDSh", "HwWTBGMPfWiqCxkI0Q3GS3iA");
-            
-            System.out.println("payment is being done...");
-            JSONObject orderRequest = new JSONObject();
-            orderRequest.put("amount", 50000); // amount in the smallest currency unit
-            orderRequest.put("currency", "INR");
-            orderRequest.put("receipt", "order_rcptid_11");
-
-            Order order = razorpay.Orders.create(orderRequest);
-            System.out.println("Payment Done...");
-        } catch (Exception e) {
-            System.out.println(e);
-        }       
+    int payment_total_price = 100;
+    public int getPayment_total_price() {
+        return payment_total_price;
+    }
+    public void setPayment_total_price(int payment_total_price) {
+        this.payment_total_price = payment_total_price;
+    }
+    
+    public void payOnline(int total_price) {
+        payment_total_price = total_price;
+        System.out.println("Payment is done Successfully -> " + total_price);
+    }
+    public int getPaymentTotalPrice()
+    {
+        return payment_total_price;
+    }
+    public String getPaymentEmail(String username)
+    {
+        return ubl.getUserData(username).getEmail();
     }
 }
