@@ -10,6 +10,12 @@
         <link rel="icon" type="images/x-icon" href="../images/uniquelogo.jpg" />
         <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script>
+            function openMapLocation(place_name)
+            {
+                window.open("http://maps.google.co.in/maps?q=" + place_name);
+            }
+        </script>
         <style>
             .closeBtn {
                 margin-top: 3.2%;
@@ -132,6 +138,11 @@
                         <h2 style="padding-top: 0.5%;"><span>&#8377;</span>#{userController.tourPrice}</h2>
                         <h2 style="padding-top: 0.5%;"><i class="pi pi-clock"></i>  <span style="color: black;">#{userController.days_diff}D / #{userController.days_diff - 1}N</span></h2>
                         <h2 style="padding-top: 0.5%;"><i class="pi pi-calendar"></i>  <span style="color: black;">#{userController.sDate}</span></h2>
+                        <h2>
+                            <h:form>
+                                <p:commandButton icon="fa-solid fa-location-dot" value="Location" onclick="openMapLocation('#{userController.tourTitle}')" styleClass="ui-button-raised bookBtn" ajax="false"/>
+                            </h:form>
+                        </h2>
                     </div>
                 </div>
                 <div class="content-title">

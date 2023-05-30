@@ -5,11 +5,18 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
     <h:head>
         <title>Unique Travels</title>
         <link rel="icon" type="images/x-icon" href="../images/uniquelogo.jpg" />
         <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script>
+            function openMapLocation(place_name)
+            {
+                window.open("http://maps.google.co.in/maps?q=" + place_name);
+            }
+        </script>
         <style>
             .closeBtn {
                 margin-top: 3.2%;
@@ -133,8 +140,14 @@
                         <h2 style="padding-top: 0.5%;"><span>&#8377;</span>#{tourmasterController.tourPrice}</h2>
                         <h2 style="padding-top: 0.5%;"><i class="pi pi-clock"></i>  <span style="color: black;">#{tourmasterController.days_diff}D / #{tourmasterController.days_diff - 1}N</span></h2>
                         <h2 style="padding-top: 0.5%;"><i class="pi pi-calendar"></i>  <span style="color: black;">#{tourmasterController.startDate}</span></h2>
-                        <h2><h:form>
-                                <p:commandButton value="Book Now" action="#{registrationController.redirectLoginFromGallery()}" styleClass="ui-button-raised bookBtn" id="bookTour" ajax="false"/>
+                        <h2>
+                            <h:form>
+                                <p:commandButton icon="fa-solid fa-location-dot" value="Location" onclick="openMapLocation('#{tourmasterController.tourTitle}')" styleClass="ui-button-raised bookBtn" ajax="false"/>
+                            </h:form>
+                        </h2>
+                        <h2>
+                            <h:form>
+                                <p:commandButton icon="fa-solid fa-bookmark" value="Book Now" action="#{registrationController.redirectLoginFromGallery()}" styleClass="ui-button-raised bookBtn" id="bookTour" ajax="false"/>
                                 <p:tooltip for="bookTour" value="Book This Tour" position="bottom"/>
                             </h:form>
                         </h2>
