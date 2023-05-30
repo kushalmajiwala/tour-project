@@ -234,7 +234,8 @@ public class AdminController implements Serializable {
         System.out.println(image_url);
         return "addTour.xhtml?faces-redirect=true";
     }
-     public String reUploadImage() {
+
+    public String reUploadImage() {
         String file_name = "";
 
         try {
@@ -258,7 +259,6 @@ public class AdminController implements Serializable {
         System.out.println(image_url);
         return "updateTour.xhtml?faces-redirect=true";
     }
-
 
     public String addNewTour() {
         PrimeFaces current = PrimeFaces.current();
@@ -751,7 +751,7 @@ public class AdminController implements Serializable {
         System.out.println(user_info.getUsername() + " - " + user_info.getEmail());
         if (user_info.getUsername().isEmpty() || user_info.getFname().isEmpty() || user_info.getLname().isEmpty() || user_info.getEmail().isEmpty()) {
             current.executeScript("PF('editProfileEmptyField').show();");
-        }  else if (!user_info.getEmail().contains("@")) {
+        } else if (!user_info.getEmail().contains("@")) {
             current.executeScript("PF('invalidEmail').show();");
         } else {
             abl.updateUserData(user_info);
@@ -856,10 +856,9 @@ public class AdminController implements Serializable {
             current.executeScript("PF('incorrectCurrentPassword').show();");
         } else if (current_password.equals(new_password)) {
             current.executeScript("PF('sameCurrentPassword').show();");
-        } else if(new_password.length() < 8){
+        } else if (new_password.length() < 8) {
             current.executeScript("PF('passwordShortLength').show();");
-        }
-        else if (!new_password.equals(confirm_new_password)) {
+        } else if (!new_password.equals(confirm_new_password)) {
             current.executeScript("PF('invalidNewConfirmPassword').show();");
         } else {
             user_info_password.setPassword(encrypted_current_password);
@@ -1316,15 +1315,30 @@ public class AdminController implements Serializable {
         System.out.println("This is the tour id -> " + confirm_booking.getTourid());
         current.executeScript("PF('confirmBooking').show();");
     }
-    public void performConfirmBooking()
-    {
+
+    public void performConfirmBooking() {
         confirm_booking.setPayment_status("done");
         abl.updateStatus(confirm_booking);
         current.executeScript("PF('bookingConfirmed').show();");
     }
-    public String closeConfirmBookingDialog()
-    {
+
+    public String closeConfirmBookingDialog() {
         confirm_booking = new Tour();
         return "bookingDetails.xhtml?faces-redirect=true";
+    }
+
+    //Working on payment status
+    public String getPaymentStatusIconVisibility(String status) {
+        if (status.equals("done")) {
+            return "inline";
+        }
+        return "none";
+    }
+
+    public String getPaymentStatusNameVisibility(String status) {
+        if (status.equals("done")) {
+            return "none";
+        }
+        return "inline";
     }
 }

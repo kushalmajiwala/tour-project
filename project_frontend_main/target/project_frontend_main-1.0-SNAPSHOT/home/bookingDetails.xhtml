@@ -170,7 +170,7 @@
                                         <h3 style="color: #332D63;">DURATION :- <span style="font-weight: 400;">#{adminController.getDayDiff(adminController.getCartTourStartDate(item.tourmasterid), adminController.getCartTourEndDate(item.tourmasterid))}D / #{adminController.getDayDiff(adminController.getCartTourStartDate(item.tourmasterid), adminController.getCartTourEndDate(item.tourmasterid)) - 1}N</span></h3>
                                         <h3 style="color: #332D63;">TOTAL-PERSON :- <span style="font-weight: 400;">#{adminController.getTotalPerson(item.tourid)}</span></h3>
                                         <h3 style="color: #332D63;">PAYMENT-METHOD :- <span style="font-weight: 400;">#{item.payment_method}</span></h3>
-                                        <h3 style="color: #332D63;">PAYMENT-STATUS :- <span style="font-weight: 400; color: #{adminController.getStatusColor(item.payment_status)};">#{item.payment_status}</span></h3>
+                                        <h3 style="color: #332D63;">PAYMENT-STATUS :- <span style="font-weight: 400; color: #{adminController.getStatusColor(item.payment_status)};"><i class="fa-regular fa-circle-check" style="font-size: 30px; display:#{adminController.getPaymentStatusIconVisibility(item.payment_status)}"></i><span style="display: #{adminController.getPaymentStatusNameVisibility(item.payment_status)}">#{item.payment_status}</span></span></h3>
                                     </div>
                                     <p:divider layout="vertical" style="border: 1px solid #EEEEEE;" />
                                     <div class="price-container">

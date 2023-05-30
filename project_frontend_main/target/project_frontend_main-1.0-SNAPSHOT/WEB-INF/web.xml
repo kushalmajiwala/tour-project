@@ -28,14 +28,59 @@
         <filter-name>pageFilterAdmin</filter-name>
         <filter-class>auth.pageFilterAdmin</filter-class>
     </filter>
+    
+    <!--Admin Filtering-->
     <filter-mapping>
         <filter-name>pageFilterAdmin</filter-name>
         <url-pattern>/home/adminHome.xhtml</url-pattern>
     </filter-mapping>
     <filter-mapping>
+        <filter-name>pageFilterAdmin</filter-name>
+        <url-pattern>/home/addTour.xhtml</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>pageFilterAdmin</filter-name>
+        <url-pattern>/home/allComplaints.xhtml</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>pageFilterAdmin</filter-name>
+        <url-pattern>/home/bookingDetails.xhtml</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>pageFilterAdmin</filter-name>
+        <url-pattern>/home/updatePlace.xhtml</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>pageFilterAdmin</filter-name>
+        <url-pattern>/home/updateTour.xhtml</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>pageFilterAdmin</filter-name>
+        <url-pattern>/home/updateVehicle.xhtml</url-pattern>
+    </filter-mapping>
+    
+    <!--User Filtering-->
+    <filter-mapping>
         <filter-name>pageFilterUser</filter-name>
         <url-pattern>/home/userHome.xhtml</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>pageFilterUser</filter-name>
+        <url-pattern>/home/myCart.xhtml</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>pageFilterUser</filter-name>
+        <url-pattern>/home/showUserTemplate.xhtml</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>pageFilterUser</filter-name>
+        <url-pattern>/home/updatePerson.xhtml</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>pageFilterUser</filter-name>
+        <url-pattern>/home/viewHistory.xhtml</url-pattern>
+    </filter-mapping>
+    
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>

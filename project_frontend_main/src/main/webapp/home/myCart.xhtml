@@ -201,7 +201,7 @@
                                     <h3 style="color: #332D63;">TOTAL-PERSON :- <span style="font-weight: 400;">#{userController.getTotalPerson(item.tourid)}</span></h3>
                                     <h3 style="color: #332D63;">DEPARTURE-TIME :- <span style="font-weight: 400;">#{userController.getRealTime(userController.getCartTourTime(item.tourmasterid))}</span></h3>
                                     <h3 style="color: #332D63;">PAYMENT-METHOD :- <span style="font-weight: 400;">#{item.payment_method}</span></h3>
-                                    <h3 style="color: #332D63;">PAYMENT-STATUS :- <span style="font-weight: 400; color: #{userController.getStatusColor(item.payment_status)};">#{item.payment_status}</span></h3>
+                                    <h3 style="color: #332D63;">PAYMENT-STATUS :- <span style="font-weight: 400; color: #{userController.getStatusColor(item.payment_status)};"><i class="fa-regular fa-circle-check" style="font-size: 30px; display:#{userController.getPaymentStatusIconVisibility(item.payment_status)}"></i><span style="display: #{userController.getPaymentStatusNameVisibility(item.payment_status)}">#{item.payment_status}</span></span></h3>
                                 </div>
                                 <p:divider layout="vertical" style="border: 1px solid #EEEEEE;" />
                                 <div class="price-container">

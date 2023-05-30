@@ -1,8 +1,6 @@
 package Controllers;
 
 import UserEJB.UserBeanLocal;
-import com.razorpay.Order;
-import com.razorpay.RazorpayClient;
 import entity.Complaint;
 import entity.Feedback;
 import entity.History;
@@ -25,7 +23,6 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpSession;
 import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
-import org.json.JSONObject;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
@@ -1496,5 +1493,19 @@ public class UserController implements Serializable {
     public String getPaymentEmail(String username)
     {
         return ubl.getUserData(username).getEmail();
+    }
+    //Working on payment status
+    public String getPaymentStatusIconVisibility(String status) {
+        if (status.equals("done")) {
+            return "inline";
+        }
+        return "none";
+    }
+
+    public String getPaymentStatusNameVisibility(String status) {
+        if (status.equals("done")) {
+            return "none";
+        }
+        return "inline";
     }
 }
