@@ -115,6 +115,7 @@ public class RegistrationController implements Serializable {
 
     public String redirectLoginFromGallery() {
         System.out.println("Login Redirect");
+        System.out.println("This is being Called...");
 
         admin_username = "";
         user_username = "";

@@ -141,9 +141,7 @@
                         <h2 style="padding-top: 0.5%;"><i class="pi pi-clock"></i>  <span style="color: black;">#{tourmasterController.days_diff}D / #{tourmasterController.days_diff - 1}N</span></h2>
                         <h2 style="padding-top: 0.5%;"><i class="pi pi-calendar"></i>  <span style="color: black;">#{tourmasterController.startDate}</span></h2>
                         <h2>
-                            <h:form>
-                                <p:commandButton icon="fa-solid fa-location-dot" value="Location" onclick="openMapLocation('#{tourmasterController.tourTitle}')" styleClass="ui-button-raised bookBtn" ajax="false"/>
-                            </h:form>
+                            <p:commandButton icon="fa-solid fa-location-dot" value="Location" onclick="openMapLocation('#{tourmasterController.tourTitle}')" styleClass="ui-button-raised bookBtn" ajax="false"/>
                         </h2>
                         <h2>
                             <h:form>
