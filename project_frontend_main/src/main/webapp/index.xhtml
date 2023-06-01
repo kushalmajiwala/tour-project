@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Unique Travels</title>
         <link rel="icon" type="images/x-icon" href="images/uniquelogo.jpg" />
@@ -272,7 +273,11 @@
             </nav><br/><br/><br/><br/>
         </div>
         <div class="home-pic" id="home">
-            <img src="images/homeimage.jpg" alt="not-image" style="height: 600px; width: 100%;"/>
+            <p:imageSwitch effect="fade" slideshowSpeed="5000" speed="1000"  id="fadeEffect">
+                <ui:repeat value="#{tourmasterController.allImages}" var="image" id="manuelSwitcherImages">
+                    <p:graphicImage value="#{image}" id="image2" style="height: 600px; width: 100%;"/>
+                </ui:repeat>
+            </p:imageSwitch>
         </div>
         <div id="about">
             <div class="w3-row w3-padding-64 w3-theme-l5 w3-light-grey" id="about">

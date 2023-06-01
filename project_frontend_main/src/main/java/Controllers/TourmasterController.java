@@ -4,6 +4,7 @@ import UserEJB.UserBeanLocal;
 import entity.Tourmaster;
 import entity.Tourplace;
 import entity.Vehicle;
+import jakarta.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -252,4 +253,55 @@ public class TourmasterController implements Serializable {
         contact_message = "";
         return "index.xhtml#contact?faces-redirect=true";
     }
+    private List<String> images;
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public List<String> getAllImages() {
+        images = new ArrayList<String>();
+        images.add("/images/homeimage.jpg");
+        images.add("/images/goa/aguadajail.jpg");
+        images.add("/images/goa/beach.jpg");
+        images.add("/images/goa/church.jpg");
+        images.add("/images/goa/goabeach.jpg");
+        images.add("/images/goa/resort.jpg");
+        images.add("/images/hp/hidimba.jpg");
+        images.add("/images/hp/khajjiar.jpg");
+        images.add("/images/hp/rohtang.jpg");
+        images.add("/images/hp/shimlachurch.jpg");
+        images.add("/images/hp/stadium.jpg");
+        images.add("/images/hp/temple.jpg");
+        images.add("/images/kashmir/chasmesahi.jpg");
+        images.add("/images/kashmir/gulmarg.jpg");
+        images.add("/images/kashmir/sonamarg.jpg");
+        images.add("/images/kashmir/srinagar.jpg");
+        images.add("/images/kashmir/tulipgarden.jpg");
+        images.add("/images/kashmir/zeropoint.jpg");
+        images.add("/images/kerala/houseboat.jpeg");
+        images.add("/images/kerala/kanyakumari.jpg");
+        images.add("/images/kerala/munnar.jpg");
+        images.add("/images/kerala/rameshvaram.jpg");
+        images.add("/images/kerala/waterfall.jpg");
+        images.add("/images/kerala/wayanad.jpg");
+        
+        return images;
+    }
+
+    @PostConstruct
+    public void init() {
+        images = new ArrayList<String>();
+        images.add("/images/homeimage.jpg");
+        images.add("/images/goa/aguadajail.jpg");
+        images.add("/images/goa/beach.jpg");
+        images.add("/images/goa/church.jpg");
+        images.add("/images/goa/goabeach.jpg");
+        images.add("/images/goa/resort.jpg");
+    }
+
 }

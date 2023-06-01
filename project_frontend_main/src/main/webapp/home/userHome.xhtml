@@ -579,12 +579,14 @@
                         <h2>ENTER REQUIRED BOOKING DETAILS</h2>
                     </div><br/>
                     <div style="width: 100%;">
-                        <div style="width: 100%;display:flex; justify-content: space-between;box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;padding:3%;border-radius: 10px;">
-                            <h3><span class="head">TOURNAME</span> : #{userController.booking_master.tour_title}</h3>
-                            <h3><span class="head">DATE</span> : #{userController.booking_master.start_date}</h3>
-                            <h3><span class="head">PRICE</span> : <span>&#8377;</span>#{userController.booking_master.per_person_price}</h3>
-                            <h3><span class="head">TIME</span> : #{userController.getRealTime(userController.booking_master.journey_begin_time)}</h3>
-                        </div>
+                        <p:fieldset legend="View Details" collapsed="true" toggleable="true" toggleSpeed="500">
+                            <div style="width: 100%;display:flex; justify-content: space-between;box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;padding:3%;border-radius: 10px;">
+                                <h3><span class="head">TOURNAME</span> : #{userController.booking_master.tour_title}</h3>
+                                <h3><span class="head">DATE</span> : #{userController.booking_master.start_date}</h3>
+                                <h3><span class="head">PRICE</span> : <span>&#8377;</span>#{userController.booking_master.per_person_price}</h3>
+                                <h3><span class="head">TIME</span> : #{userController.getRealTime(userController.booking_master.journey_begin_time)}</h3>
+                            </div>
+                        </p:fieldset>
                         <div style="text-align: center; width: 100%;">
                             <h3 class="mt-0">Select Payment Method</h3>
                             <div style="display:flex; justify-content: center;">
