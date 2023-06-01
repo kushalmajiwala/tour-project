@@ -727,6 +727,24 @@ public class UserController implements Serializable {
     String navbarContentColor = "#484C8D";
     String navbarContentBorderColor = "0.5px solid #C4C4F2";
     String hoverBgColor = "#474792";
+    String avatarBgColor = "#484C8D";
+    String avatarColor = "white";
+
+    public String getAvatarBgColor() {
+        return avatarBgColor;
+    }
+
+    public void setAvatarBgColor(String avatarBgColor) {
+        this.avatarBgColor = avatarBgColor;
+    }
+
+    public String getAvatarColor() {
+        return avatarColor;
+    }
+
+    public void setAvatarColor(String avatarColor) {
+        this.avatarColor = avatarColor;
+    }
 
     public String getHoverBgColor() {
         return hoverBgColor;
@@ -858,6 +876,8 @@ public class UserController implements Serializable {
             navbarContentColor = "white";
             navbarContentBorderColor = "none";
             hoverBgColor = "#2C2C2C";
+            avatarBgColor = "white";
+            avatarColor = "black";
         } else {
             color = "black";
             bgcolor = "white";
@@ -873,6 +893,8 @@ public class UserController implements Serializable {
             navbarContentColor = "#484C8D";
             navbarContentBorderColor = "0.5px solid #C4C4F2";
             hoverBgColor = "#474792";
+            avatarBgColor = "#484C8D";
+            avatarColor = "white";
         }
 //        return "userHome.xhtml?faces-redirect=true";
     }
@@ -1465,35 +1487,37 @@ public class UserController implements Serializable {
         }
         return "none";
     }
-    public boolean getButtonAccessibility(String payment_status)
-    {
-        if(payment_status.equals("done"))
-        {
+
+    public boolean getButtonAccessibility(String payment_status) {
+        if (payment_status.equals("done")) {
             return true;
         }
         return false;
     }
 
     int payment_total_price = 100;
+
     public int getPayment_total_price() {
         return payment_total_price;
     }
+
     public void setPayment_total_price(int payment_total_price) {
         this.payment_total_price = payment_total_price;
     }
-    
+
     public void payOnline(int total_price) {
         payment_total_price = total_price;
         System.out.println("Payment is done Successfully -> " + total_price);
     }
-    public int getPaymentTotalPrice()
-    {
+
+    public int getPaymentTotalPrice() {
         return payment_total_price;
     }
-    public String getPaymentEmail(String username)
-    {
+
+    public String getPaymentEmail(String username) {
         return ubl.getUserData(username).getEmail();
     }
+
     //Working on payment status
     public String getPaymentStatusIconVisibility(String status) {
         if (status.equals("done")) {

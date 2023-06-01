@@ -997,6 +997,24 @@ public class AdminController implements Serializable {
     String navbarContentColor = "#484C8D";
     String navbarContentBorderColor = "0.5px solid #C4C4F2";
     String hoverBgColor = "#474792";
+    String avatarBgColor = "#484C8D";
+    String avatarColor = "white";
+
+    public String getAvatarBgColor() {
+        return avatarBgColor;
+    }
+
+    public void setAvatarBgColor(String avatarBgColor) {
+        this.avatarBgColor = avatarBgColor;
+    }
+
+    public String getAvatarColor() {
+        return avatarColor;
+    }
+
+    public void setAvatarColor(String avatarColor) {
+        this.avatarColor = avatarColor;
+    }
 
     public String getHoverBgColor() {
         return hoverBgColor;
@@ -1128,6 +1146,8 @@ public class AdminController implements Serializable {
             navbarContentColor = "white";
             navbarContentBorderColor = "none";
             hoverBgColor = "#2C2C2C";
+            avatarBgColor = "white";
+            avatarColor = "black";
         } else {
             color = "black";
             bgcolor = "white";
@@ -1143,6 +1163,8 @@ public class AdminController implements Serializable {
             navbarContentColor = "#484C8D";
             navbarContentBorderColor = "0.5px solid #C4C4F2";
             hoverBgColor = "#474792";
+            avatarBgColor = "#484C8D";
+            avatarColor = "white";
         }
 //        return "adminHome.xhtml?faces-redirect=true";
     }

@@ -55,7 +55,7 @@
             .menuTitle {
                 font-size: 25px;
                 text-align: center;
-                padding: 8%;
+                padding: 7%;
                 background-color: #{userController.menuTitleBgColor};
                 color: #{userController.menuTitleColor};
                 border: 1px solid white;
@@ -216,7 +216,9 @@
         </div>
         <p:sidebar widgetVar="sidebar1" style="background-color: #{userController.sidebarBgColor};">
             <div class="menuTitle">
-                #{registrationController.currentUsername}
+                <p:avatar icon="fa-solid fa-user" id="avatarTip"  size="xlarge" shape="circle" style="cursor: pointer; background-color: #{userController.avatarBgColor}; color:#{userController.avatarColor}"/>
+                <p:tooltip for="avatarTip" value="#{registrationController.currentUsername}" position="right"/>
+                <!--<p style="margin-top: -1%;">#{registrationController.currentUsername}</p>-->
             </div>
             <div class="navbar-container">
                 <div class="menuContent">
