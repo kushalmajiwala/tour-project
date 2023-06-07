@@ -25,6 +25,7 @@
                 });
             }
         </script>
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
         <style>
             .mynavbar {
                 background-color: #e0effc;
@@ -349,6 +350,12 @@
                     box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
                 }
             }
+            .heading-color {
+                color: #33691e;
+            }
+            .text-design {
+                text-align: justify;
+            }
         </style>
     </h:head>
     <h:body onload="typingFunction()"> 
@@ -385,8 +392,8 @@
                 <div class="w3-col m6 w3-padding-large w3-hide-small">
                     <img src="images/aboutimage.jpg" class="w3-round w3-image w3-opacity-min" alt="Table Setting" width="600" height="750"/>
                 </div>
-                <div class="w3-col m6 w3-padding-large">
-                    <h1 class="w3-center">ABOUT OUR TOURS</h1><br/>
+                <div class="w3-col m6 w3-padding-large text-design" data-aos="fade-up">
+                    <h1 class="w3-center heading-color">ABOUT OUR TOURS</h1><br/>
                     <h5 class="w3-center">Tradition since 2013</h5>
                     <p class="w3-large">The Unique Travels was founded in Surat by Mr. Kushal in 2013 and we have been providing good facilities for travelling in different parts of the India. We have converted more than 10 places in our different tours.</p>
                     <p class="w3-large w3-text-grey w3-hide-medium">For Now our tours starts from Surat city and in near future we expect our service to grow in other cities also. Our Packages are designed in such a way that middle class families can afford any of our tours easily.</p>
@@ -396,17 +403,17 @@
         </div>
         <div id="upcoming-tours">
             <div class="upcoming-title">
-                <div>
+                <div class="heading-color">
                     UPCOMING TOURS
                 </div>
             </div>
             <div class="tab-content" id="nav-tabContent" style="margin-top:1%;">
                 <div class="tab-pane fade show active" id="showKashmir" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <div class="card cardbg" style="border: none;">       
+                    <div class="card cardbg" style="border: none;" data-aos="fade-up">       
                         <p:carousel value="#{tourmasterController.showMasterData()}" var="val" numVisible="3" numScroll="3">
                             <br/>
                             <div style="margin: 3%;" class="product-item shadow p-3 mb-5 bg-white rounded" data-mdb-animation-start="pulse">
-                                <div class="product-item-content pulse">
+                                <div class="product-item-content">
                                     <div class="mb-3">
                                         <p:graphicImage url="images#{val.tour_pic}" styleClass="product-image"/>
                                     </div>
@@ -437,8 +444,8 @@
                     <i class="fa-solid fa-star rating-star" style="color: #{userController.star_color4};"></i>
                     <i class="fa-solid fa-star rating-star" style="color: #{userController.star_color5};"></i>
                 </div>
-                <div class="w3-col m6 w3-padding-large" style="margin-top: -3%;">
-                    <h1 class="w3-center">OUR RATINGS</h1><br/>
+                <div class="w3-col m6 w3-padding-large text-design" style="margin-top: -3%;" data-aos="fade-up">
+                    <h1 class="w3-center heading-color">OUR RATINGS</h1><br/>
                     <h5 class="w3-center">Tradition since 2013</h5>
                     <p class="w3-large">Out ratings are honest feedback given by our past tourists. they give rating based on the services we provide throughout our tour journey.</p>
                     <p class="w3-large w3-text-grey w3-hide-medium">If you have completed tour journey with us before then you can also give your honest feedback on our web application. Login is required to give rating or feedback.</p>
@@ -451,10 +458,10 @@
                 id="contact"
                 >
                 <div class="w3-row">
-                    <div class="w3-col m5">
+                    <div class="w3-col m5" data-aos="fade-up">
                         <div class="w3-padding-16">
                             <span
-                                class="w3-xlarge w3-border-teal w3-bottombar"
+                                class="w3-xlarge w3-border-teal w3-bottombar heading-color"
                                 >CONTACT US</span
                             >
                         </div>
@@ -543,6 +550,13 @@
                 </h:form>
             </p:dialog>
         </div>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+              AOS.init({
+                  offset: 400, 
+                  duration: 1000
+              });
+        </script>
     </h:body>
 </html>
 
