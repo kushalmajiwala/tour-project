@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2023 at 02:48 PM
+-- Generation Time: Jun 21, 2023 at 07:38 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -47,6 +47,13 @@ CREATE TABLE `complainttb` (
   `message` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `complainttb`
+--
+
+INSERT INTO `complainttb` (`complaintid`, `username`, `subject`, `message`) VALUES
+(43, 'yug_1112', 'About managers', 'Sometimes managers are not behaving good');
+
 -- --------------------------------------------------------
 
 --
@@ -60,6 +67,14 @@ CREATE TABLE `feedbacktb` (
   `subject` varchar(100) NOT NULL,
   `message` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `feedbacktb`
+--
+
+INSERT INTO `feedbacktb` (`feedbackid`, `username`, `rating`, `subject`, `message`) VALUES
+(34, 'yug_1112', 'four', 'Something', 'Something abou the service'),
+(35, 'yug_1112', 'three', 'adsdsd', 'dsf');
 
 -- --------------------------------------------------------
 
@@ -119,7 +134,7 @@ CREATE TABLE `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(34);
+(63);
 
 -- --------------------------------------------------------
 
@@ -132,6 +147,13 @@ CREATE TABLE `historytb` (
   `tourid` int(20) NOT NULL,
   `username` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `historytb`
+--
+
+INSERT INTO `historytb` (`historyid`, `tourid`, `username`) VALUES
+(55, 40, 'yug_1112');
 
 -- --------------------------------------------------------
 
@@ -151,6 +173,17 @@ CREATE TABLE `persontb` (
   `gender` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `persontb`
+--
+
+INSERT INTO `persontb` (`personid`, `tourid`, `username`, `fname`, `lname`, `email`, `phoneno`, `dob`, `gender`) VALUES
+(38, 37, 'yug_1112', 'Kushal', 'Majiwala', 'kushal@gmail.com', '9107876567', '2023-06-09', 'male'),
+(39, 37, 'yug_1112', 'Yug', 'Majiwala', 'yug@gmail.com', '878987656', '2023-06-22', 'male'),
+(41, 40, 'yug_1112', 'Kushal', 'Majiwala', 'kushal@gmail.com', '9879767867', '2023-06-24', 'male'),
+(42, 40, 'yug_1112', 'Meghna', 'Majiwala', 'meghna@gmail.com', '8787678987', '2023-06-24', 'female'),
+(48, 47, 'yug_1112', 'Meghna', 'Majiwala', 'meghna@gmail.com', '9878987689', '2023-06-24', 'female');
+
 -- --------------------------------------------------------
 
 --
@@ -168,9 +201,10 @@ CREATE TABLE `projectgroups` (
 
 INSERT INTO `projectgroups` (`groupname`, `username`) VALUES
 ('admin', 'kushal_1212'),
+('admin', 'samarth_dastanwala'),
 ('user', 'meghna_majiwala'),
 ('user', 'raj_patel'),
-('user', 'samarth_dastanwala'),
+('user', 'yash_patel'),
 ('user', 'yug_1112');
 
 -- --------------------------------------------------------
@@ -186,6 +220,15 @@ CREATE TABLE `tourtb` (
   `payment_method` varchar(10) NOT NULL,
   `payment_status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tourtb`
+--
+
+INSERT INTO `tourtb` (`tourid`, `tourmasterid`, `username`, `payment_method`, `payment_status`) VALUES
+(37, 4, 'yug_1112', 'cash', 'remaining'),
+(40, 2, 'yug_1112', 'online', 'done'),
+(47, 5, 'yug_1112', 'online', 'remaining');
 
 -- --------------------------------------------------------
 
@@ -209,9 +252,9 @@ CREATE TABLE `tour_mastertb` (
 --
 
 INSERT INTO `tour_mastertb` (`tourmasterid`, `tour_title`, `tour_pic`, `start_date`, `end_date`, `journey_begin_time`, `per_person_price`, `pickup_address`) VALUES
-(2, 'Goa', '/goa/goabeach.jpg', '2023-03-08', '2023-03-17', '08:12:34', 15000, 'Citylight, Surat'),
-(4, 'HP', '/hp/khajjiar.jpg', '2023-03-05', '2023-03-10', '08:12:34', 16000, 'Adajan, Surat'),
-(5, 'Kashmir', '/kashmir/sonamarg.jpg', '2023-04-12', '2023-04-21', '08:12:34', 20000, 'Adajan, Surat');
+(2, 'Goa', '/goa/goabeach.jpg', '2023-03-08', '2023-03-15', '20:15:34', 15000, 'Citylight, Surat'),
+(4, 'Himachal', '/hp/khajjiar.jpg', '2023-03-05', '2023-03-14', '22:30:34', 16000, 'Adajan, Surat'),
+(5, 'Kashmir', '/kashmir/sonamarg.jpg', '2023-04-12', '2023-04-24', '23:00:34', 20000, 'Adajan, Surat');
 
 -- --------------------------------------------------------
 
@@ -249,7 +292,14 @@ INSERT INTO `tour_placetb` (`tourplaceid`, `tourmasterid`, `place_name`, `place_
 (19, 5, 'Sonamarg', 'Sonamarg', 'Kashmir', 'This is the place where we are expecting to enjoy snow fall.', '2023-05-18', '2023-05-19'),
 (20, 5, 'Dal Lake', 'Srinagar', 'Kashmir', 'This is the largest lake of Kashmir and we can enjoy living in the boat house.', '2023-05-19', '2023-05-21'),
 (21, 5, 'Zero Point', 'Zojjila', 'Kashmir', 'This is the place which is over 5000 meter in height. We can enjoy snow in this place', '2023-05-20', '2023-05-22'),
-(22, 5, 'Tulip Garden', 'Srinagar', 'Kashmir', 'This is the largest flower garden in Kashmir.', '2023-05-23', '2023-05-25');
+(22, 5, 'Tulip Garden', 'Srinagar', 'Kashmir', 'This is the largest flower garden in Kashmir.', '2023-05-23', '2023-05-25'),
+(56, 4, 'Kullu', 'Kullu', 'Himachal', 'People can enjoy river rafting in this place', '2023-06-22', '2023-06-23'),
+(57, 5, 'Chandavadi', 'Pahalgam', 'Kashmir', 'This place is the starting point of the amarnath yatra', '2023-06-15', '2023-06-17'),
+(58, 5, 'Betab Valley', 'Pahalgam', 'Kashmir', 'This is the most famous Valley where Movies shooting take place.', '2023-06-14', '2023-06-15'),
+(59, 5, 'Vaishnodevi Temple', 'Katra', 'Kashmir', 'This is one of the most famous and visited temples in india.', '2023-06-23', '2023-06-24'),
+(60, 5, 'Jammu Sight scene', 'Jammu', 'Kashmir', 'This is the place where people can enjoy in many gardens', '2023-06-15', '2023-06-16'),
+(61, 4, 'New Kufri', 'Shimla', 'Himachal', 'This is the place where people can enjoy rides in the theme park.', '2023-06-23', '2023-06-24'),
+(62, 5, 'Shankaracharya temple', 'Srinagar', 'Kashmir', 'This is one of the most visited temple in srinagar located on the mountain.', '2023-06-15', '2023-06-16');
 
 -- --------------------------------------------------------
 
@@ -274,6 +324,7 @@ INSERT INTO `usertb` (`username`, `fname`, `lname`, `email`, `password`) VALUES
 ('meghna_majiwala', 'Meghna', 'Majiwala', 'meghna@gmail.com', 'PBKDF2WithHmacSHA256:2048:Is93ZrQzSN/54JLXA6PWrMSs3zGt7NH+3CM/NDg/qxs=:vzmMlcbLTmE7kSSK4x4ZLjH7OIhrfigLhphiDRSjbpc='),
 ('raj_patel', 'Raj', 'Patel', 'raj@gmail.com', 'PBKDF2WithHmacSHA256:2048:p0jyIb7FwQzNrD6QwYCvKHQk04qz3il79cWsmSWhAKY=:XR/Ce31rsLSGJaKDJTBvEhtCc569Ge8ee4NorwMsg3A='),
 ('samarth_dastanwala', 'Samarth', 'Dastanwala', 'samarth@gmail.com', 'PBKDF2WithHmacSHA256:2048:QNe5zERKouLreRKo1INQZRMX9PipqsXJ7JI+PF3QkHs=:glPHXkRbfenK0O4atr2V4bta+ntn8bbbFkVHFbdUM2U='),
+('yash_patel', 'Yash', 'Patel', 'yash@gmail.com', 'PBKDF2WithHmacSHA256:2048:L0aYBmoBP0+jaJiLriV/AgHdzqmorr8eYsIM+TE8v58=:38nocXsCfCkoX4MpDi6HkxLoYvYYCnksM2h1/hproj0='),
 ('yug_1112', 'Yug', 'Majiwala', 'yug@gmail.com', 'PBKDF2WithHmacSHA256:2048:ooo4KE/mt9LNBotaH55+2fBTMQ/G+YjNER4x5DKdE/E=:pTPXbQMAR/QE4bIEgCpSlTfwlwzmTUeOwok8WM3+H58=');
 
 -- --------------------------------------------------------
@@ -399,13 +450,13 @@ ALTER TABLE `carttb`
 -- AUTO_INCREMENT for table `complainttb`
 --
 ALTER TABLE `complainttb`
-  MODIFY `complaintid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `complaintid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `feedbacktb`
 --
 ALTER TABLE `feedbacktb`
-  MODIFY `feedbackid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `feedbackid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `gallerytb`
@@ -417,19 +468,19 @@ ALTER TABLE `gallerytb`
 -- AUTO_INCREMENT for table `historytb`
 --
 ALTER TABLE `historytb`
-  MODIFY `historyid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `historyid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `persontb`
 --
 ALTER TABLE `persontb`
-  MODIFY `personid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `personid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `tourtb`
 --
 ALTER TABLE `tourtb`
-  MODIFY `tourid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `tourid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `tour_mastertb`
@@ -441,7 +492,7 @@ ALTER TABLE `tour_mastertb`
 -- AUTO_INCREMENT for table `tour_placetb`
 --
 ALTER TABLE `tour_placetb`
-  MODIFY `tourplaceid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `tourplaceid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `vehicletb`
