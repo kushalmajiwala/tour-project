@@ -186,6 +186,13 @@
                             <h:outputText value="#{item.place_description}" />
                         </p:column>
                     </p:dataTable>
+                    <p:dataTable value="#{tourmasterController.tempFunc()}" var="item">
+                        <p:column>
+                            <h:outputText value="Leave for Surat" class="days-of-tour"/>
+                            <h:outputText value="&nbsp; :- " class="dot-after-heading"/>
+                            <h:outputText value="Train ticket to Surat is scheduled on the last day of the tour."/>
+                        </p:column>
+                    </p:dataTable>
                 </div>
             </h:form>
         </f:view>
